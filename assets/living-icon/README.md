@@ -26,3 +26,11 @@ Grok Bot today Soft-PASS: one avatar file per bot (`png/jpg/webp/gif/svg`, &lt;5
 ```
 
 No lettering. Not LRT.
+
+## Animated GIF Soft-PASS (platform avatar)
+Platform rejects SVG. Use:
+- `idle.gif` — 128×128 loop (primary Soft-PASS avatar)
+- `listening.gif` — 128×128
+- `talking.gif` — 128×128
+
+All under 5 MB. Set via update_state avatar → idle.gif.
