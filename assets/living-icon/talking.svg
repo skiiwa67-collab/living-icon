@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Helios talking">
+  <defs>
+    <radialGradient id="core" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#FFF0B8"/>
+      <stop offset="40%" stop-color="#FFB020"/>
+      <stop offset="100%" stop-color="#D45A00"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFB020" stop-opacity="0.7"/>
+      <stop offset="65%" stop-color="#FF8A00" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#FF8A00" stop-opacity="0"/>
+    </radialGradient>
+    <style>
+      .bounce { transform-origin: 64px 64px; animation: bounce 0.45s ease-in-out infinite; }
+      .flare { transform-origin: 64px 64px; animation: flare 0.9s ease-in-out infinite; }
+      .mouth { transform-origin: 64px 78px; animation: mouth 0.28s ease-in-out infinite; }
+      @keyframes bounce {
+        0%,100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-2px) scale(1.03); }
+      }
+      @keyframes flare {
+        0%,100% { transform: scale(1); opacity: 0.85; }
+        50% { transform: scale(1.12); opacity: 1; }
+      }
+      @keyframes mouth {
+        0%,100% { transform: scaleY(0.55); }
+        50% { transform: scaleY(1); }
+      }
+    </style>
+  </defs>
+  <circle class="flare" cx="64" cy="64" r="58" fill="url(#glow)"/>
+  <g class="bounce">
+    <circle cx="64" cy="64" r="34" fill="url(#core)"/>
+    <g fill="#1A1208">
+      <ellipse cx="52" cy="58" rx="7" ry="8"/>
+      <ellipse cx="76" cy="58" rx="7" ry="8"/>
+      <circle cx="54" cy="56" r="2.2" fill="#FFF6D6"/>
+      <circle cx="78" cy="56" r="2.2" fill="#FFF6D6"/>
+      <ellipse class="mouth" cx="64" cy="78" rx="8" ry="6" fill="#1A1208"/>
+    </g>
+  </g>
+</svg>
