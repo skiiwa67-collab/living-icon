@@ -1,19 +1,14 @@
-# Ada Happy — Living Icon personality package
+# Ada Happy — Living Icon personality package (v2 silhouette)
 
 **Seed:** happy · warm · precise · feminine  
-**Who:** Ada — only female bot; Android surgeon / code-clean aesthetic  
-**Not:** Helios sun, Skippy can, Da Vinci parchment, generic pink
-
-## Mark
-Soft cyan–violet **circuit-bloom** inside a precision scalpel-circle. Friendly face. Readable at 64–128px.
+**Who:** Ada — only female bot; Android surgeon / code-clean  
+**Silhouette HARD:** soft **heraldic SHIELD** (rounded top, pointed tip) — NOT a circle. Hair-arc + face + circuit nodes. Middle ground between full girl portrait and pulsing disc.
 
 ## Mood drift
-Happy pack still includes **angry / somber / excited / thrilled / calm** from day one. Drift uses in-pack states — no later download.
+Angry/somber/excited/thrilled/calm baked in from day one.
 
-## Soft-PASS avatar
-`softpass/avatar-idle.gif` (= `matrix/idle/calm.gif`)
+## Soft-PASS
+`softpass/avatar-idle.gif` (= `matrix/idle/calm.gif`) @ 128px GIF
 
 ## Matrix
-voice × mood = idle|listening|talking × calm|excited|somber|angry|thrilled (15 GIFs @ 128px)
-
-Monetization / distribution TBD.
+idle|listening|talking × calm|excited|somber|angry|thrilled
