@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#0b0d12"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <title>Living Icon · Stall Soft-PASS</title>
 <style>
   :root {
@@ -17,95 +18,246 @@
     --ok: #34d399;
     --warn: #fbbf24;
     --fail: #f87171;
-    --pad: clamp(0.75rem, 3.5vw, 1.5rem);
-    --gap: clamp(0.6rem, 2.5vw, 1rem);
-    --avatar: clamp(56px, 18vw, 80px);
+    --pad: max(1rem, env(safe-area-inset-left), env(safe-area-inset-right));
+    --gap: 0.75rem;
+    --avatar: 64px;
+    --tap: 44px;
+    --fs: 16px;
+    --fs-sm: 14px;
   }
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  html, body {
     margin: 0;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    background: radial-gradient(900px 480px at 0% 0%, #1a1030 0%, transparent 55%),
-                radial-gradient(700px 400px at 100% 0%, #0a2a33 0%, transparent 50%), var(--bg);
-    color: var(--text); min-height: 100dvh;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: var(--fs);
+    line-height: 1.4;
+    background:
+      radial-gradient(900px 480px at 0% 0%, #1a1030 0%, transparent 55%),
+      radial-gradient(700px 400px at 100% 0%, #0a2a33 0%, transparent 50%),
+      var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
   }
   header {
-    position: sticky; top: 0; z-index: 10;
-    padding: calc(0.65rem + env(safe-area-inset-top)) var(--pad) 0.65rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: calc(0.75rem + env(safe-area-inset-top)) var(--pad) 0.75rem;
     border-bottom: 1px solid var(--line);
-    background: rgba(11,13,18,0.92);
+    background: rgba(11, 13, 18, 0.94);
     backdrop-filter: blur(10px);
   }
-  h1 { margin: 0; font-size: clamp(0.95rem, 4.2vw, 1.2rem); line-height: 1.25; }
+  h1 {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.3;
+  }
   h1 span { color: var(--cyan); }
-  .meta { color: var(--muted); font-size: clamp(0.7rem, 3.2vw, 0.85rem); margin-top: 0.25rem; word-break: break-word; }
-  .toolbar { margin-top: 0.55rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .meta {
+    color: var(--muted);
+    font-size: var(--fs-sm);
+    margin-top: 0.3rem;
+    overflow-wrap: anywhere;
+  }
+  .toolbar, .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.65rem;
+  }
   button, .chip {
-    min-height: 40px; touch-action: manipulation;
-    background: #1c2433; color: var(--text); border: 1px solid var(--line);
-    border-radius: 10px; padding: 0.45rem 0.75rem; cursor: pointer;
-    font-size: clamp(0.75rem, 3.3vw, 0.85rem);
+    min-height: var(--tap);
+    min-width: var(--tap);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    background: #1c2433;
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.55rem 0.9rem;
+    cursor: pointer;
+    font-size: var(--fs-sm);
+    font-weight: 600;
   }
   button:hover, .chip:hover { border-color: var(--cyan); }
-  .chip.on { color: var(--bg); background: var(--cyan); border-color: var(--cyan); }
-  main { padding: var(--gap) var(--pad) calc(2rem + env(safe-area-inset-bottom)); }
-  .legend { font-size: clamp(0.68rem, 3vw, 0.78rem); color: var(--muted); margin-bottom: 0.65rem; line-height: 1.35; }
-  .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: var(--gap); }
+  button:focus-visible, .chip:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+  }
+  .chip.on {
+    color: var(--bg);
+    background: var(--cyan);
+    border-color: var(--cyan);
+  }
+  main {
+    padding: var(--gap) var(--pad) calc(1.5rem + env(safe-area-inset-bottom));
+    max-width: 1200px;
+  }
+  .legend, .stats {
+    font-size: var(--fs-sm);
+    color: var(--muted);
+    margin: 0 0 0.65rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.7rem 0.8rem;
+    min-width: 0;
+  }
+  .stat b {
+    display: block;
+    font-size: 1.15rem;
+    color: var(--text);
+  }
+  .stat.alert { border-color: #7f1d1d; }
+  .stat.alert b { color: var(--fail); }
+  .filters { margin: 0 0 var(--gap); }
   .grid {
-    display: grid; gap: var(--gap);
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 560px) {
-    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-  @media (min-width: 960px) {
-    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  }
-  @media (min-width: 1280px) {
-    .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: minmax(0, 1fr);
   }
   .card {
-    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
-    padding: clamp(0.75rem, 3vw, 0.95rem);
-    display: flex; flex-direction: column; gap: 0.55rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    min-width: 0;
   }
   .card.stall { border-color: #7f1d1d; box-shadow: 0 0 0 1px rgba(248,113,113,0.15); }
   .card.fresh { border-color: #065f46; }
-  .top { display: flex; gap: 0.75rem; align-items: center; min-width: 0; }
+  .top {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    min-width: 0;
+  }
   .avatar {
-    width: var(--avatar); height: var(--avatar); flex: 0 0 var(--avatar);
-    border-radius: 12px; background: #0a0c10; border: 1px solid var(--line);
-    object-fit: contain; image-rendering: pixelated;
+    width: var(--avatar);
+    height: var(--avatar);
+    flex: 0 0 var(--avatar);
+    border-radius: 12px;
+    background: #0a0c10;
+    border: 1px solid var(--line);
+    object-fit: contain;
+    image-rendering: pixelated;
   }
   .avatar.missing {
-    display: grid; place-items: center; color: var(--muted);
-    font-size: 0.65rem; text-align: center; padding: 0.25rem;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-align: center;
+    padding: 0.25rem;
   }
-  .name { font-weight: 650; font-size: clamp(0.95rem, 4vw, 1.05rem); }
-  .title { color: var(--muted); font-size: clamp(0.68rem, 3vw, 0.78rem); overflow-wrap: anywhere; }
-  .flags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.3rem; }
+  .name { font-weight: 650; font-size: 1rem; }
+  .title {
+    color: var(--muted);
+    font-size: var(--fs-sm);
+    overflow-wrap: anywhere;
+  }
+  .flags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem; }
   .flag {
-    display: inline-block; font-size: clamp(0.62rem, 2.8vw, 0.7rem); font-weight: 600;
-    padding: 0.18rem 0.45rem; border-radius: 6px;
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 0.28rem 0.5rem;
+    border-radius: 8px;
   }
   .flag.ok { background: rgba(52,211,153,0.15); color: var(--ok); }
   .flag.warn { background: rgba(251,191,36,0.15); color: var(--warn); }
   .flag.fail { background: rgba(248,113,113,0.15); color: var(--fail); }
   dl {
-    margin: 0; display: grid;
-    grid-template-columns: minmax(5.5rem, 32%) 1fr;
-    gap: 0.28rem 0.45rem;
-    font-size: clamp(0.7rem, 3.1vw, 0.78rem);
+    margin: 0;
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: 0.35rem 0.55rem;
+    font-size: var(--fs-sm);
   }
   dt { color: var(--muted); }
-  dd { margin: 0; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; }
+  dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.875rem;
+  }
   .path { color: var(--violet); }
+  .table-wrap { display: none; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--fs-sm);
+  }
+  th, td {
+    text-align: left;
+    padding: 0.65rem 0.55rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+  }
+  th {
+    color: var(--muted);
+    font-weight: 650;
+    position: sticky;
+    top: 0;
+    background: #10141c;
+  }
+  tr.stall td { background: rgba(127, 29, 29, 0.18); }
+  .thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: contain;
+    background: #0a0c10;
+    border: 1px solid var(--line);
+  }
   footer {
     padding: 0 var(--pad) calc(1.25rem + env(safe-area-inset-bottom));
-    color: var(--muted); font-size: clamp(0.68rem, 3vw, 0.75rem); line-height: 1.4;
+    color: var(--muted);
+    font-size: var(--fs-sm);
+    line-height: 1.45;
+    max-width: 1200px;
   }
-  code { font-size: 0.92em; }
+  footer a { color: var(--cyan); }
+  code { font-size: 0.875em; overflow-wrap: anywhere; }
+  @media (min-width: 640px) {
+    :root { --pad: clamp(1rem, 3vw, 1.5rem); --avatar: 72px; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    main, footer { margin-inline: auto; width: 100%; }
+  }
+  @media (min-width: 960px) {
+    .grid { display: none; }
+    .table-wrap {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--card);
+    }
+  }
 </style>
 </head>
 <body>
@@ -117,67 +269,715 @@
   </div>
 </header>
 <main>
-  <div class="legend">Mobile Soft-PASS · Soft-FAIL stuck lamp from feed.json · no invented mood scores</div>
+  <p class="legend">Phone-first Soft-PASS · stacked cards on a handset, table on wider screens · no invented mood scores</p>
+  <div class="stats" id="stats"></div>
   <div class="filters">
     <button type="button" class="chip on" data-filter="all">All</button>
     <button type="button" class="chip" data-filter="fleet">Fleet</button>
     <button type="button" class="chip" data-filter="stall">Stalls</button>
   </div>
   <div class="grid" id="grid"></div>
+  <div class="table-wrap" id="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>Mood</th>
+          <th>Stall</th>
+          <th>Stuck</th>
+          <th>Flags</th>
+          <th>Growth</th>
+          <th>Asset</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
 </main>
 <footer>
   <div id="hostnote"></div>
+  <p>
+    Public phone URL:
+    <a href="https://skiiwa67-collab.github.io/living-icon/dashboard/">https://skiiwa67-collab.github.io/living-icon/dashboard/</a>
+  </p>
   Ada Soft-PASS UI · refresh <code>python3 docs/dashboard/refresh_data.py</code>
 </footer>
+<script type="application/json" id="snapshot-data">
+{
+  "schema": "living-icon-stall-dashboard/v1",
+  "generated_at": "2026-09-20T11:22:47.640122+00:00",
+  "generated_at_ct": "2026-09-20 06:22 CDT",
+  "thresholds_hours": {
+    "aging": 1,
+    "stall_soft": 12,
+    "stall_hard": 24
+  },
+  "roster": [
+    {
+      "name": "DFW Node",
+      "agent_id": "07675465-5a6d-435b-b705-38a719e65bdd",
+      "title": "",
+      "in_fleet": false,
+      "package": null,
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": null,
+      "avatar_md5": null,
+      "avatar_mtime": null,
+      "stall_hours": null,
+      "stall_flag": "Soft-FAIL no avatar",
+      "softpass_path": null,
+      "softpass_rel": null,
+      "softpass_md5": null,
+      "softpass_mtime": null,
+      "matrix_rel": null,
+      "active_animation": null,
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "Yard Software",
+      "agent_id": "1116c9b2-1dff-4625-92f2-1090a5e2dc16",
+      "title": "",
+      "in_fleet": false,
+      "package": null,
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": null,
+      "avatar_md5": null,
+      "avatar_mtime": null,
+      "stall_hours": null,
+      "stall_flag": "Soft-FAIL no avatar",
+      "softpass_path": null,
+      "softpass_rel": null,
+      "softpass_md5": null,
+      "softpass_mtime": null,
+      "matrix_rel": null,
+      "active_animation": null,
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "Skippy the Magnificent",
+      "agent_id": "2f489fae-574f-4b61-b618-40a8a74b08e8",
+      "title": "",
+      "in_fleet": true,
+      "package": "skippy-happy",
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": "/home/box/agent-data/agents/2f489fae-574f-4b61-b618-40a8a74b08e8/avatar.png",
+      "avatar_md5": "36fa622d879a61991975ce8665d1467d",
+      "avatar_mtime": "2026-09-19T20:16:32.394440+00:00",
+      "stall_hours": 15.1,
+      "stall_flag": "Soft-FAIL stall \u226512h",
+      "softpass_path": "/tmp/living-icon-gh/packages/skippy-happy/softpass/avatar-idle.gif",
+      "softpass_rel": "../../packages/skippy-happy/softpass/avatar-idle.gif",
+      "softpass_md5": "36fa622d879a61991975ce8665d1467d",
+      "softpass_mtime": "2026-09-19T20:16:25.446435+00:00",
+      "matrix_rel": "../../packages/skippy-happy/matrix/idle/calm.gif",
+      "active_animation": "../../packages/skippy-happy/matrix/idle/calm.gif",
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "DropBox Organizer",
+      "agent_id": "3b1a86d5-e519-4a16-8efc-e3dad6fdc561",
+      "title": "",
+      "in_fleet": false,
+      "package": null,
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": null,
+      "avatar_md5": null,
+      "avatar_mtime": null,
+      "stall_hours": null,
+      "stall_flag": "Soft-FAIL no avatar",
+      "softpass_path": null,
+      "softpass_rel": null,
+      "softpass_md5": null,
+      "softpass_mtime": null,
+      "matrix_rel": null,
+      "active_animation": null,
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "Da Vinci",
+      "agent_id": "5a5c4480-3f5e-4bf5-b315-e2a02011fdfe",
+      "title": "",
+      "in_fleet": true,
+      "package": "da-vinci-happy",
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": "/home/box/agent-data/agents/5a5c4480-3f5e-4bf5-b315-e2a02011fdfe/avatar.png",
+      "avatar_md5": "24854b0590b54d9cc1a3053489e3893c",
+      "avatar_mtime": "2026-09-19T20:15:34.858398+00:00",
+      "stall_hours": 15.12,
+      "stall_flag": "Soft-FAIL stall \u226512h",
+      "softpass_path": "/tmp/living-icon-gh/packages/da-vinci-happy/softpass/avatar-idle.gif",
+      "softpass_rel": "../../packages/da-vinci-happy/softpass/avatar-idle.gif",
+      "softpass_md5": "24854b0590b54d9cc1a3053489e3893c",
+      "softpass_mtime": "2026-09-19T20:14:58.722370+00:00",
+      "matrix_rel": null,
+      "active_animation": "../../packages/da-vinci-happy/softpass/avatar-idle.gif",
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "Power Pod",
+      "agent_id": "8b062242-aff5-4aea-b5fa-1665562c2cd9",
+      "title": "",
+      "in_fleet": false,
+      "package": null,
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": null,
+      "avatar_md5": null,
+      "avatar_mtime": null,
+      "stall_hours": null,
+      "stall_flag": "Soft-FAIL no avatar",
+      "softpass_path": null,
+      "softpass_rel": null,
+      "softpass_md5": null,
+      "softpass_mtime": null,
+      "matrix_rel": null,
+      "active_animation": null,
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "Ada \u00d7 Da Vinci \u2014 Living Icon",
+      "agent_id": "9462c5ad-3f6f-4fea-b12a-8f947c4a6060",
+      "title": "",
+      "in_fleet": false,
+      "package": null,
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": null,
+      "avatar_md5": null,
+      "avatar_mtime": null,
+      "stall_hours": null,
+      "stall_flag": "Soft-FAIL no avatar",
+      "softpass_path": null,
+      "softpass_rel": null,
+      "softpass_md5": null,
+      "softpass_mtime": null,
+      "matrix_rel": null,
+      "active_animation": null,
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "tinkabot",
+      "agent_id": "9ca7f7d0-4648-4cfe-bc49-206401979b89",
+      "title": "",
+      "in_fleet": true,
+      "package": "tinkabot-happy",
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": "/home/box/agent-data/agents/9ca7f7d0-4648-4cfe-bc49-206401979b89/avatar.png",
+      "avatar_md5": "efb70a2016fb809efff57b58154b1a20",
+      "avatar_mtime": "2026-09-19T20:16:12.414426+00:00",
+      "stall_hours": 15.11,
+      "stall_flag": "Soft-FAIL stall \u226512h",
+      "softpass_path": "/tmp/living-icon-gh/packages/tinkabot-happy/softpass/avatar-idle.gif",
+      "softpass_rel": "../../packages/tinkabot-happy/softpass/avatar-idle.gif",
+      "softpass_md5": "efb70a2016fb809efff57b58154b1a20",
+      "softpass_mtime": "2026-09-19T20:15:14.910383+00:00",
+      "matrix_rel": null,
+      "active_animation": "../../packages/tinkabot-happy/softpass/avatar-idle.gif",
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "Strip Electrical",
+      "agent_id": "c4780272-495e-4eef-bbd4-654c9275d9fe",
+      "title": "",
+      "in_fleet": false,
+      "package": null,
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": null,
+      "avatar_md5": null,
+      "avatar_mtime": null,
+      "stall_hours": null,
+      "stall_flag": "Soft-FAIL no avatar",
+      "softpass_path": null,
+      "softpass_rel": null,
+      "softpass_md5": null,
+      "softpass_mtime": null,
+      "matrix_rel": null,
+      "active_animation": null,
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "Saxon",
+      "agent_id": "e9c64170-a22b-4c50-a6df-18c1d0d3b627",
+      "title": "CEO",
+      "in_fleet": true,
+      "package": "saxon-happy",
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": "/home/box/agent-data/agents/e9c64170-a22b-4c50-a6df-18c1d0d3b627/avatar.png",
+      "avatar_md5": "47f8d23bb2428682333e0b9283693007",
+      "avatar_mtime": "2026-09-19T20:53:02.844691+00:00",
+      "stall_hours": 14.5,
+      "stall_flag": "Soft-FAIL stall \u226512h",
+      "softpass_path": "/tmp/living-icon-gh/packages/saxon-happy/softpass/avatar-idle.gif",
+      "softpass_rel": "../../packages/saxon-happy/softpass/avatar-idle.gif",
+      "softpass_md5": "47f8d23bb2428682333e0b9283693007",
+      "softpass_mtime": "2026-09-19T20:50:40.245323+00:00",
+      "matrix_rel": null,
+      "active_animation": "../../packages/saxon-happy/softpass/avatar-idle.gif",
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "Ada",
+      "agent_id": "ec74770f-4547-46a2-b58f-f31ddba60b48",
+      "title": "Programer and code genius",
+      "in_fleet": true,
+      "package": "ada-happy",
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": "/home/box/agent-data/agents/ec74770f-4547-46a2-b58f-f31ddba60b48/avatar.gif",
+      "avatar_md5": "626c9e953ddaf1cfc26c8bf3d831c8cf",
+      "avatar_mtime": "2026-09-19T20:11:52.754218+00:00",
+      "stall_hours": 15.18,
+      "stall_flag": "Soft-FAIL stall \u226512h",
+      "softpass_path": "/tmp/living-icon-gh/packages/ada-happy/softpass/avatar-idle.gif",
+      "softpass_rel": "../../packages/ada-happy/softpass/avatar-idle.gif",
+      "softpass_md5": "626c9e953ddaf1cfc26c8bf3d831c8cf",
+      "softpass_mtime": "2026-09-19T20:11:07.010222+00:00",
+      "matrix_rel": "../../packages/ada-happy/matrix/idle/calm.gif",
+      "active_animation": "../../packages/ada-happy/matrix/idle/calm.gif",
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    },
+    {
+      "name": "Helios",
+      "agent_id": "fe0b6c3f-adcf-483f-a7f9-335890abd80d",
+      "title": "Advisor",
+      "in_fleet": true,
+      "package": "helios-happy",
+      "mood": "thrilled",
+      "voice_state": "idle",
+      "avatar_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/avatar.png",
+      "avatar_md5": "c012d9d6d5d0a4bd7305fa4572cb7cd6",
+      "avatar_mtime": "2026-09-19T19:58:35.322294+00:00",
+      "stall_hours": 15.4,
+      "stall_flag": "Soft-FAIL stall \u226512h",
+      "softpass_path": "/tmp/living-icon-gh/packages/helios-happy/softpass/avatar-idle.gif",
+      "softpass_rel": "../../packages/helios-happy/softpass/avatar-idle.gif",
+      "softpass_md5": "2932a5cb12a948aded1c8a3e89c5616c",
+      "softpass_mtime": "2026-09-19T19:16:10.526404+00:00",
+      "matrix_rel": "../../packages/helios-happy/matrix/idle/thrilled.gif",
+      "active_animation": "../../packages/helios-happy/matrix/idle/thrilled.gif",
+      "growth": {
+        "status": "Soft-PASS",
+        "path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/personality.json",
+        "mtime": "2026-09-19T20:04:20.166258+00:00",
+        "age_hours": 15.31,
+        "traits": {
+          "warmth": 0.7,
+          "analytical": 0.55,
+          "urgency": 0.85,
+          "humor": 0.65,
+          "directness": 0.9
+        },
+        "drift_enabled": true,
+        "avatar_resolve": "matrix/{voice_state}/{mood.current}.gif"
+      }
+    },
+    {
+      "name": "New Bot",
+      "agent_id": "ffd75e04-ba99-495d-bb87-25a8345d0e73",
+      "title": "",
+      "in_fleet": false,
+      "package": null,
+      "mood": null,
+      "voice_state": null,
+      "avatar_path": null,
+      "avatar_md5": null,
+      "avatar_mtime": null,
+      "stall_hours": null,
+      "stall_flag": "Soft-FAIL no avatar",
+      "softpass_path": null,
+      "softpass_rel": null,
+      "softpass_md5": null,
+      "softpass_mtime": null,
+      "matrix_rel": null,
+      "active_animation": null,
+      "growth": {
+        "status": "Soft-FAIL frozen",
+        "note": "no personality.json"
+      }
+    }
+  ],
+  "fleet_only_note": "Living Icon Soft-PASS packs under packages/*-happy/"
+}
+</script>
+<script type="application/json" id="snapshot-feed">
+{
+  "schema": "living-icon-status-feed/v1",
+  "updated_at": "2026-09-20T06:17:41-05:00",
+  "stale_threshold_seconds": 21600,
+  "softfail_chris_catch": "Helios installed avatar Soft-PASS 2026-09-19T14:58:35-05:00 thrilled idle; personality.json Soft-PASS only on Helios; stuck_softfail true (~15h). Package softpass/avatar-idle.gif still 2026-09-19T14:16:10-05:00.",
+  "host": {
+    "owner": "Ada",
+    "pages_living_icon_repo": true,
+    "feed_path": "/workspace/living-icon/status/feed.json",
+    "url": "https://skiiwa67-collab.github.io/living-icon/dashboard/",
+    "url_softfail": null,
+    "immediate_html": "https://cdn.jsdelivr.net/gh/skiiwa67-collab/living-icon@0896011/docs/dashboard/index.html",
+    "commit": "0896011"
+  },
+  "agents": [
+    {
+      "agent": "ada",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/ada-happy/softpass/avatar-idle.gif",
+      "gif_md5": "626c9e953ddaf1cfc26c8bf3d831c8cf",
+      "gif_mtime": "2026-09-19T15:11:07-05:00",
+      "stuck_seconds": 54394,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    },
+    {
+      "agent": "da-vinci",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/da-vinci-happy/softpass/avatar-idle.gif",
+      "gif_md5": "24854b0590b54d9cc1a3053489e3893c",
+      "gif_mtime": "2026-09-19T15:14:58-05:00",
+      "stuck_seconds": 54162,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    },
+    {
+      "agent": "helios",
+      "mood": "thrilled",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/helios-happy/softpass/avatar-idle.gif",
+      "gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
+      "gif_mtime": "2026-09-19T14:16:10-05:00",
+      "stuck_seconds": 57690,
+      "stuck_softfail": true,
+      "personality_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/personality.json",
+      "growth": {
+        "source": "personality.json",
+        "traits": {
+          "warmth": 0.7,
+          "analytical": 0.55,
+          "urgency": 0.85,
+          "humor": 0.65,
+          "directness": 0.9
+        },
+        "mood_scores": {
+          "calm": 0.15,
+          "excited": 0.25,
+          "somber": 0.05,
+          "angry": 0.05,
+          "thrilled": 0.5
+        },
+        "updated_at": "2026-09-19T15:04:00-05:00"
+      },
+      "softpass": true,
+      "note": "Soft-PASS Helios scan: thrilled idle; avatar.png 2026-09-19T14:58:35-05:00; personality 2026-09-19T15:04-05:00; package idle.gif older 14:16",
+      "installed_avatar_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/avatar.png",
+      "installed_avatar_md5": "c012d9d6d5d0a4bd7305fa4572cb7cd6",
+      "installed_avatar_mtime": "2026-09-19T14:58:35-05:00",
+      "installed_stuck_seconds": 55145,
+      "installed_stuck_softfail": true
+    },
+    {
+      "agent": "saxon",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/saxon-happy/softpass/avatar-idle.gif",
+      "gif_md5": "47f8d23bb2428682333e0b9283693007",
+      "gif_mtime": "2026-09-19T15:50:40-05:00",
+      "stuck_seconds": 52020,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    },
+    {
+      "agent": "skippy",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/skippy-happy/softpass/avatar-idle.gif",
+      "gif_md5": "36fa622d879a61991975ce8665d1467d",
+      "gif_mtime": "2026-09-19T15:16:25-05:00",
+      "stuck_seconds": 54075,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    },
+    {
+      "agent": "tinkabot",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/tinkabot-happy/softpass/avatar-idle.gif",
+      "gif_md5": "efb70a2016fb809efff57b58154b1a20",
+      "gif_mtime": "2026-09-19T15:15:14-05:00",
+      "stuck_seconds": 54146,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    }
+  ]
+}
+</script>
 <script>
-let DATA = null, FEED = null, filter = 'all';
+const RAW = 'https://raw.githubusercontent.com/skiiwa67-collab/living-icon/master/';
 const SLUG = {
-  'Ada':'ada','Da Vinci':'da-vinci','Helios':'helios','Saxon':'saxon',
-  'Skippy the Magnificent':'skippy','tinkabot':'tinkabot'
+  'Ada': 'ada',
+  'Da Vinci': 'da-vinci',
+  'Helios': 'helios',
+  'Saxon': 'saxon',
+  'Skippy the Magnificent': 'skippy',
+  'tinkabot': 'tinkabot'
 };
-function flagClass(f){ if(!f) return 'fail'; if(f.includes('fresh')) return 'ok'; if(f.includes('aging')) return 'warn'; return 'fail'; }
-function cardClass(r,f){ if(f&&f.stuck_softfail) return 'stall'; const s=r.stall_flag||''; if(s.includes('fresh')) return 'fresh'; if(s.includes('stall')||s.includes('no avatar')) return 'stall'; return ''; }
-function fmtStuck(sec){ if(sec==null) return '—'; const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60); return h+'h '+m+'m'; }
-function feedFor(r){ if(!FEED||!FEED.agents) return null; const slug=SLUG[r.name]||(r.package||'').replace(/-happy$/,''); return FEED.agents.find(a=>a.agent===slug)||null; }
-function render(){
-  const grid=document.getElementById('grid'); grid.innerHTML='';
-  let rows=DATA.roster||[];
-  if(filter==='fleet') rows=rows.filter(r=>r.in_fleet);
-  if(filter==='stall') rows=rows.filter(r=>{ const f=feedFor(r); return (f&&f.stuck_softfail)||(r.stall_flag||'').includes('Soft-FAIL'); });
-  for(const r of rows){
-    const f=feedFor(r); const el=document.createElement('article'); el.className='card '+cardClass(r,f);
-    const img=r.active_animation||r.softpass_rel;
-    const growth=r.growth||{};
-    let growthLine;
-    if(f&&f.growth&&f.growth.source==='personality.json'&&f.growth.mood_scores&&Object.keys(f.growth.mood_scores).length)
-      growthLine='Soft-PASS personality.json (feed)';
-    else if(growth.status==='Soft-PASS'&&growth.traits)
-      growthLine='Soft-PASS personality.json · '+growth.age_hours+'h · drift '+(growth.drift_enabled?'on':'off');
-    else growthLine=(f&&f.growth&&f.growth.source==='unreported')?'Soft-FAIL unreported (no invented scores)':((growth.status||'Soft-FAIL')+(growth.note?' — '+growth.note:''));
-    const lamp=f?(f.stuck_softfail?'<span class="flag fail">Soft-FAIL stuck</span>':'<span class="flag ok">Soft-PASS GIF</span>'):'<span class="flag warn">no feed</span>';
-    el.innerHTML=`<div class="top">${img?`<img class="avatar" src="${img}" alt="${r.name}"/>`:`<div class="avatar missing">no Soft-PASS</div>`}<div><div class="name">${r.name}</div><div class="title">${r.title||r.package||'no pack'}</div><div class="flags"><span class="flag ${flagClass(r.stall_flag)}">${r.stall_flag||'Soft-FAIL'}</span>${lamp}</div></div></div>
-    <dl>
-      <dt>mood</dt><dd>${(f&&f.mood&&f.mood!=='unreported')?f.mood:(r.mood||'unreported')}</dd>
-      <dt>stuck</dt><dd>${f?fmtStuck(f.stuck_seconds):'—'}</dd>
-      <dt>gif_mtime</dt><dd>${(f&&f.gif_mtime)||'—'}</dd>
-      <dt>md5</dt><dd>${f&&f.gif_md5?f.gif_md5.slice(0,12)+'…':'—'}</dd>
-      <dt>active</dt><dd class="path">${r.active_animation||r.softpass_path||'—'}</dd>
-      <dt>growth</dt><dd>${growthLine}</dd>
-    </dl>`;
+let DATA = null, FEED = null, filter = 'all';
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+function readSnapshot(id) {
+  const el = document.getElementById(id);
+  if (!el || !el.textContent.trim()) return null;
+  try { return JSON.parse(el.textContent); } catch (e) { return null; }
+}
+function repoPath(rel) {
+  if (!rel) return '';
+  if (/^https?:/i.test(rel)) return rel;
+  const i = rel.indexOf('packages/');
+  if (i >= 0) return rel.slice(i);
+  return rel.replace(/^\.\.\/\.\.\//, '');
+}
+function assetUrl(rel) {
+  if (!rel) return '';
+  if (/^https?:/i.test(rel)) return rel;
+  const host = location.hostname;
+  const pagesOrPreview = host.endsWith('github.io') || /htmlpreview|jsdelivr/.test(host);
+  if (pagesOrPreview) return RAW + repoPath(rel);
+  return rel;
+}
+function flagClass(f) {
+  if (!f) return 'fail';
+  if (f.includes('fresh')) return 'ok';
+  if (f.includes('aging')) return 'warn';
+  return 'fail';
+}
+function cardClass(r, f) {
+  if (f && f.stuck_softfail) return 'stall';
+  const s = r.stall_flag || '';
+  if (s.includes('fresh')) return 'fresh';
+  if (s.includes('stall') || s.includes('no avatar')) return 'stall';
+  return '';
+}
+function fmtStuck(sec) {
+  if (sec == null) return '—';
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60);
+  return h + 'h ' + m + 'm';
+}
+function fmtHours(h) {
+  if (h == null) return '—';
+  return Number(h).toFixed(1) + 'h';
+}
+function shortPath(p) {
+  if (!p) return '—';
+  const i = p.indexOf('packages/');
+  return i >= 0 ? p.slice(i) : p;
+}
+function feedFor(r) {
+  if (!FEED || !FEED.agents) return null;
+  const slug = SLUG[r.name] || (r.package || '').replace(/-happy$/, '');
+  return FEED.agents.find(a => a.agent === slug) || null;
+}
+function growthLine(r, f) {
+  const growth = r.growth || {};
+  if (f && f.growth && f.growth.source === 'personality.json' && f.growth.mood_scores && Object.keys(f.growth.mood_scores).length) {
+    return 'Soft-PASS personality.json (feed)';
+  }
+  if (growth.status === 'Soft-PASS' && growth.traits) {
+    return 'Soft-PASS personality.json · ' + growth.age_hours + 'h · drift ' + (growth.drift_enabled ? 'on' : 'off');
+  }
+  if (f && f.growth && f.growth.source === 'unreported') {
+    return 'Soft-FAIL unreported (no invented scores)';
+  }
+  return (growth.status || 'Soft-FAIL') + (growth.note ? ' — ' + growth.note : '');
+}
+function moodOf(r, f) {
+  if (f && f.mood && f.mood !== 'unreported') return f.mood;
+  return r.mood || 'unreported';
+}
+function isStall(r, f) {
+  return (f && f.stuck_softfail) || String(r.stall_flag || '').includes('Soft-FAIL');
+}
+function rows() {
+  let list = (DATA && DATA.roster) || [];
+  if (filter === 'fleet') list = list.filter(r => r.in_fleet);
+  if (filter === 'stall') list = list.filter(r => isStall(r, feedFor(r)));
+  return list;
+}
+function avatarHtml(r, cls) {
+  const src = r.active_animation || r.softpass_rel;
+  if (!src) return '<div class="avatar missing">no Soft-PASS</div>';
+  const url = assetUrl(src);
+  return '<img class="' + cls + '" src="' + esc(url) + '" alt="' + esc(r.name) + '" onerror="this.onerror=null;this.src=\'' + esc(RAW + repoPath(src)) + '\'"/>';
+}
+function renderStats() {
+  const roster = (DATA && DATA.roster) || [];
+  const fleet = roster.filter(r => r.in_fleet);
+  const stalls = roster.filter(r => isStall(r, feedFor(r)));
+  const helios = roster.find(r => r.name === 'Helios');
+  const hf = helios ? feedFor(helios) : null;
+  const heliosStuck = hf ? fmtStuck(hf.installed_stuck_seconds || hf.stuck_seconds) : (helios ? fmtHours(helios.stall_hours) : '—');
+  const heliosMood = helios ? moodOf(helios, hf) : 'unreported';
+  document.getElementById('stats').innerHTML =
+    '<div class="stat"><b>' + roster.length + '</b>agents</div>' +
+    '<div class="stat"><b>' + fleet.length + '</b>fleet</div>' +
+    '<div class="stat alert"><b>' + stalls.length + '</b>Soft-FAIL stall</div>' +
+    '<div class="stat alert"><b>' + esc(heliosStuck) + '</b>Helios ' + esc(heliosMood) + ' idle</div>';
+}
+function render() {
+  const grid = document.getElementById('grid');
+  const tbody = document.getElementById('tbody');
+  grid.innerHTML = '';
+  tbody.innerHTML = '';
+  for (const r of rows()) {
+    const f = feedFor(r);
+    const el = document.createElement('article');
+    el.className = 'card ' + cardClass(r, f);
+    const lamp = f
+      ? (f.stuck_softfail ? '<span class="flag fail">Soft-FAIL stuck</span>' : '<span class="flag ok">Soft-PASS GIF</span>')
+      : '<span class="flag warn">no feed</span>';
+    el.innerHTML =
+      '<div class="top">' + avatarHtml(r, 'avatar') +
+      '<div><div class="name">' + esc(r.name) + '</div>' +
+      '<div class="title">' + esc(r.title || r.package || 'no pack') + '</div>' +
+      '<div class="flags"><span class="flag ' + flagClass(r.stall_flag) + '">' + esc(r.stall_flag || 'Soft-FAIL') + '</span>' + lamp + '</div></div></div>' +
+      '<dl>' +
+      '<dt>mood</dt><dd>' + esc(moodOf(r, f)) + '</dd>' +
+      '<dt>stall</dt><dd>' + esc(fmtHours(r.stall_hours)) + '</dd>' +
+      '<dt>stuck</dt><dd>' + esc(f ? fmtStuck(f.stuck_seconds) : '—') + '</dd>' +
+      '<dt>gif_mtime</dt><dd>' + esc((f && f.gif_mtime) || '—') + '</dd>' +
+      '<dt>md5</dt><dd>' + esc(f && f.gif_md5 ? f.gif_md5.slice(0, 12) + '…' : '—') + '</dd>' +
+      '<dt>active</dt><dd class="path">' + esc(shortPath(r.active_animation || r.softpass_path)) + '</dd>' +
+      '<dt>growth</dt><dd>' + esc(growthLine(r, f)) + '</dd>' +
+      '</dl>';
     grid.appendChild(el);
+
+    const tr = document.createElement('tr');
+    tr.className = cardClass(r, f);
+    tr.innerHTML =
+      '<td><div class="top">' + avatarHtml(r, 'thumb') +
+      '<div><div class="name">' + esc(r.name) + '</div><div class="title">' + esc(r.title || r.package || 'no pack') + '</div></div></div></td>' +
+      '<td>' + esc(moodOf(r, f)) + '</td>' +
+      '<td>' + esc(fmtHours(r.stall_hours)) + '</td>' +
+      '<td>' + esc(f ? fmtStuck(f.stuck_seconds) : '—') + '</td>' +
+      '<td><span class="flag ' + flagClass(r.stall_flag) + '">' + esc(r.stall_flag || 'Soft-FAIL') + '</span> ' + lamp + '</td>' +
+      '<td>' + esc(growthLine(r, f)) + '</td>' +
+      '<td class="path">' + esc(shortPath(r.active_animation || r.softpass_path)) + '</td>';
+    tbody.appendChild(tr);
+  }
+  renderStats();
+}
+async function loadJson(url) {
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(String(res.status));
+    return await res.json();
+  } catch (e) {
+    return null;
   }
 }
-async function load(){
-  const [dRes,fRes]=await Promise.all([fetch('data.json?ts='+Date.now()), fetch('../../status/feed.json?ts='+Date.now())]);
-  DATA=await dRes.json();
-  try{ FEED=await fRes.json(); }catch(e){ FEED=null; }
-  document.getElementById('generated').textContent='Soft-PASS '+(DATA.generated_at_ct||DATA.generated_at)+' · '+(DATA.roster||[]).length+' agents'+(FEED?' · feed '+FEED.updated_at:' · Soft-FAIL feed');
-  document.getElementById('hostnote').textContent=FEED&&FEED.host&&FEED.host.url_softfail?FEED.host.url_softfail:'Soft-PASS phone view';
+async function load() {
+  DATA = await loadJson('data.json?ts=' + Date.now()) || readSnapshot('snapshot-data');
+  FEED = await loadJson('feed.json?ts=' + Date.now())
+    || await loadJson('../../status/feed.json?ts=' + Date.now())
+    || readSnapshot('snapshot-feed');
+  if (!DATA) throw new Error('no dashboard snapshot');
+  const feedNote = FEED ? ' · feed ' + (FEED.updated_at || '') : ' · Soft-FAIL feed';
+  document.getElementById('generated').textContent =
+    'Soft-PASS ' + (DATA.generated_at_ct || DATA.generated_at) + ' · ' + (DATA.roster || []).length + ' agents' + feedNote;
+  const host = (FEED && FEED.host) || {};
+  document.getElementById('hostnote').textContent =
+    host.url || host.url_softfail || 'Soft-PASS phone view (static snapshot)';
   render();
 }
-document.getElementById('reload').onclick=()=>load();
-document.querySelectorAll('.chip').forEach(chip=>{ chip.onclick=()=>{ document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on')); chip.classList.add('on'); filter=chip.dataset.filter; render(); }; });
-load().catch(e=>{ document.getElementById('generated').textContent='Soft-FAIL load — '+e; });
+document.getElementById('reload').onclick = () => load();
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.onclick = () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+    chip.classList.add('on');
+    filter = chip.dataset.filter;
+    render();
+  };
+});
+load().catch(e => {
+  document.getElementById('generated').textContent = 'Soft-FAIL load — ' + e;
+});
 </script>
 </body>
 </html>

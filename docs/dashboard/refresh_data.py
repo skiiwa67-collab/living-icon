@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[2]  # living-icon
 AGENTS = Path('/home/box/agent-data/agents')
 PACKAGES = ROOT / 'packages'
 OUT = Path(__file__).resolve().parent / 'data.json'
+FEED_SRC = ROOT / 'status' / 'feed.json'
+FEED_OUT = Path(__file__).resolve().parent / 'feed.json'
 
 SLUG = {
     'Ada': 'ada-happy',
@@ -131,7 +133,10 @@ def main():
         'roster': rows,
         'fleet_only_note': 'Living Icon Soft-PASS packs under packages/*-happy/',
     }
-    OUT.write_text(json.dumps(out, indent=2))
+    OUT.write_text(json.dumps(out, indent=2) + '\n')
+    if FEED_SRC.exists():
+        FEED_OUT.write_text(FEED_SRC.read_text())
+        print(f'Copied {FEED_SRC} -> {FEED_OUT}')
     print(f'Wrote {OUT} ({len(rows)} agents)')
 
 if __name__ == '__main__':
