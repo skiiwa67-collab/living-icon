@@ -872,7 +872,7 @@ function moodOf(r, f) {
   return r.mood || 'unreported';
 }
 function isStall(r, f) {
-  return (f && f.stuck_softfail) || String(r.stall_flag || '').includes('Soft-FAIL');
+  return (f && f.stuck_softfail) || String(r.stall_flag || '').includes('stall');
 }
 function rows() {
   let list = (DATA && DATA.roster) || [];
