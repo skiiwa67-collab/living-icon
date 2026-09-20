@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#0b0d12"/>
+<title>Living Icon · Stall Soft-PASS</title>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --card: #141821;
+    --line: #243044;
+    --text: #e8eef8;
+    --muted: #8b9bb4;
+    --cyan: #3de0ff;
+    --violet: #a78bfa;
+    --ok: #34d399;
+    --warn: #fbbf24;
+    --fail: #f87171;
+    --pad: clamp(0.75rem, 3.5vw, 1.5rem);
+    --gap: clamp(0.6rem, 2.5vw, 1rem);
+    --avatar: clamp(56px, 18vw, 80px);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    background: radial-gradient(900px 480px at 0% 0%, #1a1030 0%, transparent 55%),
+                radial-gradient(700px 400px at 100% 0%, #0a2a33 0%, transparent 50%), var(--bg);
+    color: var(--text); min-height: 100dvh;
+  }
+  header {
+    position: sticky; top: 0; z-index: 10;
+    padding: calc(0.65rem + env(safe-area-inset-top)) var(--pad) 0.65rem;
+    border-bottom: 1px solid var(--line);
+    background: rgba(11,13,18,0.92);
+    backdrop-filter: blur(10px);
+  }
+  h1 { margin: 0; font-size: clamp(0.95rem, 4.2vw, 1.2rem); line-height: 1.25; }
+  h1 span { color: var(--cyan); }
+  .meta { color: var(--muted); font-size: clamp(0.7rem, 3.2vw, 0.85rem); margin-top: 0.25rem; word-break: break-word; }
+  .toolbar { margin-top: 0.55rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  button, .chip {
+    min-height: 40px; touch-action: manipulation;
+    background: #1c2433; color: var(--text); border: 1px solid var(--line);
+    border-radius: 10px; padding: 0.45rem 0.75rem; cursor: pointer;
+    font-size: clamp(0.75rem, 3.3vw, 0.85rem);
+  }
+  button:hover, .chip:hover { border-color: var(--cyan); }
+  .chip.on { color: var(--bg); background: var(--cyan); border-color: var(--cyan); }
+  main { padding: var(--gap) var(--pad) calc(2rem + env(safe-area-inset-bottom)); }
+  .legend { font-size: clamp(0.68rem, 3vw, 0.78rem); color: var(--muted); margin-bottom: 0.65rem; line-height: 1.35; }
+  .filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: var(--gap); }
+  .grid {
+    display: grid; gap: var(--gap);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 560px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 960px) {
+    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1280px) {
+    .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: clamp(0.75rem, 3vw, 0.95rem);
+    display: flex; flex-direction: column; gap: 0.55rem;
+  }
+  .card.stall { border-color: #7f1d1d; box-shadow: 0 0 0 1px rgba(248,113,113,0.15); }
+  .card.fresh { border-color: #065f46; }
+  .top { display: flex; gap: 0.75rem; align-items: center; min-width: 0; }
+  .avatar {
+    width: var(--avatar); height: var(--avatar); flex: 0 0 var(--avatar);
+    border-radius: 12px; background: #0a0c10; border: 1px solid var(--line);
+    object-fit: contain; image-rendering: pixelated;
+  }
+  .avatar.missing {
+    display: grid; place-items: center; color: var(--muted);
+    font-size: 0.65rem; text-align: center; padding: 0.25rem;
+  }
+  .name { font-weight: 650; font-size: clamp(0.95rem, 4vw, 1.05rem); }
+  .title { color: var(--muted); font-size: clamp(0.68rem, 3vw, 0.78rem); overflow-wrap: anywhere; }
+  .flags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.3rem; }
+  .flag {
+    display: inline-block; font-size: clamp(0.62rem, 2.8vw, 0.7rem); font-weight: 600;
+    padding: 0.18rem 0.45rem; border-radius: 6px;
+  }
+  .flag.ok { background: rgba(52,211,153,0.15); color: var(--ok); }
+  .flag.warn { background: rgba(251,191,36,0.15); color: var(--warn); }
+  .flag.fail { background: rgba(248,113,113,0.15); color: var(--fail); }
+  dl {
+    margin: 0; display: grid;
+    grid-template-columns: minmax(5.5rem, 32%) 1fr;
+    gap: 0.28rem 0.45rem;
+    font-size: clamp(0.7rem, 3.1vw, 0.78rem);
+  }
+  dt { color: var(--muted); }
+  dd { margin: 0; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; }
+  .path { color: var(--violet); }
+  footer {
+    padding: 0 var(--pad) calc(1.25rem + env(safe-area-inset-bottom));
+    color: var(--muted); font-size: clamp(0.68rem, 3vw, 0.75rem); line-height: 1.4;
+  }
+  code { font-size: 0.92em; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Living Icon · <span>Stall Soft-PASS</span></h1>
+  <div class="meta" id="generated">Loading…</div>
+  <div class="toolbar">
+    <button type="button" id="reload">Reload</button>
+  </div>
+</header>
+<main>
+  <div class="legend">Mobile Soft-PASS · Soft-FAIL stuck lamp from feed.json · no invented mood scores</div>
+  <div class="filters">
+    <button type="button" class="chip on" data-filter="all">All</button>
+    <button type="button" class="chip" data-filter="fleet">Fleet</button>
+    <button type="button" class="chip" data-filter="stall">Stalls</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+<footer>
+  <div id="hostnote"></div>
+  Ada Soft-PASS UI · refresh <code>python3 docs/dashboard/refresh_data.py</code>
+</footer>
+<script>
+let DATA = null, FEED = null, filter = 'all';
+const SLUG = {
+  'Ada':'ada','Da Vinci':'da-vinci','Helios':'helios','Saxon':'saxon',
+  'Skippy the Magnificent':'skippy','tinkabot':'tinkabot'
+};
+function flagClass(f){ if(!f) return 'fail'; if(f.includes('fresh')) return 'ok'; if(f.includes('aging')) return 'warn'; return 'fail'; }
+function cardClass(r,f){ if(f&&f.stuck_softfail) return 'stall'; const s=r.stall_flag||''; if(s.includes('fresh')) return 'fresh'; if(s.includes('stall')||s.includes('no avatar')) return 'stall'; return ''; }
+function fmtStuck(sec){ if(sec==null) return '—'; const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60); return h+'h '+m+'m'; }
+function feedFor(r){ if(!FEED||!FEED.agents) return null; const slug=SLUG[r.name]||(r.package||'').replace(/-happy$/,''); return FEED.agents.find(a=>a.agent===slug)||null; }
+function render(){
+  const grid=document.getElementById('grid'); grid.innerHTML='';
+  let rows=DATA.roster||[];
+  if(filter==='fleet') rows=rows.filter(r=>r.in_fleet);
+  if(filter==='stall') rows=rows.filter(r=>{ const f=feedFor(r); return (f&&f.stuck_softfail)||(r.stall_flag||'').includes('Soft-FAIL'); });
+  for(const r of rows){
+    const f=feedFor(r); const el=document.createElement('article'); el.className='card '+cardClass(r,f);
+    const img=r.active_animation||r.softpass_rel;
+    const growth=r.growth||{};
+    let growthLine;
+    if(f&&f.growth&&f.growth.source==='personality.json'&&f.growth.mood_scores&&Object.keys(f.growth.mood_scores).length)
+      growthLine='Soft-PASS personality.json (feed)';
+    else if(growth.status==='Soft-PASS'&&growth.traits)
+      growthLine='Soft-PASS personality.json · '+growth.age_hours+'h · drift '+(growth.drift_enabled?'on':'off');
+    else growthLine=(f&&f.growth&&f.growth.source==='unreported')?'Soft-FAIL unreported (no invented scores)':((growth.status||'Soft-FAIL')+(growth.note?' — '+growth.note:''));
+    const lamp=f?(f.stuck_softfail?'<span class="flag fail">Soft-FAIL stuck</span>':'<span class="flag ok">Soft-PASS GIF</span>'):'<span class="flag warn">no feed</span>';
+    el.innerHTML=`<div class="top">${img?`<img class="avatar" src="${img}" alt="${r.name}"/>`:`<div class="avatar missing">no Soft-PASS</div>`}<div><div class="name">${r.name}</div><div class="title">${r.title||r.package||'no pack'}</div><div class="flags"><span class="flag ${flagClass(r.stall_flag)}">${r.stall_flag||'Soft-FAIL'}</span>${lamp}</div></div></div>
+    <dl>
+      <dt>mood</dt><dd>${(f&&f.mood&&f.mood!=='unreported')?f.mood:(r.mood||'unreported')}</dd>
+      <dt>stuck</dt><dd>${f?fmtStuck(f.stuck_seconds):'—'}</dd>
+      <dt>gif_mtime</dt><dd>${(f&&f.gif_mtime)||'—'}</dd>
+      <dt>md5</dt><dd>${f&&f.gif_md5?f.gif_md5.slice(0,12)+'…':'—'}</dd>
+      <dt>active</dt><dd class="path">${r.active_animation||r.softpass_path||'—'}</dd>
+      <dt>growth</dt><dd>${growthLine}</dd>
+    </dl>`;
+    grid.appendChild(el);
+  }
+}
+async function load(){
+  const [dRes,fRes]=await Promise.all([fetch('data.json?ts='+Date.now()), fetch('../../status/feed.json?ts='+Date.now())]);
+  DATA=await dRes.json();
+  try{ FEED=await fRes.json(); }catch(e){ FEED=null; }
+  document.getElementById('generated').textContent='Soft-PASS '+(DATA.generated_at_ct||DATA.generated_at)+' · '+(DATA.roster||[]).length+' agents'+(FEED?' · feed '+FEED.updated_at:' · Soft-FAIL feed');
+  document.getElementById('hostnote').textContent=FEED&&FEED.host&&FEED.host.url_softfail?FEED.host.url_softfail:'Soft-PASS phone view';
+  render();
+}
+document.getElementById('reload').onclick=()=>load();
+document.querySelectorAll('.chip').forEach(chip=>{ chip.onclick=()=>{ document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on')); chip.classList.add('on'); filter=chip.dataset.filter; render(); }; });
+load().catch(e=>{ document.getElementById('generated').textContent='Soft-FAIL load — '+e; });
+</script>
+</body>
+</html>

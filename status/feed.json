@@ -1,0 +1,141 @@
+{
+  "schema": "living-icon-status-feed/v1",
+  "updated_at": "2026-09-20T06:17:41-05:00",
+  "stale_threshold_seconds": 21600,
+  "softfail_chris_catch": "Helios installed avatar Soft-PASS 2026-09-19T14:58:35-05:00 thrilled idle; personality.json Soft-PASS only on Helios; stuck_softfail true (~15h). Package softpass/avatar-idle.gif still 2026-09-19T14:16:10-05:00.",
+  "host": {
+    "owner": "Ada",
+    "pages_living_icon_repo": false,
+    "feed_path": "/workspace/living-icon/status/feed.json",
+    "url": null,
+    "url_softfail": "no Soft-PASS dashboard URL yet"
+  },
+  "agents": [
+    {
+      "agent": "ada",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/ada-happy/softpass/avatar-idle.gif",
+      "gif_md5": "626c9e953ddaf1cfc26c8bf3d831c8cf",
+      "gif_mtime": "2026-09-19T15:11:07-05:00",
+      "stuck_seconds": 54394,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    },
+    {
+      "agent": "da-vinci",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/da-vinci-happy/softpass/avatar-idle.gif",
+      "gif_md5": "24854b0590b54d9cc1a3053489e3893c",
+      "gif_mtime": "2026-09-19T15:14:58-05:00",
+      "stuck_seconds": 54162,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    },
+    {
+      "agent": "helios",
+      "mood": "thrilled",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/helios-happy/softpass/avatar-idle.gif",
+      "gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
+      "gif_mtime": "2026-09-19T14:16:10-05:00",
+      "stuck_seconds": 57690,
+      "stuck_softfail": true,
+      "personality_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/personality.json",
+      "growth": {
+        "source": "personality.json",
+        "traits": {
+          "warmth": 0.7,
+          "analytical": 0.55,
+          "urgency": 0.85,
+          "humor": 0.65,
+          "directness": 0.9
+        },
+        "mood_scores": {
+          "calm": 0.15,
+          "excited": 0.25,
+          "somber": 0.05,
+          "angry": 0.05,
+          "thrilled": 0.5
+        },
+        "updated_at": "2026-09-19T15:04:00-05:00"
+      },
+      "softpass": true,
+      "note": "Soft-PASS Helios scan: thrilled idle; avatar.png 2026-09-19T14:58:35-05:00; personality 2026-09-19T15:04-05:00; package idle.gif older 14:16",
+      "installed_avatar_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/avatar.png",
+      "installed_avatar_md5": "c012d9d6d5d0a4bd7305fa4572cb7cd6",
+      "installed_avatar_mtime": "2026-09-19T14:58:35-05:00",
+      "installed_stuck_seconds": 55145,
+      "installed_stuck_softfail": true
+    },
+    {
+      "agent": "saxon",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/saxon-happy/softpass/avatar-idle.gif",
+      "gif_md5": "47f8d23bb2428682333e0b9283693007",
+      "gif_mtime": "2026-09-19T15:50:40-05:00",
+      "stuck_seconds": 52020,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    },
+    {
+      "agent": "skippy",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/skippy-happy/softpass/avatar-idle.gif",
+      "gif_md5": "36fa622d879a61991975ce8665d1467d",
+      "gif_mtime": "2026-09-19T15:16:25-05:00",
+      "stuck_seconds": 54075,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    },
+    {
+      "agent": "tinkabot",
+      "mood": "unreported",
+      "voice_state": "idle",
+      "gif_path": "/workspace/living-icon/packages/tinkabot-happy/softpass/avatar-idle.gif",
+      "gif_md5": "efb70a2016fb809efff57b58154b1a20",
+      "gif_mtime": "2026-09-19T15:15:14-05:00",
+      "stuck_seconds": 54146,
+      "stuck_softfail": true,
+      "personality_path": null,
+      "growth": {
+        "source": "unreported",
+        "traits": {},
+        "mood_scores": {}
+      },
+      "softpass": true,
+      "note": "mood unreported until agent Soft-PASS writes declared mood; GIF metrics measured"
+    }
+  ]
+}
