@@ -5,10 +5,12 @@
   "softfail_chris_catch": "Helios installed avatar Soft-PASS 2026-09-19T14:58:35-05:00 thrilled idle; personality.json Soft-PASS only on Helios; stuck_softfail true (~15h). Package softpass/avatar-idle.gif still 2026-09-19T14:16:10-05:00.",
   "host": {
     "owner": "Ada",
-    "pages_living_icon_repo": false,
+    "pages_living_icon_repo": true,
     "feed_path": "/workspace/living-icon/status/feed.json",
-    "url": null,
-    "url_softfail": "no Soft-PASS dashboard URL yet"
+    "url": "https://skiiwa67-collab.github.io/living-icon/dashboard/",
+    "url_softfail": null,
+    "immediate_html": "https://cdn.jsdelivr.net/gh/skiiwa67-collab/living-icon@0896011/docs/dashboard/index.html",
+    "commit": "0896011"
   },
   "agents": [
     {
