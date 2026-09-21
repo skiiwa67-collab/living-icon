@@ -1,0 +1,141 @@
+{
+  "schema": "voice-continuity-product/v1",
+  "key": "Estes-Ops",
+  "updated_at": "2026-09-21T13:53:00-05:00",
+  "updated_by": "Helios",
+  "keywords": [
+    "Estes",
+    "Estes-Ops",
+    "Samsara",
+    "ELD",
+    "AS400",
+    "S-400",
+    "S400",
+    "pingback",
+    "van-sets",
+    "van",
+    "sets",
+    "dispatcher",
+    "dolly",
+    "Sincera",
+    "DoD",
+    "HOS",
+    "misfold",
+    "Starlink",
+    "LTL"
+  ],
+  "payload": {
+    "key": "Estes-Ops",
+    "keywords": [
+      "Estes",
+      "Estes-Ops",
+      "Samsara",
+      "ELD",
+      "AS400",
+      "S-400",
+      "S400",
+      "pingback",
+      "van-sets",
+      "van",
+      "sets",
+      "dispatcher",
+      "dolly",
+      "Sincera",
+      "DoD",
+      "HOS",
+      "misfold",
+      "Starlink",
+      "LTL"
+    ],
+    "company": "Estes Express Lines (LTL)",
+    "last_discussed": "2026-09-19 Fri voice sessions 04\u201308 \u2014 company ops wedge: Samsara UI + AS400 pingback + Sincera DoD fuel",
+    "source_sessions": [
+      {
+        "seq": "04",
+        "slug": "mini-me-down-tinkabot-estes",
+        "started": "2026-09-19T06:25:41-05:00"
+      },
+      {
+        "seq": "05",
+        "slug": "truck-driver-ui-screen-feedback",
+        "started": "2026-09-19T06:42:56-05:00"
+      },
+      {
+        "seq": "06",
+        "slug": "as400-dispatch-estes-consultant",
+        "started": "2026-09-19T07:21:48-05:00"
+      },
+      {
+        "seq": "07",
+        "slug": "dispatcher-van-vs-set",
+        "started": "2026-09-19T07:32:35-05:00"
+      },
+      {
+        "seq": "08",
+        "slug": "sincera-dod-routes-fuel-icons",
+        "started": "2026-09-19T10:06:43-05:00"
+      }
+    ],
+    "decisions": [
+      "Samsara tablet should catch bad dispatch configs and pingback dispatcher before driver screen (no AS400 rewrite required)",
+      "Wedge into Estes via driver-facing UI redesign + dispatch efficiency savings",
+      "Prefer stay at Estes as internal consultant / driver-link to software; push suggestions to Samsara",
+      "Sincera DoD fuel-services panel on routes is a priority efficiency feature",
+      "Estes efficiency savings pitch funds R&D for truck electrification / Power Pod"
+    ],
+    "systems": {
+      "AS400": "Load-bearing dispatch backend (~30 years). Tablet talks to AS400. Do not rip/replace as first move.",
+      "Samsara": "ELD + driver tablet software. Where UI lives. Target layer for validation gate + UI redesign.",
+      "Sincera_DoD": "Services panel concept on routes: fuel / wash / shop per terminal; if no fuel, next company-preferred station (Pilot/Flying J/QT).",
+      "ELD": "Hours of service / Drive Smart live in Samsara tablet UI \u2014 HOS must be largest on-screen element."
+    },
+    "pingback_workflow": {
+      "problem": "Dispatcher assigns van/bobtail but order still requires trailer + dolly \u2192 driver cannot dispatch; wasted call time both sides.",
+      "example_session_07": "Dispatcher set Chris pulling a set when he was pulling a van; took three tries to explain.",
+      "fix": "At Samsara layer: if asset type is van/bobtail but trailer/dolly marked required \u2192 reject + message/red-flag back to dispatcher (email or AS400 flag) before driver screen.",
+      "watchout": "False positives if fields default-populated; key rule off actual asset type."
+    },
+    "ui_spec_highlights": [
+      "Parchment background (not bright white) \u2014 functional glare fix",
+      "Routes panel expands; show trailer number(s), origin/dest codes (e.g. DAL 089\u2192ARL 193), dolly, green/yellow/red status",
+      "Fix accidental O hot-tap; enlarge truck number",
+      "Collapse Training/Documents/Trip Log/Qualifications behind Other; HOS largest; Drive Smart stay big; Tasks show specific dates",
+      "Prominent sign-out; merge Vehicle+truck into dynamic traits button (C&G, single/twin screw) from fleet/S400 source"
+    ],
+    "open_actions": [
+      "Map Estes public software stack (Samsara modules, AS400/IBM i facts, APIs) \u2014 Soft-FAIL invent undocumented pieces",
+      "Design Samsara-layer van-vs-sets validation + pingback prototype",
+      "Continue estes-tablet-redesign spec (GitHub if exists)",
+      "Sincera DoD fuel panel + fuel-chain API/partnership research",
+      "Starlink vs Qualcomm fleet pitch (tractor priority; trailer Starlink cost watch)"
+    ],
+    "bugs_pain": [
+      {
+        "id": "misfold",
+        "status": "open ops",
+        "note": "Wrong trailer hookups from near-identical numbers on unclear UI"
+      },
+      {
+        "id": "van-vs-sets-misassign",
+        "status": "open ops",
+        "note": "Dispatcher config mismatches equipment; no automated pingback yet"
+      },
+      {
+        "id": "AS400-dolly-required",
+        "status": "open ops",
+        "note": "Cannot dispatch van without dolly/trailer fields satisfied"
+      }
+    ],
+    "hypotheses": [
+      "Samsara gate between AS400 and driver tablet is fastest path \u2014 no RPG/AS400 rewrite",
+      "Driver+UI expertise is Chris's wedge into Estes software org"
+    ]
+  },
+  "local_sources": [
+    "/workspace/agent-backups/helios/voice-exports/2026-09-19/04-0625-mini-me-down-tinkabot-estes.md",
+    "/workspace/agent-backups/helios/voice-exports/2026-09-19/05-0642-truck-driver-ui-screen-feedback.md",
+    "/workspace/agent-backups/helios/voice-exports/2026-09-19/06-0721-as400-dispatch-estes-consultant.md",
+    "/workspace/agent-backups/helios/voice-exports/2026-09-19/07-0732-dispatcher-van-vs-set.md",
+    "/workspace/agent-backups/helios/voice-exports/2026-09-19/08-1006-sincera-dod-routes-fuel-icons.md"
+  ]
+}
