@@ -1,7 +1,7 @@
 {
   "schema": "voice-continuity-pool/v2",
-  "updated_at": "2026-09-21T13:53:30-05:00",
-  "updated_by": "tinkabot",
+  "updated_at": "2026-09-21T14:56:24-05:00",
+  "updated_by": "Helios",
   "products": {
     "LRT": {
       "last_discussed": "Ada Soft-PASS tip135 CZ-8A gold + tip136 entertainment disclaimer on stamp-85; Play HOLD",
@@ -186,9 +186,46 @@
         "Samsara gate between AS400 and driver tablet is fastest path \u2014 no RPG/AS400 rewrite",
         "Driver+UI expertise is Chris's wedge into Estes software org"
       ]
+    },
+    "Living Icon": {
+      "last_discussed": "2026-09-21 Helios four Soft-PASS fixes + hang-up keep-working Soft-FAILs",
+      "decisions": [
+        "Helios profile Soft-PASS non-Elon",
+        "Mood remount Soft-PASS calm md5 2932a5cb",
+        "Pages Soft-PASS docs/status/feed.json commit 46f4344",
+        "Runtime GIFs Soft-PASS local packs; personality Soft-PASS Helios only"
+      ],
+      "open_actions": [
+        "Dropbox /Grok-Agent-Backups/living-icon/ Soft-FAIL",
+        "Ada/Da Vinci/Tinkabot personality.json Soft-FAIL",
+        "Dropbox voice-export gaps 08 09 11 14 Soft-FAIL"
+      ],
+      "bugs": [],
+      "hypotheses": [],
+      "tags": [
+        "Living Icon",
+        "Helios-profile"
+      ]
     }
   },
   "recent_calls": [
+    {
+      "agent": "Helios",
+      "started": "2026-09-21T14:18:00-05:00",
+      "slug": "living-icon-four-fixes",
+      "tags": [
+        "Living Icon",
+        "Helios-profile",
+        "voice-continuity",
+        "LRT",
+        "Alarm Pro",
+        "Soft-PASS"
+      ],
+      "paths": {
+        "local_json": "/workspace/agent-backups/helios/voice-session-json/2026-09-21-1435-living-icon-four-fixes.json",
+        "local_md": "/workspace/agent-backups/helios/voice-call-summaries/2026-09-21-1435-living-icon-four-fixes.md"
+      }
+    },
     {
       "agent": "Helios",
       "started": "2026-09-21T13:25:00-05:00",
@@ -246,6 +283,11 @@
       "product_key": "Estes-Ops",
       "latest_session_json": "/workspace/agent-backups/team/Estes-Ops.json",
       "updated_at": "2026-09-21T13:53:00-05:00"
+    },
+    "Living Icon": {
+      "product_key": "Living Icon",
+      "latest_session_json": "/workspace/agent-backups/helios/voice-session-json/2026-09-21-1435-living-icon-four-fixes.json",
+      "updated_at": "2026-09-21T14:56:24-05:00"
     }
   }
 }
