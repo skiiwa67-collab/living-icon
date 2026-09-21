@@ -1,6 +1,6 @@
 {
   "schema": "living-icon-status-feed/v1",
-  "updated_at": "2026-09-21T17:30:29-05:00",
+  "updated_at": "2026-09-21T17:42:30.714731-05:00",
   "stale_threshold_seconds": 21600,
   "canonical_path": "docs/status/feed.json",
   "softfail_chris_catch": "Soft-PASS Pages wire: docs/dashboard/avatars/*.gif Soft-PASS; fleet Soft-PASS six pack rows; Soft-FAIL stuck cleared 2026-09-21",
@@ -56,8 +56,8 @@
       "mood": "calm",
       "voice_state": "idle",
       "gif_path": "avatars/ada.gif",
-      "gif_md5": "626c9e953ddaf1cfc26c8bf3d831c8cf",
-      "gif_mtime": "2026-09-21T17:30:20-05:00",
+      "gif_md5": "6ccfb818704d9604b059df545ca7b3c6",
+      "gif_mtime": "2026-09-21T17:41:21-05:00",
       "stuck_seconds": 8,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/ec74770f-4547-46a2-b58f-f31ddba60b48/personality.json",
@@ -82,12 +82,14 @@
       },
       "softpass": true,
       "pages_avatar": "avatars/ada.gif",
-      "note": "Soft-PASS Pages wire 2026-09-21 \u2014 refreshed gif mtime + measured md5",
-      "installed_avatar_path": "/home/box/agent-data/agents/ec74770f-4547-46a2-b58f-f31ddba60b48/avatar.gif",
-      "installed_avatar_md5": "626c9e953ddaf1cfc26c8bf3d831c8cf",
-      "installed_avatar_mtime": "2026-09-19T15:11:52-05:00",
-      "installed_stuck_seconds": 180859,
-      "installed_stuck_softfail": true
+      "note": "Soft-PASS remount 2026-09-21 Helios GO \u2014 installed avatar refreshed from matrix/idle/calm.gif",
+      "installed_avatar_path": "/home/box/agent-data/agents/ec74770f-4547-46a2-b58f-f31ddba60b48/avatar.png",
+      "installed_avatar_md5": "6ccfb818704d9604b059df545ca7b3c6",
+      "installed_avatar_mtime": "2026-09-21T17:41:21-05:00",
+      "installed_stuck_seconds": 8,
+      "installed_stuck_softfail": false,
+      "source_gif": "/workspace/living-icon/packages/ada-happy/matrix/idle/calm.gif",
+      "source_gif_md5": "6ccfb818704d9604b059df545ca7b3c6"
     },
     {
       "agent": "da-vinci",
@@ -95,8 +97,8 @@
       "voice_state": "idle",
       "gif_path": "avatars/da-vinci.gif",
       "gif_md5": "24854b0590b54d9cc1a3053489e3893c",
-      "gif_mtime": "2026-09-21T17:30:20-05:00",
-      "stuck_seconds": 8,
+      "gif_mtime": "2026-09-21T17:42:03.673199-05:00",
+      "stuck_seconds": 7,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/5a5c4480-3f5e-4bf5-b315-e2a02011fdfe/personality.json",
       "growth": {
@@ -120,60 +122,80 @@
       },
       "softpass": true,
       "pages_avatar": "avatars/da-vinci.gif",
-      "note": "Soft-PASS Pages wire 2026-09-21 \u2014 refreshed gif mtime + measured md5",
+      "note": "Soft-PASS remount 2026-09-21 \u2014 Helios Soft-FAIL stall cleared; idle/calm; matrix flat calm-idle.gif (no voice/mood dirs)",
       "installed_avatar_path": "/home/box/agent-data/agents/5a5c4480-3f5e-4bf5-b315-e2a02011fdfe/avatar.png",
       "installed_avatar_md5": "24854b0590b54d9cc1a3053489e3893c",
-      "installed_avatar_mtime": "2026-09-19T15:15:34-05:00",
-      "installed_stuck_seconds": 180637,
-      "installed_stuck_softfail": true
+      "installed_avatar_mtime": "2026-09-21T17:42:03.669199-05:00",
+      "installed_stuck_seconds": 7,
+      "installed_stuck_softfail": false
     },
     {
       "agent": "saxon",
-      "mood": "unreported",
+      "mood": "calm",
       "voice_state": "idle",
       "gif_path": "avatars/saxon.gif",
       "gif_md5": "47f8d23bb2428682333e0b9283693007",
-      "gif_mtime": "2026-09-21T17:30:20-05:00",
-      "stuck_seconds": 8,
+      "gif_mtime": "2026-09-21T17:42:20.169172-05:00",
+      "stuck_seconds": 10,
       "stuck_softfail": false,
-      "personality_path": null,
+      "personality_path": "/home/box/agent-data/agents/e9c64170-a22b-4c50-a6df-18c1d0d3b627/personality.json",
       "growth": {
-        "source": "unreported",
+        "source": "personality.json",
         "traits": {},
-        "mood_scores": {}
+        "mood_scores": {},
+        "note": "Soft-PASS remount \u2014 no invent traits"
       },
       "softpass": true,
       "pages_avatar": "avatars/saxon.gif",
-      "note": "Soft-PASS Pages wire 2026-09-21 \u2014 refreshed gif mtime + measured md5",
+      "note": "Soft-PASS remount 2026-09-21 clear+set calm-idle.gif",
       "installed_avatar_path": "/home/box/agent-data/agents/e9c64170-a22b-4c50-a6df-18c1d0d3b627/avatar.png",
       "installed_avatar_md5": "47f8d23bb2428682333e0b9283693007",
-      "installed_avatar_mtime": "2026-09-19T15:53:02-05:00",
-      "installed_stuck_seconds": 178389,
-      "installed_stuck_softfail": true
+      "installed_avatar_mtime": "2026-09-21T17:42:20.169172-05:00",
+      "installed_stuck_seconds": 10,
+      "installed_stuck_softfail": false,
+      "source_gif": "/workspace/living-icon/packages/saxon-happy/matrix/calm-idle.gif",
+      "source_gif_md5": "47f8d23bb2428682333e0b9283693007",
+      "remount_stage": "/workspace/living-icon/_remount/saxon-idle-calm.gif"
     },
     {
       "agent": "skippy",
-      "mood": "unreported",
+      "mood": "calm",
       "voice_state": "idle",
       "gif_path": "avatars/skippy.gif",
       "gif_md5": "36fa622d879a61991975ce8665d1467d",
-      "gif_mtime": "2026-09-21T17:30:20-05:00",
-      "stuck_seconds": 8,
+      "gif_mtime": "2026-09-21T17:42:27.358918-05:00",
+      "stuck_seconds": 0,
       "stuck_softfail": false,
-      "personality_path": null,
+      "personality_path": "/home/box/agent-data/agents/2f489fae-574f-4b61-b618-40a8a74b08e8/personality.json",
       "growth": {
-        "source": "unreported",
-        "traits": {},
-        "mood_scores": {}
+        "source": "personality.json",
+        "traits": {
+          "warmth": 0.45,
+          "analytical": 0.85,
+          "urgency": 0.55,
+          "humor": 0.9,
+          "directness": 0.95,
+          "note": "Soft-PASS seed defaults \u2014 arrogant Elder roast; Soft-FAIL invent growth"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-09-21T17:42:01.527886-05:00"
       },
       "softpass": true,
       "pages_avatar": "avatars/skippy.gif",
-      "note": "Soft-PASS Pages wire 2026-09-21 \u2014 refreshed gif mtime + measured md5",
+      "note": "Soft-PASS remount 2026-09-21 Helios GO \u2014 stall cleared; idle/calm; md5 matches source",
       "installed_avatar_path": "/home/box/agent-data/agents/2f489fae-574f-4b61-b618-40a8a74b08e8/avatar.png",
       "installed_avatar_md5": "36fa622d879a61991975ce8665d1467d",
-      "installed_avatar_mtime": "2026-09-19T15:16:32-05:00",
-      "installed_stuck_seconds": 180580,
-      "installed_stuck_softfail": true
+      "installed_avatar_mtime": "2026-09-21T17:42:27.321160-05:00",
+      "installed_stuck_seconds": 0,
+      "installed_stuck_softfail": false,
+      "source_gif": "/workspace/living-icon/packages/skippy-happy/matrix/idle/calm.gif",
+      "source_gif_md5": "36fa622d879a61991975ce8665d1467d"
     },
     {
       "agent": "tinkabot",
@@ -181,7 +203,7 @@
       "voice_state": "idle",
       "gif_path": "avatars/tinkabot.gif",
       "gif_md5": "efb70a2016fb809efff57b58154b1a20",
-      "gif_mtime": "2026-09-21T17:30:20-05:00",
+      "gif_mtime": "2026-09-21T17:41:52-05:00",
       "stuck_seconds": 8,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/9ca7f7d0-4648-4cfe-bc49-206401979b89/personality.json",
@@ -206,12 +228,13 @@
       },
       "softpass": true,
       "pages_avatar": "avatars/tinkabot.gif",
-      "note": "Soft-PASS Pages wire 2026-09-21 \u2014 refreshed gif mtime + measured md5",
+      "note": "Soft-PASS remount 2026-09-21 clear+set calm-idle.gif md5 efb70a2016fb809efff57b58154b1a20",
       "installed_avatar_path": "/home/box/agent-data/agents/9ca7f7d0-4648-4cfe-bc49-206401979b89/avatar.png",
       "installed_avatar_md5": "efb70a2016fb809efff57b58154b1a20",
-      "installed_avatar_mtime": "2026-09-19T15:16:12-05:00",
-      "installed_stuck_seconds": 180600,
-      "installed_stuck_softfail": true
+      "installed_avatar_mtime": "2026-09-21T17:41:44-05:00",
+      "installed_stuck_seconds": 8,
+      "installed_stuck_softfail": false,
+      "source_gif": "/workspace/living-icon/packages/tinkabot-happy/matrix/calm-idle.gif"
     }
   ]
 }
