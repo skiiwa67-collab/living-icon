@@ -168,7 +168,7 @@ function render(){
   }
 }
 async function load(){
-  const [dRes,fRes]=await Promise.all([fetch('data.json?ts='+Date.now()), fetch('../../status/feed.json?ts='+Date.now())]);
+  const [dRes,fRes]=await Promise.all([fetch('data.json?ts='+Date.now()), fetch('../status/feed.json?ts='+Date.now())]);
   DATA=await dRes.json();
   try{ FEED=await fRes.json(); }catch(e){ FEED=null; }
   document.getElementById('generated').textContent='Soft-PASS '+(DATA.generated_at_ct||DATA.generated_at)+' · '+(DATA.roster||[]).length+' agents'+(FEED?' · feed '+FEED.updated_at:' · Soft-FAIL feed');
