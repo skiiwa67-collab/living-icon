@@ -77,7 +77,7 @@ def main():
             sp = PACKAGES / pkg / 'softpass' / 'avatar-idle.gif'
             if sp.exists():
                 softpass_path = str(sp)
-                softpass_rel = f'../../packages/{pkg}/softpass/avatar-idle.gif'
+                softpass_rel = f"avatars/{pkg[:-6] if pkg.endswith('-happy') else pkg}.gif"
                 softpass_md5 = md5(sp)
                 softpass_mtime = datetime.fromtimestamp(sp.stat().st_mtime, timezone.utc).isoformat()
             vs = voice_state or 'idle'
@@ -88,7 +88,7 @@ def main():
             if not mg.exists():
                 mg = PACKAGES / pkg / 'matrix' / 'idle' / 'calm.gif'
             if mg.exists():
-                matrix_rel = f'../../packages/{pkg}/matrix/{mg.parent.name}/{mg.name}'
+                matrix_rel = f"avatars/{pkg[:-6] if pkg.endswith('-happy') else pkg}.gif"
 
         if stall_h is None:
             stall_flag = 'Soft-FAIL no avatar'

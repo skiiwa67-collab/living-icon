@@ -146,7 +146,8 @@ function render(){
   if(filter==='stall') rows=rows.filter(r=>{ const f=feedFor(r); return (f&&f.stuck_softfail)||(r.stall_flag||'').includes('Soft-FAIL'); });
   for(const r of rows){
     const f=feedFor(r); const el=document.createElement('article'); el.className='card '+cardClass(r,f);
-    const img=r.active_animation||r.softpass_rel;
+    const slug=SLUG[r.name]||(r.package||'').replace(/-happy$/,'');
+    const img=(slug?('avatars/'+slug+'.gif'):null)||r.active_animation||r.softpass_rel;
     const growth=r.growth||{};
     let growthLine;
     if(f&&f.growth&&f.growth.source==='personality.json'&&f.growth.mood_scores&&Object.keys(f.growth.mood_scores).length)
