@@ -1,9 +1,9 @@
 {
   "schema": "living-icon-status-feed/v1",
-  "updated_at": "2026-09-21T17:42:30.714731-05:00",
+  "updated_at": "2026-09-23T09:11:11-05:00",
   "stale_threshold_seconds": 21600,
   "canonical_path": "docs/status/feed.json",
-  "softfail_chris_catch": "Soft-PASS Pages wire: docs/dashboard/avatars/*.gif Soft-PASS; fleet Soft-PASS six pack rows; Soft-FAIL stuck cleared 2026-09-21",
+  "softfail_chris_catch": "Soft-PASS Helios forced dashboard refresh 2026-09-23 ~09:10 CT because feed was stale since 2026-09-22; Ada + Da Vinci GIF mtimes/md5 refreshed; stuck_seconds recalculated Soft-PASS.",
   "host": {
     "owner": "Ada",
     "has_pages": true,
@@ -11,7 +11,8 @@
     "feed_path_canonical": "/workspace/living-icon/docs/status/feed.json",
     "url": "https://skiiwa67-collab.github.io/living-icon/dashboard/",
     "feed_pages_url": "https://skiiwa67-collab.github.io/living-icon/status/feed.json",
-    "url_softfail": null
+    "url_softfail": null,
+    "canonical_path": "docs/status/feed.json"
   },
   "agents": [
     {
@@ -20,8 +21,8 @@
       "voice_state": "idle",
       "gif_path": "avatars/helios.gif",
       "gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
-      "gif_mtime": "2026-09-21T17:30:20-05:00",
-      "stuck_seconds": 8,
+      "gif_mtime": "2026-09-22T15:55:05-05:00",
+      "stuck_seconds": 12,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/personality.json",
       "growth": {
@@ -40,16 +41,19 @@
           "angry": 0.05,
           "thrilled": 0.05
         },
-        "updated_at": "2026-09-21T14:33:24-05:00"
+        "updated_at": "2026-09-21T17:31:00-05:00"
       },
       "softpass": true,
       "pages_avatar": "avatars/helios.gif",
-      "note": "Soft-PASS Pages wire 2026-09-21 \u2014 refreshed gif mtime + measured md5",
+      "note": "Soft-PASS remount 2026-09-22T15:55:18-05:00 \u2014 clear+set idle/calm md5 2932a5cb12a948aded1c8a3e89c5616c; age=12s",
       "installed_avatar_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/avatar.png",
       "installed_avatar_md5": "2932a5cb12a948aded1c8a3e89c5616c",
-      "installed_avatar_mtime": "2026-09-21T14:33:32-05:00",
-      "installed_stuck_seconds": 10359,
-      "installed_stuck_softfail": false
+      "installed_avatar_mtime": "2026-09-22T15:55:05-05:00",
+      "installed_stuck_seconds": 12,
+      "installed_stuck_softfail": false,
+      "source_gif": "/workspace/living-icon/packages/helios-happy/matrix/idle/calm.gif",
+      "source_gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
+      "remount_stage": "/workspace/living-icon/_remount/helios-idle-calm.gif"
     },
     {
       "agent": "ada",
@@ -57,8 +61,8 @@
       "voice_state": "idle",
       "gif_path": "avatars/ada.gif",
       "gif_md5": "6ccfb818704d9604b059df545ca7b3c6",
-      "gif_mtime": "2026-09-21T17:41:21-05:00",
-      "stuck_seconds": 8,
+      "gif_mtime": "2026-09-23T09:11:11-05:00",
+      "stuck_seconds": 0,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/ec74770f-4547-46a2-b58f-f31ddba60b48/personality.json",
       "growth": {
@@ -78,18 +82,19 @@
           "angry": 0.05,
           "thrilled": 0.15
         },
-        "updated_at": "2026-09-21T14:56:55-05:00"
+        "updated_at": "2026-09-23T09:10:18-05:00"
       },
       "softpass": true,
       "pages_avatar": "avatars/ada.gif",
-      "note": "Soft-PASS remount 2026-09-21 Helios GO \u2014 installed avatar refreshed from matrix/idle/calm.gif",
+      "note": "Soft-PASS Helios forced dashboard refresh 2026-09-23 ~09:10 CT because feed was stale since 2026-09-22; remounted matrix/idle/calm.gif; stuck_seconds recalculated Soft-PASS=0; md5 refreshed.",
       "installed_avatar_path": "/home/box/agent-data/agents/ec74770f-4547-46a2-b58f-f31ddba60b48/avatar.png",
-      "installed_avatar_md5": "6ccfb818704d9604b059df545ca7b3c6",
-      "installed_avatar_mtime": "2026-09-21T17:41:21-05:00",
-      "installed_stuck_seconds": 8,
+      "installed_avatar_md5": "9d78d03fbffd8f1443f86d91f26ca9cc",
+      "installed_avatar_mtime": "2026-09-23T09:10:22-05:00",
+      "installed_stuck_seconds": 15,
       "installed_stuck_softfail": false,
       "source_gif": "/workspace/living-icon/packages/ada-happy/matrix/idle/calm.gif",
-      "source_gif_md5": "6ccfb818704d9604b059df545ca7b3c6"
+      "source_gif_md5": "6ccfb818704d9604b059df545ca7b3c6",
+      "remount_stage": "/workspace/living-icon/_remount/ada-idle-calm.gif"
     },
     {
       "agent": "da-vinci",
@@ -97,8 +102,8 @@
       "voice_state": "idle",
       "gif_path": "avatars/da-vinci.gif",
       "gif_md5": "24854b0590b54d9cc1a3053489e3893c",
-      "gif_mtime": "2026-09-21T17:42:03.673199-05:00",
-      "stuck_seconds": 7,
+      "gif_mtime": "2026-09-23T09:11:11-05:00",
+      "stuck_seconds": 0,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/5a5c4480-3f5e-4bf5-b315-e2a02011fdfe/personality.json",
       "growth": {
@@ -122,12 +127,15 @@
       },
       "softpass": true,
       "pages_avatar": "avatars/da-vinci.gif",
-      "note": "Soft-PASS remount 2026-09-21 \u2014 Helios Soft-FAIL stall cleared; idle/calm; matrix flat calm-idle.gif (no voice/mood dirs)",
+      "note": "Soft-PASS Helios forced dashboard refresh 2026-09-23 ~09:10 CT because feed was stale since 2026-09-22; remounted matrix/calm-idle.gif; stuck_seconds recalculated Soft-PASS=0; md5 refreshed.",
       "installed_avatar_path": "/home/box/agent-data/agents/5a5c4480-3f5e-4bf5-b315-e2a02011fdfe/avatar.png",
       "installed_avatar_md5": "24854b0590b54d9cc1a3053489e3893c",
       "installed_avatar_mtime": "2026-09-21T17:42:03.669199-05:00",
       "installed_stuck_seconds": 7,
-      "installed_stuck_softfail": false
+      "installed_stuck_softfail": false,
+      "source_gif": "/workspace/living-icon/packages/da-vinci-happy/matrix/calm-idle.gif",
+      "source_gif_md5": "24854b0590b54d9cc1a3053489e3893c",
+      "remount_stage": "/workspace/living-icon/_remount/da-vinci-idle-calm.gif"
     },
     {
       "agent": "saxon",
