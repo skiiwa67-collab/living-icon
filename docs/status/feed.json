@@ -1,6 +1,6 @@
 {
   "schema": "living-icon-status-feed/v1",
-  "updated_at": "2026-09-23T09:11:11-05:00",
+  "updated_at": "2026-10-01T08:43:40.029915-05:00",
   "stale_threshold_seconds": 21600,
   "canonical_path": "docs/status/feed.json",
   "softfail_chris_catch": "Soft-PASS Helios forced dashboard refresh 2026-09-23 ~09:10 CT because feed was stale since 2026-09-22; Ada + Da Vinci GIF mtimes/md5 refreshed; stuck_seconds recalculated Soft-PASS.",
@@ -21,8 +21,8 @@
       "voice_state": "idle",
       "gif_path": "avatars/helios.gif",
       "gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
-      "gif_mtime": "2026-09-22T15:55:05-05:00",
-      "stuck_seconds": 12,
+      "gif_mtime": "2026-10-01T08:43:24.191549-05:00",
+      "stuck_seconds": 15.838,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/personality.json",
       "growth": {
@@ -45,15 +45,18 @@
       },
       "softpass": true,
       "pages_avatar": "avatars/helios.gif",
-      "note": "Soft-PASS remount 2026-09-22T15:55:18-05:00 \u2014 clear+set idle/calm md5 2932a5cb12a948aded1c8a3e89c5616c; age=12s",
+      "note": "remount 2026-10-01 08:43 CT after stuck ~18.0h: clear+set idle/calm; md5 matches matrix gif; mood unchanged since 2026-09-21",
       "installed_avatar_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/avatar.png",
       "installed_avatar_md5": "2932a5cb12a948aded1c8a3e89c5616c",
-      "installed_avatar_mtime": "2026-09-22T15:55:05-05:00",
-      "installed_stuck_seconds": 12,
+      "installed_avatar_mtime": "2026-10-01T08:43:24.191549-05:00",
+      "installed_stuck_seconds": 15.838,
       "installed_stuck_softfail": false,
       "source_gif": "/workspace/living-icon/packages/helios-happy/matrix/idle/calm.gif",
       "source_gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
-      "remount_stage": "/workspace/living-icon/_remount/helios-idle-calm.gif"
+      "remount_stage": "/workspace/living-icon/_remount/helios-idle-calm.gif",
+      "checked_at": "2026-10-01T08:43:40.029915-05:00",
+      "pre_remount_stuck_seconds": 64833.0,
+      "pre_remount_stuck_softfail": true
     },
     {
       "agent": "ada",
