@@ -112,9 +112,10 @@ def update_feed(path, rows, now, open_asks):
 def main():
     now = datetime.now(timezone.utc)
     m = mood_sources.load_map()
-    act = ok_queue.active(now=now)
+    raw = ok_queue.load_raw()   # one read: header count, badges, other line share it
+    act = ok_queue.active(raw, now=now)
     waiting = ok_queue.waiting_by_slug(act, ok_queue.name_map(m))
-    okreq = ok_queue.ok_request_by_slug(ok_queue.name_map(m), now=now)
+    okreq = ok_queue.ok_request_by_slug(ok_queue.name_map(m), now=now, items=raw)
     rows = [build_row(s, c, now, waiting, okreq) for s, c in m['agents'].items()]
     open_asks = len(act)
     out = {'schema': 'living-icon-stall-dashboard/v2', 'generated_at': now.isoformat(),

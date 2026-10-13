@@ -130,18 +130,38 @@ def newest_event(items=None, path=None):
             if t and (best is None or t > best): best = t
     return best
 
+import re
+ALIASES = {'ys': 'yard-software', 'yard': 'yard-software', 'dbo': 'dropbox-organizer', 'dropbox': 'dropbox-organizer',
+           'se': 'strip-electrical', 'strip': 'strip-electrical', 'pp': 'power-pod', 'dv': 'da-vinci',
+           'davinci': 'da-vinci', 'tinka': 'tinkabot'}
+
+def _key(s):
+    return re.sub(r'[^a-z0-9]+', '-', (s or '').strip().lower()).strip('-')
+
+def resolve_slug(bot, name_to_slug, ask_id=None):
+    """Single place mapping an ask's bot field (any case/spacing/alias) or ASK-ID prefix to a roster slug."""
+    slugs = set(name_to_slug.values())
+    idx = {_key(k): v for k, v in name_to_slug.items()}
+    idx.update({_key(v): v for v in slugs})
+    idx.update({k.replace('-', ''): v for k, v in list(idx.items())})
+    for cand in (bot, (ask_id or '').split('-')[0] if ask_id and not bot else None):
+        k = _key(cand)
+        if not k: continue
+        for t in (k, k.replace('-', ''), ALIASES.get(k), ALIASES.get(k.replace('-', ''))):
+            if t and t in idx: return idx[t]
+    return None
+
 def waiting_by_slug(act, name_to_slug):
     w = {}
     for a in act:
-        b = (a.get('bot') or '').strip()
-        slug = name_to_slug.get(b) or name_to_slug.get(b.lower())
+        slug = resolve_slug(a.get('bot'), name_to_slug, a.get('ask_id'))
         if slug and slug not in w:
             w[slug] = {'ask_id': a['ask_id'], 'since': a['since'], 'status': a['status']}
     return w
 
 def unmapped(act, name_to_slug):
     """Active asks whose bot isn't in the roster (shown on the dashboard 'other' line)."""
-    return [a for a in act if not (name_to_slug.get((a.get('bot') or '').strip()) or name_to_slug.get((a.get('bot') or '').strip().lower()))]
+    return [a for a in act if not resolve_slug(a.get('bot'), name_to_slug, a.get('ask_id'))]
 
 def name_map(m):
     d = {}
@@ -163,7 +183,7 @@ def ok_request_by_slug(name_to_slug, now=None, items=None, path=None):
     raw = items if items is not None else load_raw(path)
     out = {}
     for a in active(raw, now=now):
-        slug = name_to_slug.get((a.get('bot') or '').strip()) or name_to_slug.get((a.get('bot') or '').strip().lower())
+        slug = resolve_slug(a.get('bot'), name_to_slug, a['ask_id'])
         if not slug: continue
         rec = latest(raw).get(a['ask_id'], {})
         pri = _priority(rec)
@@ -175,8 +195,7 @@ def ok_request_by_slug(name_to_slug, now=None, items=None, path=None):
     for aid, r in latest([x for x in raw if x.get('kind', 'ask') == 'ask']).items():
         if norm_status(r.get('status')) != 'approved': continue
         t = _ts(r.get('answered_at')) or _ts(r.get('resolved')) or _ts(r.get('ts'))
-        b = (r.get('bot') or '').strip()
-        slug = name_to_slug.get(b) or name_to_slug.get(b.lower())
+        slug = resolve_slug(r.get('bot'), name_to_slug, aid)
         if slug and slug not in out and t and 0 <= (now - t).total_seconds() <= APPROVED_SHOW_S:
             out[slug] = {'state': 'approved', 'ask_id': aid, 'since': t.astimezone(timezone.utc).isoformat(), 'priority': _priority(r)}
     return out
