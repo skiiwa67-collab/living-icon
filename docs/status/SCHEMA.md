@@ -2,9 +2,11 @@
 
 One JSON Soft-PASS file the browser dashboard Soft-PASS polls.
 
-**Canonical path (GitHub Pages `/docs`):** `docs/status/feed.json`
-**Workspace mirror:** `/workspace/living-icon-repo/status/feed.json` (identical content; host.canonical_path = `docs/status/feed.json`)
-**Pages URL:** https://skiiwa67-collab.github.io/living-icon/status/feed.json
+**Canonical (box-local):** `/workspace/living-icon-repo/docs/status/feed.json`, plus a copy at `/workspace/living-icon-repo/status/feed.json`.
+Both are rebuilt atomically by `docs/dashboard/refresh_data.py` inside the Living Icon loop, using the box mood files listed in `docs/status/mood-sources.json`.
+GitHub Pages is a backup only and is never in the live path (Chris rule, 2026-10-13). Timestamps are ISO 8601 with an offset.
+`stateModel`: `matrix` uses moods calm|excited|somber|angry|thrilled and voices idle|listening|talking. `flat` (Eve) uses idle|listening|thinking|relay-active|waiting-parked|launch-dnd|happy|frustrated.
+`waiting`: {ask_id, since, status} while the bot has an unresolved OK ask (read-only from interrupt-pending.json).
 
 ```
 {

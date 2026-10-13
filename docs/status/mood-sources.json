@@ -1,6 +1,6 @@
 {
   "schema": "living-icon-mood-sources/v1",
-  "note": "Box-local only. set_mood.py writes each bot's own source file (merged, schema kept) and mirrors to docs/status/live/<slug>.json. Readers take the newest of source vs live.",
+  "note": "Box-local only; living-icon-repo is canonical. set_mood.py writes the bot's own source file (merged) + mirrors docs/status/live/<slug>.json. Readers take the newest of the two. Art: <art_dir> resolved by scripts/art.py (voice->idle, mood->calm fallback). stale_tree_reads = own mood files still in /workspace/living-icon, to be moved by those bots.",
   "matrix_moods": [
     "calm",
     "excited",
@@ -23,31 +23,36 @@
       "name": "Ada",
       "id": "ec74770f-4547-46a2-b58f-f31ddba60b48",
       "stateModel": "matrix",
-      "source": "docs/status/live/ada.json"
+      "source": "docs/status/live/ada.json",
+      "art_dir": "packages/ada-happy"
     },
     "da-vinci": {
       "name": "Da Vinci",
       "id": "5a5c4480-3f5e-4bf5-b315-e2a02011fdfe",
       "stateModel": "matrix",
-      "source": "/workspace/agent-backups/Da-Vinci/living-icon/mood.json"
+      "source": "/workspace/agent-backups/Da-Vinci/living-icon/mood.json",
+      "art_dir": "packages/da-vinci-happy"
     },
     "dropbox-organizer": {
       "name": "DropBox Organizer",
       "id": "3b1a86d5-e519-4a16-8efc-e3dad6fdc561",
       "stateModel": "matrix",
-      "source": "/workspace/living-icon/agents/dropbox-organizer/mood.json"
+      "source": "/workspace/living-icon/agents/dropbox-organizer/mood.json",
+      "art_dir": "packages/dropbox-organizer-happy"
     },
     "eve": {
       "name": "Eve",
       "id": "8d633572-a8c8-4944-807a-c212b491a370",
       "stateModel": "flat",
-      "source": "/workspace/agent-backups/Eve/mood-state.json"
+      "source": "/workspace/agent-backups/Eve/mood-state.json",
+      "art_dir": "packages/eve-happy"
     },
     "helios": {
       "name": "Helios",
       "id": "fe0b6c3f-adcf-483f-a7f9-335890abd80d",
       "stateModel": "matrix",
-      "source": "docs/status/live/helios.json"
+      "source": "docs/status/live/helios.json",
+      "art_dir": "packages/helios-happy"
     },
     "perseus": {
       "name": "Perseus",
@@ -60,20 +65,22 @@
         "talking"
       ],
       "sheet": "/workspace/agent-backups/Perseus/living-icon/PACKAGE.md",
-      "art_status": "placeholder (sheet says DRAFT, not reviewed)"
+      "art_status": "approved by Chris 2026-10-13 06:46 CT; copied from /workspace/agent-backups/Perseus/living-icon/",
+      "art_dir": "packages/perseus-happy"
     },
     "power-pod": {
       "name": "Power Pod",
       "id": "8b062242-aff5-4aea-b5fa-1665562c2cd9",
       "stateModel": "matrix",
-      "source": "/workspace/agent-backups/Power-Pod/living-icon/mood-state.json"
+      "source": "/workspace/agent-backups/Power-Pod/living-icon/mood-state.json",
+      "art_dir": "packages/power-pod-happy"
     },
     "saxon": {
       "name": "Saxon",
       "id": "e9c64170-a22b-4c50-a6df-18c1d0d3b627",
       "stateModel": "matrix",
       "source": "/workspace/agent-backups/Saxon/mood-state.json",
-      "art_layout": "matrix/<mood>-<voice>.gif"
+      "art_dir": "packages/saxon-happy"
     },
     "skippy": {
       "name": "Skippy the Magnificent",
@@ -82,25 +89,34 @@
       "source": "docs/status/live/skippy.json",
       "flat_map": {
         "idle": "calm"
-      }
+      },
+      "art_dir": "packages/skippy-happy"
     },
     "strip-electrical": {
       "name": "Strip Electrical",
       "id": "c4780272-495e-4eef-bbd4-654c9275d9fe",
       "stateModel": "matrix",
-      "source": "/workspace/living-icon/packages/strip-electrical/mood-state.json"
+      "source": "/workspace/living-icon/packages/strip-electrical/mood-state.json",
+      "art_dir": "packages/strip-electrical-happy"
     },
     "tinkabot": {
       "name": "tinkabot",
       "id": "9ca7f7d0-4648-4cfe-bc49-206401979b89",
       "stateModel": "matrix",
-      "source": "docs/status/live/tinkabot.json"
+      "source": "docs/status/live/tinkabot.json",
+      "art_dir": "packages/tinkabot-happy"
     },
     "yard-software": {
       "name": "Yard Software",
       "id": "1116c9b2-1dff-4625-92f2-1090a5e2dc16",
       "stateModel": "matrix",
-      "source": "/workspace/living-icon/agents/yard-software/mood.json"
+      "source": "/workspace/living-icon/agents/yard-software/mood.json",
+      "art_dir": "packages/yard-software-happy"
     }
-  }
+  },
+  "stale_tree_reads": [
+    "/workspace/living-icon/agents/dropbox-organizer/mood.json",
+    "/workspace/living-icon/packages/strip-electrical/mood-state.json",
+    "/workspace/living-icon/agents/yard-software/mood.json"
+  ]
 }

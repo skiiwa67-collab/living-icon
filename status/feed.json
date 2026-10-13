@@ -1,6 +1,6 @@
 {
   "schema": "living-icon-status-feed/v1",
-  "updated_at": "2026-10-08T15:23:23.586314-05:00",
+  "updated_at": "2026-10-13T06:58:28.644050-05:00",
   "stale_threshold_seconds": 21600,
   "canonical_path": "docs/status/feed.json",
   "softfail_chris_catch": "Soft-PASS Helios forced dashboard refresh 2026-09-23 ~09:10 CT because feed was stale since 2026-09-22; Ada + Da Vinci GIF mtimes/md5 refreshed; stuck_seconds recalculated Soft-PASS.",
@@ -18,56 +18,13 @@
   },
   "agents": [
     {
-      "agent": "helios",
-      "mood": "calm",
-      "voice_state": "idle",
-      "gif_path": "avatars/helios.gif",
-      "gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
-      "gif_mtime": "2026-10-08T15:23:23.587055-05:00",
-      "stuck_seconds": 13.631,
-      "stuck_softfail": false,
-      "personality_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/personality.json",
-      "growth": {
-        "source": "personality.json",
-        "traits": {
-          "warmth": 0.7,
-          "analytical": 0.55,
-          "urgency": 0.85,
-          "humor": 0.65,
-          "directness": 0.9
-        },
-        "mood_scores": {
-          "calm": 0.8,
-          "excited": 0.05,
-          "somber": 0.05,
-          "angry": 0.05,
-          "thrilled": 0.05
-        },
-        "updated_at": "2026-09-21T17:31:00-05:00"
-      },
-      "softpass": true,
-      "pages_avatar": "avatars/helios.gif",
-      "note": "remount 2026-10-08 15:23 CT after stuck ~6.5h (avatar.png mtime 2026-10-08 08:52): clear+set idle/calm; md5 matches matrix gif; mood unchanged since 2026-09-21",
-      "installed_avatar_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/avatar.png",
-      "installed_avatar_md5": "2932a5cb12a948aded1c8a3e89c5616c",
-      "installed_avatar_mtime": "2026-10-08T15:23:09.955097-05:00",
-      "installed_stuck_seconds": 13.631,
-      "installed_stuck_softfail": false,
-      "source_gif": "/workspace/living-icon-repo/packages/helios-happy/matrix/idle/calm.gif",
-      "source_gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
-      "remount_stage": "/workspace/living-icon-repo/_remount/helios-idle-calm.gif",
-      "checked_at": "2026-10-08T15:23:23.586314-05:00",
-      "pre_remount_stuck_seconds": 23464.0,
-      "pre_remount_stuck_softfail": true
-    },
-    {
       "agent": "ada",
       "mood": "calm",
       "voice_state": "idle",
-      "gif_path": "avatars/ada.gif",
+      "gif_path": "packages/ada-happy/matrix/idle/calm.gif",
       "gif_md5": "6ccfb818704d9604b059df545ca7b3c6",
-      "gif_mtime": "2026-09-23T09:11:11-05:00",
-      "stuck_seconds": 0,
+      "gif_mtime": "2026-10-06T17:05:21.520981-05:00",
+      "stuck_seconds": 0.0,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/ec74770f-4547-46a2-b58f-f31ddba60b48/personality.json",
       "growth": {
@@ -93,22 +50,27 @@
       "pages_avatar": "avatars/ada.gif",
       "note": "Soft-PASS Helios forced dashboard refresh 2026-09-23 ~09:10 CT because feed was stale since 2026-09-22; remounted matrix/idle/calm.gif; stuck_seconds recalculated Soft-PASS=0; md5 refreshed.",
       "installed_avatar_path": "/home/box/agent-data/agents/ec74770f-4547-46a2-b58f-f31ddba60b48/avatar.png",
-      "installed_avatar_md5": "9d78d03fbffd8f1443f86d91f26ca9cc",
-      "installed_avatar_mtime": "2026-09-23T09:10:22-05:00",
+      "installed_avatar_md5": "6ccfb818704d9604b059df545ca7b3c6",
+      "installed_avatar_mtime": "2026-10-13T06:38:47.767981-05:00",
       "installed_stuck_seconds": 15,
       "installed_stuck_softfail": false,
       "source_gif": "/workspace/living-icon-repo/packages/ada-happy/matrix/idle/calm.gif",
       "source_gif_md5": "6ccfb818704d9604b059df545ca7b3c6",
-      "remount_stage": "/workspace/living-icon-repo/_remount/ada-idle-calm.gif"
+      "remount_stage": "/workspace/living-icon-repo/_remount/ada-idle-calm.gif",
+      "stateModel": "matrix",
+      "mood_source": "/workspace/living-icon-repo/docs/status/live/ada.json",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
     },
     {
       "agent": "da-vinci",
       "mood": "calm",
       "voice_state": "idle",
-      "gif_path": "avatars/da-vinci.gif",
-      "gif_md5": "24854b0590b54d9cc1a3053489e3893c",
-      "gif_mtime": "2026-09-23T09:11:11-05:00",
-      "stuck_seconds": 0,
+      "gif_path": "packages/da-vinci-happy/matrix/idle/calm.gif",
+      "gif_md5": "c237486817fe8c5d22b68aeb53ebc43a",
+      "gif_mtime": "2026-10-13T06:55:32.039216-05:00",
+      "stuck_seconds": 0.0,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/5a5c4480-3f5e-4bf5-b315-e2a02011fdfe/personality.json",
       "growth": {
@@ -134,22 +96,238 @@
       "pages_avatar": "avatars/da-vinci.gif",
       "note": "Soft-PASS Helios forced dashboard refresh 2026-09-23 ~09:10 CT because feed was stale since 2026-09-22; remounted matrix/calm-idle.gif; stuck_seconds recalculated Soft-PASS=0; md5 refreshed.",
       "installed_avatar_path": "/home/box/agent-data/agents/5a5c4480-3f5e-4bf5-b315-e2a02011fdfe/avatar.png",
-      "installed_avatar_md5": "24854b0590b54d9cc1a3053489e3893c",
-      "installed_avatar_mtime": "2026-09-21T17:42:03.669199-05:00",
+      "installed_avatar_md5": "d8e10cc01447ec4e6bb8040f13fbc143",
+      "installed_avatar_mtime": "2026-10-13T06:49:39.158740-05:00",
       "installed_stuck_seconds": 7,
       "installed_stuck_softfail": false,
       "source_gif": "/workspace/living-icon-repo/packages/da-vinci-happy/matrix/calm-idle.gif",
       "source_gif_md5": "24854b0590b54d9cc1a3053489e3893c",
-      "remount_stage": "/workspace/living-icon-repo/_remount/da-vinci-idle-calm.gif"
+      "remount_stage": "/workspace/living-icon-repo/_remount/da-vinci-idle-calm.gif",
+      "stateModel": "matrix",
+      "mood_source": "/workspace/agent-backups/Da-Vinci/living-icon/mood.json",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
+    },
+    {
+      "agent": "dropbox-organizer",
+      "display_name": "DropBox Organizer",
+      "stateModel": "matrix",
+      "mood": "calm",
+      "voice_state": "idle",
+      "placeholder": true,
+      "softpass": true,
+      "gif_path": "packages/dropbox-organizer-happy/matrix/idle/calm.gif",
+      "pages_avatar": "avatars/dropbox-organizer.gif",
+      "growth": {
+        "source": "seed",
+        "traits": {
+          "warmth": 0.5,
+          "analytical": 0.5,
+          "urgency": 0.5,
+          "humor": 0.5,
+          "directness": 0.5,
+          "note": "Soft-PASS seed defaults unmeasured"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-10-13T06:45:00-05:00"
+      },
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves).",
+      "mood_source": "/workspace/living-icon/agents/dropbox-organizer/mood.json",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "gif_md5": "0bcc4fa306674006314f9b58c3ccc1dc",
+      "gif_mtime": "2026-10-13T06:55:36.959105-05:00",
+      "installed_avatar_path": "/home/box/agent-data/agents/3b1a86d5-e519-4a16-8efc-e3dad6fdc561/avatar.png",
+      "installed_avatar_md5": "265f20bb4085d3e8132370d1c14cd3dd",
+      "installed_avatar_mtime": "2026-10-13T06:55:10.095709-05:00",
+      "stuck_seconds": 0.0,
+      "stuck_softfail": false,
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
+    },
+    {
+      "agent": "eve",
+      "mood": "waiting-parked",
+      "voice_state": "idle",
+      "mood_states": [
+        "idle",
+        "listening",
+        "thinking",
+        "relay-active",
+        "happy",
+        "waiting-parked",
+        "launch-dnd",
+        "frustrated"
+      ],
+      "gif_path": "packages/eve-happy/states/waiting-parked.gif",
+      "pages_avatar": "avatars/eve.gif",
+      "placeholder": true,
+      "softpass": true,
+      "source_gif": "/workspace/living-icon-repo/packages/eve-happy/states/idle.gif",
+      "note": "PLACEHOLDER slot added 2026-10-13; Da Vinci art pending Chris approval.",
+      "live_state_path": "/workspace/agent-backups/Eve/mood-state.json",
+      "stateModel": "flat",
+      "live_state_mirror": "docs/status/live/eve.json",
+      "art_map": {
+        "launch-dnd": "states/launch-DND.gif"
+      },
+      "mood_source": "/workspace/agent-backups/Eve/mood-state.json",
+      "mood_since": "2026-10-13T06:50:45-05:00",
+      "gif_md5": "f12dc8a8eaf62332b8cfcdf85d4f5f74",
+      "gif_mtime": "2026-10-13T06:55:32.075215-05:00",
+      "installed_avatar_path": "/home/box/agent-data/agents/8d633572-a8c8-4944-807a-c212b491a370/avatar.png",
+      "installed_avatar_md5": "13ba51502c89eeb61f953e4e705e5ce0",
+      "installed_avatar_mtime": "2026-10-13T06:36:55.184355-05:00",
+      "stuck_seconds": 463.644,
+      "stuck_softfail": false,
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
+    },
+    {
+      "agent": "helios",
+      "mood": "calm",
+      "voice_state": "idle",
+      "gif_path": "packages/helios-happy/matrix/idle/calm.gif",
+      "gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
+      "gif_mtime": "2026-10-06T17:04:58.446833-05:00",
+      "stuck_seconds": 571.644,
+      "stuck_softfail": false,
+      "personality_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/personality.json",
+      "growth": {
+        "source": "personality.json",
+        "traits": {
+          "warmth": 0.7,
+          "analytical": 0.55,
+          "urgency": 0.85,
+          "humor": 0.65,
+          "directness": 0.9
+        },
+        "mood_scores": {
+          "calm": 0.8,
+          "excited": 0.05,
+          "somber": 0.05,
+          "angry": 0.05,
+          "thrilled": 0.05
+        },
+        "updated_at": "2026-09-21T17:31:00-05:00"
+      },
+      "softpass": true,
+      "pages_avatar": "avatars/helios.gif",
+      "note": "remount 2026-10-08 15:23 CT after stuck ~6.5h (avatar.png mtime 2026-10-08 08:52): clear+set idle/calm; md5 matches matrix gif; mood unchanged since 2026-09-21",
+      "installed_avatar_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/avatar.png",
+      "installed_avatar_md5": "eb9b7b5d2a1e2730a4f069559f7212c6",
+      "installed_avatar_mtime": "2026-10-13T06:38:46.675987-05:00",
+      "installed_stuck_seconds": 13.631,
+      "installed_stuck_softfail": false,
+      "source_gif": "/workspace/living-icon-repo/packages/helios-happy/matrix/idle/calm.gif",
+      "source_gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
+      "remount_stage": "/workspace/living-icon-repo/_remount/helios-idle-calm.gif",
+      "checked_at": "2026-10-13T06:58:28.644050-05:00",
+      "pre_remount_stuck_seconds": 23464.0,
+      "pre_remount_stuck_softfail": true,
+      "stateModel": "matrix",
+      "mood_source": "/workspace/living-icon-repo/docs/status/live/helios.json",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "waiting": null
+    },
+    {
+      "agent": "perseus",
+      "display_name": "Perseus",
+      "stateModel": "matrix",
+      "mood": "calm",
+      "voice_state": "idle",
+      "placeholder": true,
+      "softpass": true,
+      "gif_path": "packages/perseus-happy/matrix/idle/calm.gif",
+      "pages_avatar": "avatars/perseus.gif",
+      "growth": {
+        "source": "seed",
+        "traits": {
+          "warmth": 0.5,
+          "analytical": 0.5,
+          "urgency": 0.5,
+          "humor": 0.5,
+          "directness": 0.5,
+          "note": "Soft-PASS seed defaults unmeasured"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-10-13T06:45:00-05:00"
+      },
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves).",
+      "mood_source": "/workspace/agent-backups/Perseus/living-icon/mood-state.json",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "gif_md5": "efc0e905115c060b3df34a20b8817ca8",
+      "gif_mtime": "2026-10-13T06:55:32.095214-05:00",
+      "installed_avatar_path": "/home/box/agent-data/agents/7e2c6ae8-53dc-4e13-a997-59398b8f7842/avatar.png",
+      "installed_avatar_md5": "654a2019cd4b2529d0da51801fbe32b4",
+      "installed_avatar_mtime": "2026-10-13T06:45:55.714852-05:00",
+      "stuck_seconds": 571.644,
+      "stuck_softfail": false,
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
+    },
+    {
+      "agent": "power-pod",
+      "display_name": "Power Pod",
+      "stateModel": "matrix",
+      "mood": "excited",
+      "voice_state": "talking",
+      "placeholder": true,
+      "softpass": true,
+      "gif_path": null,
+      "pages_avatar": "avatars/power-pod.gif",
+      "growth": {
+        "source": "seed",
+        "traits": {
+          "warmth": 0.5,
+          "analytical": 0.5,
+          "urgency": 0.5,
+          "humor": 0.5,
+          "directness": 0.5,
+          "note": "Soft-PASS seed defaults unmeasured"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-10-13T06:45:00-05:00"
+      },
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves).",
+      "mood_source": "/workspace/agent-backups/Power-Pod/living-icon/mood-state.json",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "gif_md5": null,
+      "gif_mtime": null,
+      "installed_avatar_path": "/home/box/agent-data/agents/8b062242-aff5-4aea-b5fa-1665562c2cd9/avatar.png",
+      "installed_avatar_md5": "7f645347b309ab06efd7969cf8710c04",
+      "installed_avatar_mtime": "2026-10-13T06:39:08.095859-05:00",
+      "stuck_seconds": 0.0,
+      "stuck_softfail": false,
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
     },
     {
       "agent": "saxon",
-      "mood": "calm",
+      "mood": "thrilled",
       "voice_state": "idle",
-      "gif_path": "packages/saxon-happy/matrix/calm-idle.gif",
-      "gif_md5": "47f8d23bb2428682333e0b9283693007",
-      "gif_mtime": "2026-09-21T17:42:20.169172-05:00",
-      "stuck_seconds": 10,
+      "gif_path": "packages/saxon-happy/matrix/thrilled-idle.gif",
+      "gif_md5": "217e6241d2aabbf34222c496a75ce8ee",
+      "gif_mtime": "2026-10-06T17:05:15.392112-05:00",
+      "stuck_seconds": 571.644,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/e9c64170-a22b-4c50-a6df-18c1d0d3b627/personality.json",
       "growth": {
@@ -170,23 +348,27 @@
       "note": "Soft-PASS remount 2026-09-21 clear+set calm-idle.gif",
       "installed_avatar_path": "/home/box/agent-data/agents/e9c64170-a22b-4c50-a6df-18c1d0d3b627/avatar.png",
       "installed_avatar_md5": "47f8d23bb2428682333e0b9283693007",
-      "installed_avatar_mtime": "2026-09-21T17:42:20.169172-05:00",
+      "installed_avatar_mtime": "2026-10-06T17:05:33.677954-05:00",
       "installed_stuck_seconds": 10,
       "installed_stuck_softfail": false,
       "source_gif": "/workspace/living-icon-repo/packages/saxon-happy/matrix/calm-idle.gif",
       "source_gif_md5": "47f8d23bb2428682333e0b9283693007",
       "remount_stage": "/workspace/living-icon-repo/_remount/saxon-idle-calm.gif",
       "own_gif_path": "/workspace/agent-backups/Saxon/living-icon/matrix/thrilled-idle.gif",
-      "mood_source": "/workspace/agent-backups/Saxon/mood-state.json"
+      "mood_source": "/workspace/agent-backups/Saxon/mood-state.json",
+      "stateModel": "matrix",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
     },
     {
       "agent": "skippy",
       "mood": "calm",
       "voice_state": "idle",
-      "gif_path": "avatars/skippy.gif",
+      "gif_path": "packages/skippy-happy/matrix/idle/calm.gif",
       "gif_md5": "36fa622d879a61991975ce8665d1467d",
-      "gif_mtime": "2026-09-21T17:42:27.358918-05:00",
-      "stuck_seconds": 0,
+      "gif_mtime": "2026-10-06T17:05:34.389991-05:00",
+      "stuck_seconds": 571.644,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/2f489fae-574f-4b61-b618-40a8a74b08e8/personality.json",
       "growth": {
@@ -212,21 +394,68 @@
       "pages_avatar": "avatars/skippy.gif",
       "note": "Soft-PASS remount 2026-09-21 Helios GO \u2014 stall cleared; idle/calm; md5 matches source",
       "installed_avatar_path": "/home/box/agent-data/agents/2f489fae-574f-4b61-b618-40a8a74b08e8/avatar.png",
-      "installed_avatar_md5": "36fa622d879a61991975ce8665d1467d",
-      "installed_avatar_mtime": "2026-09-21T17:42:27.321160-05:00",
+      "installed_avatar_md5": "0e2f6461d8e2f69d0832e46371287d28",
+      "installed_avatar_mtime": "2026-10-13T06:39:09.535849-05:00",
       "installed_stuck_seconds": 0,
       "installed_stuck_softfail": false,
       "source_gif": "/workspace/living-icon-repo/packages/skippy-happy/matrix/idle/calm.gif",
-      "source_gif_md5": "36fa622d879a61991975ce8665d1467d"
+      "source_gif_md5": "36fa622d879a61991975ce8665d1467d",
+      "stateModel": "matrix",
+      "mood_source": "/workspace/living-icon-repo/docs/status/live/skippy.json",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
+    },
+    {
+      "agent": "strip-electrical",
+      "display_name": "Strip Electrical",
+      "stateModel": "matrix",
+      "mood": "calm",
+      "voice_state": "idle",
+      "placeholder": true,
+      "softpass": true,
+      "gif_path": "packages/strip-electrical-happy/matrix/idle/calm.gif",
+      "pages_avatar": "avatars/strip-electrical.gif",
+      "growth": {
+        "source": "seed",
+        "traits": {
+          "warmth": 0.5,
+          "analytical": 0.5,
+          "urgency": 0.5,
+          "humor": 0.5,
+          "directness": 0.5,
+          "note": "Soft-PASS seed defaults unmeasured"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-10-13T06:45:00-05:00"
+      },
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves).",
+      "mood_source": "/workspace/living-icon/packages/strip-electrical/mood-state.json",
+      "mood_since": "2026-10-13T06:49:13-05:00",
+      "gif_md5": "5331e24417e6e18bdf5e331a26dfb44d",
+      "gif_mtime": "2026-10-13T06:55:58.330621-05:00",
+      "installed_avatar_path": "/home/box/agent-data/agents/c4780272-495e-4eef-bbd4-654c9275d9fe/avatar.png",
+      "installed_avatar_md5": "11843e2c753c91386b1e8a91aed612dd",
+      "installed_avatar_mtime": "2026-10-13T06:55:25.943353-05:00",
+      "stuck_seconds": 0.0,
+      "stuck_softfail": false,
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
     },
     {
       "agent": "tinkabot",
       "mood": "calm",
       "voice_state": "idle",
-      "gif_path": "avatars/tinkabot.gif",
+      "gif_path": "packages/tinkabot-happy/matrix/calm-idle.gif",
       "gif_md5": "efb70a2016fb809efff57b58154b1a20",
-      "gif_mtime": "2026-09-21T17:41:52-05:00",
-      "stuck_seconds": 8,
+      "gif_mtime": "2026-10-06T17:05:44.945654-05:00",
+      "stuck_seconds": 0.0,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/9ca7f7d0-4648-4cfe-bc49-206401979b89/personality.json",
       "growth": {
@@ -253,99 +482,15 @@
       "note": "Soft-PASS remount 2026-09-21 clear+set calm-idle.gif md5 efb70a2016fb809efff57b58154b1a20",
       "installed_avatar_path": "/home/box/agent-data/agents/9ca7f7d0-4648-4cfe-bc49-206401979b89/avatar.png",
       "installed_avatar_md5": "efb70a2016fb809efff57b58154b1a20",
-      "installed_avatar_mtime": "2026-09-21T17:41:44-05:00",
+      "installed_avatar_mtime": "2026-10-06T17:05:44.881657-05:00",
       "installed_stuck_seconds": 8,
       "installed_stuck_softfail": false,
-      "source_gif": "/workspace/living-icon-repo/packages/tinkabot-happy/matrix/calm-idle.gif"
-    },
-    {
-      "agent": "eve",
-      "mood": "idle",
-      "voice_state": "idle",
-      "mood_states": [
-        "idle",
-        "listening",
-        "thinking",
-        "relay-active",
-        "happy",
-        "waiting-parked",
-        "launch-dnd",
-        "frustrated"
-      ],
-      "gif_path": "avatars/eve.gif",
-      "pages_avatar": "avatars/eve.gif",
-      "placeholder": true,
-      "softpass": true,
-      "source_gif": "/workspace/living-icon-repo/packages/eve-happy/states/idle.gif",
-      "note": "PLACEHOLDER slot added 2026-10-13; Da Vinci art pending Chris approval.",
-      "live_state_path": "/workspace/agent-backups/Eve/mood-state.json",
-      "stateModel": "flat",
-      "live_state_mirror": "docs/status/live/eve.json",
-      "art_map": {
-        "launch-dnd": "states/launch-DND.gif"
-      }
-    },
-    {
-      "agent": "power-pod",
-      "display_name": "Power Pod",
+      "source_gif": "/workspace/living-icon-repo/packages/tinkabot-happy/matrix/calm-idle.gif",
       "stateModel": "matrix",
-      "mood": "calm",
-      "voice_state": "idle",
-      "placeholder": true,
-      "softpass": true,
-      "gif_path": "avatars/power-pod.gif",
-      "pages_avatar": "avatars/power-pod.gif",
-      "growth": {
-        "source": "seed",
-        "traits": {
-          "warmth": 0.5,
-          "analytical": 0.5,
-          "urgency": 0.5,
-          "humor": 0.5,
-          "directness": 0.5,
-          "note": "Soft-PASS seed defaults unmeasured"
-        },
-        "mood_scores": {
-          "calm": 0.55,
-          "excited": 0.15,
-          "somber": 0.1,
-          "angry": 0.05,
-          "thrilled": 0.15
-        },
-        "updated_at": "2026-10-13T06:45:00-05:00"
-      },
-      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
-    },
-    {
-      "agent": "perseus",
-      "display_name": "Perseus",
-      "stateModel": "matrix",
-      "mood": "calm",
-      "voice_state": "idle",
-      "placeholder": true,
-      "softpass": true,
-      "gif_path": "avatars/perseus.gif",
-      "pages_avatar": "avatars/perseus.gif",
-      "growth": {
-        "source": "seed",
-        "traits": {
-          "warmth": 0.5,
-          "analytical": 0.5,
-          "urgency": 0.5,
-          "humor": 0.5,
-          "directness": 0.5,
-          "note": "Soft-PASS seed defaults unmeasured"
-        },
-        "mood_scores": {
-          "calm": 0.55,
-          "excited": 0.15,
-          "somber": 0.1,
-          "angry": 0.05,
-          "thrilled": 0.15
-        },
-        "updated_at": "2026-10-13T06:45:00-05:00"
-      },
-      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
+      "mood_source": "/workspace/living-icon-repo/docs/status/live/tinkabot.json",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "waiting": null,
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
     },
     {
       "agent": "yard-software",
@@ -355,7 +500,7 @@
       "voice_state": "idle",
       "placeholder": true,
       "softpass": true,
-      "gif_path": "avatars/yard-software.gif",
+      "gif_path": "packages/yard-software-happy/matrix/idle/calm.gif",
       "pages_avatar": "avatars/yard-software.gif",
       "growth": {
         "source": "seed",
@@ -377,70 +522,23 @@
         "updated_at": "2026-10-13T06:45:00-05:00"
       },
       "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves).",
-      "mood_source": "/workspace/living-icon/agents/yard-software/mood.json"
-    },
-    {
-      "agent": "dropbox-organizer",
-      "display_name": "DropBox Organizer",
-      "stateModel": "matrix",
-      "mood": "calm",
-      "voice_state": "idle",
-      "placeholder": true,
-      "softpass": true,
-      "gif_path": "avatars/dropbox-organizer.gif",
-      "pages_avatar": "avatars/dropbox-organizer.gif",
-      "growth": {
-        "source": "seed",
-        "traits": {
-          "warmth": 0.5,
-          "analytical": 0.5,
-          "urgency": 0.5,
-          "humor": 0.5,
-          "directness": 0.5,
-          "note": "Soft-PASS seed defaults unmeasured"
-        },
-        "mood_scores": {
-          "calm": 0.55,
-          "excited": 0.15,
-          "somber": 0.1,
-          "angry": 0.05,
-          "thrilled": 0.15
-        },
-        "updated_at": "2026-10-13T06:45:00-05:00"
+      "mood_source": "/workspace/living-icon/agents/yard-software/mood.json",
+      "mood_since": "2026-10-13T06:48:57-05:00",
+      "gif_md5": "6d7ef35f233a8d9ad53a3007e78d3024",
+      "gif_mtime": "2026-10-13T06:55:58.322622-05:00",
+      "installed_avatar_path": "/home/box/agent-data/agents/1116c9b2-1dff-4625-92f2-1090a5e2dc16/avatar.png",
+      "installed_avatar_md5": "cc4d3c68bc3ec84c65d96a43901ca29b",
+      "installed_avatar_mtime": "2026-10-13T06:55:12.483655-05:00",
+      "stuck_seconds": 0.0,
+      "stuck_softfail": false,
+      "waiting": {
+        "ask_id": "YS-ROUTERSPEC-1",
+        "since": "2026-10-13T06:35:00-05:00",
+        "status": "blocked-offline"
       },
-      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves).",
-      "mood_source": "/workspace/living-icon/agents/dropbox-organizer/mood.json"
-    },
-    {
-      "agent": "strip-electrical",
-      "display_name": "Strip Electrical",
-      "stateModel": "matrix",
-      "mood": "calm",
-      "voice_state": "idle",
-      "placeholder": true,
-      "softpass": true,
-      "gif_path": "avatars/strip-electrical.gif",
-      "pages_avatar": "avatars/strip-electrical.gif",
-      "growth": {
-        "source": "seed",
-        "traits": {
-          "warmth": 0.5,
-          "analytical": 0.5,
-          "urgency": 0.5,
-          "humor": 0.5,
-          "directness": 0.5,
-          "note": "Soft-PASS seed defaults unmeasured"
-        },
-        "mood_scores": {
-          "calm": 0.55,
-          "excited": 0.15,
-          "somber": 0.1,
-          "angry": 0.05,
-          "thrilled": 0.15
-        },
-        "updated_at": "2026-10-13T06:45:00-05:00"
-      },
-      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
+      "checked_at": "2026-10-13T06:58:28.644050-05:00"
     }
-  ]
+  ],
+  "generator": "docs/dashboard/refresh_data.py (box-local, every loop refresh)",
+  "open_asks": 1
 }

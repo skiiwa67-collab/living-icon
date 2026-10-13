@@ -13,6 +13,8 @@ class Base(unittest.TestCase):
         self.canon = self.tmp / 'mood-state.json'
         self.live = self.tmp / 'live'
         self._saved = (dict(set_mood.CANON), set_mood.LIVE, d.LIVE, d.LAUNCH)
+        self._iso = (d.QUEUE, set_mood.WRITE_LOG)   # isolate from the real OK queue / write log
+        d.QUEUE = self.tmp / 'queue.json'; set_mood.WRITE_LOG = self.tmp / 'writes.log'
         set_mood.CANON['eve'] = self.canon
         set_mood.LIVE = d.LIVE = self.live
         d.LAUNCH = self.live / 'launch.json'
@@ -20,6 +22,7 @@ class Base(unittest.TestCase):
         self.log.write_text('')
     def tearDown(self):
         c, set_mood.LIVE, d.LIVE, d.LAUNCH = self._saved
+        d.QUEUE, set_mood.WRITE_LOG = self._iso
         set_mood.CANON.clear(); set_mood.CANON.update(c)
     def lines(self, *rs): self.log.write_text(''.join(json.dumps(r) + '\n' for r in rs))
     def row(self, ask, status, mins_ago=1, **kw):
@@ -84,6 +87,61 @@ class Tick(Base):
         self.lines(self.row('A', 'pending'))
         r = d.tick(self.log, None, datetime.now(timezone.utc))
         self.assertEqual(r[:2], ('frustrated', 'hold-respected')); self.assertEqual(len(r), 3)
+
+class OkQueueAndHold(Base):
+    def q(self, *items): d.QUEUE.write_text(json.dumps(list(items)))
+    def item(self, aid, status, mins_ago=1, **kw):
+        r = {'ask_id': aid, 'bot': 'Ada', 'status': status, 'filed': iso(NOW - timedelta(minutes=mins_ago))}
+        r.update(kw); return r
+    def test_open_and_tap_pending_relay_active(self):
+        for st in ('open', 'pending', 'tap-pending'):
+            self.q(self.item('Q', st)); self.assertEqual(d.derive(self.log, None, NOW), ('relay-active', {'ask_id': 'Q', 'bot': 'Ada'}))
+    def test_parked_blocked_waiting_parked(self):
+        for st in ('parked', 'blocked-offline'):
+            self.q(self.item('Q', st)); self.assertEqual(d.derive(self.log, None, NOW)[0], 'waiting-parked')
+    def test_priority_queue_parked_beats_relay_pending(self):
+        self.lines(self.row('A', 'pending')); self.q(self.item('Q', 'parked'))
+        self.assertEqual(d.derive(self.log, None, NOW)[0], 'waiting-parked')
+    def test_launch_beats_queue(self):
+        self.q(self.item('Q', 'parked'))
+        self.assertEqual(d.derive(self.log, iso(NOW), NOW)[0], 'launch-dnd')
+    def test_stale_only_after_reread_and_closed_ignored(self):
+        rr = iso(NOW)
+        self.q(self.item('A', 'open', mins_ago=31, reread_at=rr), self.item('B', 'parked', mins_ago=13*60, reread_at=rr),
+               self.item('C', 'approved'), self.item('D', 'withdrawn'), self.item('E', 'resolved: yes'),
+               self.item('F', 'done'), self.item('G', 'fail'), self.item('H', 'blocked'))
+        self.assertEqual(d.derive(self.log, None, NOW), (None, None))
+    def test_no_stale_without_reread(self):
+        self.q(self.item('A', 'open', mins_ago=31))
+        self.assertEqual(d.derive(self.log, None, NOW)[0], 'relay-active')
+    def test_pending_then_done_not_active(self):
+        self.q(self.item('A', 'pending', mins_ago=5), self.item('A', 'done', mins_ago=1))
+        self.assertEqual(d.derive(self.log, None, NOW), (None, None))
+        import ok_queue; self.assertEqual(ok_queue.active(now=NOW, path=d.QUEUE), [])
+    def test_helios_statuses(self):
+        for st, want in (('held-for-card', 'waiting-parked'), ('held-for-chat', 'waiting-parked'), ('held-launch', 'launch-dnd')):
+            self.q(self.item('Q', st)); self.assertEqual(d.derive(self.log, None, NOW)[0], want)
+    def test_relay_log_retired_missing(self):
+        self.log.rename(self.log.with_suffix('.jsonl.retired'))
+        self.assertEqual(d.derive(self.log, None, NOW), (None, None))
+        self.q(self.item('Q', 'open')); self.assertEqual(d.tick(self.log, None, NOW)[:2], ('relay-active', 'wrote'))
+    def test_manual_set_stands_until_new_event(self):
+        self.q(self.item('Q', 'parked', mins_ago=10))
+        set_mood.write_state('eve', 'happy', hold=0, source='cli')
+        r = d.tick(self.log, None, datetime.now(timezone.utc)); self.assertEqual(r[:2], ('happy', 'manual-respected'))
+        self.q(self.item('Q', 'parked', mins_ago=10), self.item('R', 'open', mins_ago=-1))
+        r = d.tick(self.log, None, datetime.now(timezone.utc) + timedelta(minutes=2)); self.assertEqual(r[0], 'waiting-parked')
+    def test_missing_and_malformed_queue(self):
+        self.assertEqual(d.derive(self.log, None, NOW), (None, None))
+        d.QUEUE.write_text('{not json'); self.assertEqual(d.derive(self.log, None, NOW), (None, None))
+    def test_queue_never_written(self):
+        self.q(self.item('Q', 'open')); before = d.QUEUE.read_bytes()
+        d.tick(self.log, None, NOW); self.assertEqual(d.QUEUE.read_bytes(), before)
+    def test_hold_expiry_reverts(self):
+        set_mood.write_state('eve', 'frustrated', hold=0.01, revert='idle')
+        import time; time.sleep(0.05)
+        r = d.tick(self.log, None, datetime.now(timezone.utc))
+        self.assertEqual(json.loads(self.canon.read_text())['mood'], 'idle'); self.assertEqual(r[0], 'idle')
 
 if __name__ == '__main__':
     unittest.main()

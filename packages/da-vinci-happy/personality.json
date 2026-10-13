@@ -19,10 +19,11 @@
   ],
   "default_mood": "calm",
   "icon_path": "/home/box/agent-data/agents/5a5c4480-3f5e-4bf5-b315-e2a02011fdfe/avatar.gif",
-  "art_dir": "packages/da-vinci-happy/matrix/",
+  "art_dir": "packages/da-vinci-happy/matrix/{voice}/{mood}.gif",
   "mood_source": "/workspace/agent-backups/Da-Vinci/living-icon/mood.json",
   "live_state_path": "docs/status/live/da-vinci.json",
   "placeholders": [
     "role"
-  ]
+  ],
+  "art_status": "self-approved rev3 from /workspace/agent-backups/Da-Vinci/living-icon/repaint-20261013/rev3/ (avatar md5 d8e10cc0\u2026)"
 }

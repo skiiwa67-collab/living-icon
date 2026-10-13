@@ -3,7 +3,7 @@
   "name": "Strip Electrical",
   "id": "c4780272-495e-4eef-bbd4-654c9275d9fe",
   "slug": "strip-electrical",
-  "role": "PLACEHOLDER: role not in package docs/data",
+  "role": "Electrical engineer for the DFW Node landing-gear strip (Gen 1 pad) and warehouse plant electrical",
   "stateModel": "matrix",
   "moods": [
     "calm",
@@ -18,12 +18,11 @@
     "talking"
   ],
   "default_mood": "calm",
-  "icon_path": "PLACEHOLDER: no avatar on box",
-  "art_dir": "packages/strip-electrical-happy/matrix/",
+  "icon_path": "/workspace/living-icon-repo/packages/strip-electrical-happy/avatar-idle.png",
+  "art_dir": "packages/strip-electrical-happy/matrix/{voice}/{mood}.gif",
   "mood_source": "/workspace/living-icon/packages/strip-electrical/mood-state.json",
   "live_state_path": "docs/status/live/strip-electrical.json",
-  "placeholders": [
-    "role",
-    "icon_path"
-  ]
+  "placeholders": [],
+  "art_status": "self-approved draft-20261013 (avatar md5 11843e2c\u2026)",
+  "canonical_mood_source": "/workspace/living-icon/packages/strip-electrical/mood-state.json"
 }

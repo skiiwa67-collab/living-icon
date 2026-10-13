@@ -19,10 +19,10 @@
   ],
   "default_mood": "calm",
   "icon_path": "/home/box/agent-data/agents/7e2c6ae8-53dc-4e13-a997-59398b8f7842/avatar.png",
-  "art_dir": "packages/perseus-happy/matrix/",
+  "art_dir": "packages/perseus-happy/matrix/{voice}/{mood}.gif",
   "mood_source": "/workspace/agent-backups/Perseus/living-icon/mood-state.json",
   "live_state_path": "docs/status/live/perseus.json",
   "placeholders": [],
-  "art_status": "placeholder (sheet says DRAFT, not reviewed)",
+  "art_status": "approved by Chris 2026-10-13 06:46 CT (mood sheet); from /workspace/agent-backups/Perseus/living-icon/",
   "sheet": "/workspace/agent-backups/Perseus/living-icon/PACKAGE.md"
 }

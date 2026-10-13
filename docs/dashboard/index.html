@@ -112,12 +112,13 @@
 <header>
   <h1>Living Icon · <span>Stall Soft-PASS</span></h1>
   <div class="meta" id="generated">Loading…</div>
+  <div class="meta" id="openasks"></div>
   <div class="toolbar">
     <button type="button" id="reload">Reload</button>
   </div>
 </header>
 <main>
-  <div class="legend">Mobile Soft-PASS · Soft-FAIL stuck lamp from feed.json · no invented mood scores</div>
+  <div class="legend">Mobile Soft-PASS · stuck lamp from feed.json (rebuilt from box files every refresh) · no invented mood scores</div>
   <div class="filters">
     <button type="button" class="chip on" data-filter="all">All</button>
     <button type="button" class="chip" data-filter="fleet">Fleet</button>
@@ -139,7 +140,7 @@ const SLUG = {
 function flagClass(f){ if(!f) return 'fail'; if(f.includes('fresh')) return 'ok'; if(f.includes('aging')) return 'warn'; return 'fail'; }
 function cardClass(r,f){ if(f&&f.stuck_softfail) return 'stall'; const s=r.stall_flag||''; if(s.includes('fresh')) return 'fresh'; if(s.includes('stall')||s.includes('no avatar')) return 'stall'; return ''; }
 function fmtStuck(sec){ if(sec==null) return '—'; const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60); return h+'h '+m+'m'; }
-function feedFor(r){ if(!FEED||!FEED.agents) return null; const slug=SLUG[r.name]||(r.package||'').replace(/-happy$/,''); return FEED.agents.find(a=>a.agent===slug)||null; }
+function feedFor(r){ if(!FEED||!FEED.agents) return null; const slug=r.slug||SLUG[r.name];
 function render(){
   const grid=document.getElementById('grid'); grid.innerHTML='';
   let rows=DATA.roster||[];
@@ -147,8 +148,8 @@ function render(){
   if(filter==='stall') rows=rows.filter(r=>{ const f=feedFor(r); return (f&&f.stuck_softfail)||(r.stall_flag||'').includes('Soft-FAIL'); });
   for(const r of rows){
     const f=feedFor(r); const el=document.createElement('article'); el.className='card '+cardClass(r,f);
-    const slug=SLUG[r.name]||(r.package||'').replace(/-happy$/,'');
-    const img=(slug?('avatars/'+slug+'.gif'):null)||r.active_animation||r.softpass_rel;
+    const slug=r.slug||SLUG[r.name];
+    const img=r.live_art?('../../'+r.live_art):null;
     const growth=r.growth||{};
     let growthLine;
     if(f&&f.growth&&f.growth.source==='personality.json'&&f.growth.mood_scores&&Object.keys(f.growth.mood_scores).length)
@@ -159,7 +160,7 @@ function render(){
     const lamp=f?(f.stuck_softfail?'<span class="flag fail">Soft-FAIL stuck</span>':'<span class="flag ok">Soft-PASS GIF</span>'):'<span class="flag warn">no feed</span>';
     el.innerHTML=`<div class="top">${img?`<img class="avatar" src="${img}" alt="${r.name}" data-live="${slug}"/>`:`<div class="avatar missing">no Soft-PASS</div>`}<div><div class="name">${r.name}</div><div class="title">${r.title||r.package||'no pack'}</div><div class="flags"><span class="flag ${flagClass(r.stall_flag)}">${r.stall_flag||'Soft-FAIL'}</span>${lamp}</div></div></div>
     <dl>
-      <dt>mood</dt><dd data-live-state="${slug}">${(f&&f.mood&&f.mood!=='unreported')?f.mood:(r.mood||'unreported')}</dd>
+      <dt>mood</dt><dd data-live-state="${slug}">${r.mood||(f&&f.mood)||'unreported'}</dd><dt>OK</dt><dd data-wait="${slug}">${r.waiting?'<span class="flag warn">pending OK · '+r.waiting.status+'</span>':'—'}</dd>
       <dt>stuck</dt><dd>${f?fmtStuck(f.stuck_seconds):'—'}</dd>
       <dt>gif_mtime</dt><dd>${(f&&f.gif_mtime)||'—'}</dd>
       <dt>md5</dt><dd>${f&&f.gif_md5?f.gif_md5.slice(0,12)+'…':'—'}</dd>
@@ -172,33 +173,45 @@ function render(){
 async function load(){
   const [dRes,fRes]=await Promise.all([fetch('data.json?ts='+Date.now()), fetch('../status/feed.json?ts='+Date.now())]);
   DATA=await dRes.json();
+  try{ MAP=await (await fetch('../status/mood-sources.json?ts='+Date.now())).json(); }catch(e){}
   try{ FEED=await fRes.json(); }catch(e){ FEED=null; }
   document.getElementById('generated').textContent='Soft-PASS '+(DATA.generated_at_ct||DATA.generated_at)+' · '+(DATA.roster||[]).length+' agents'+(FEED?' · feed '+FEED.updated_at:' · Soft-FAIL feed');
   document.getElementById('hostnote').textContent=FEED&&FEED.host&&FEED.host.url_softfail?FEED.host.url_softfail:'Soft-PASS phone view';
   render();
 }
 
-// Live state poll. Canonical: /workspace/agent-backups/Eve/mood-state.json; served mirror: docs/status/live/<slug>.json
-// Only agents whose feed entry has stateModel:'flat' use states/<mood>.gif; others keep the old matrix path.
-const LIVE={}, LIVE_PKG={'eve':'eve-happy'}, ART={'launch-dnd':'launch-DND'};
-function flatAgents(){ return ((FEED&&FEED.agents)||[]).filter(a=>a.stateModel==='flat').map(a=>a.agent); }
-function liveMood(rec){ if(!rec) return null; if(rec.hold_until&&Date.parse(rec.hold_until)<=Date.now()) return rec.revert_to||'idle'; return rec.mood; }
+// Live state poll — box-local only. Each bot's docs/status/live/<slug>.json (mirror of its own box file,
+// per docs/status/mood-sources.json). Art comes from data.json art_inventory under the bot's art_dir.
+const LIVE={}; let MAP=null;
+const FLAT_ART={'launch-dnd':'launch-DND'};
+function cfgOf(s){ return (MAP&&MAP.agents&&MAP.agents[s])||{}; }
+function defMood(s){ return cfgOf(s).stateModel==='flat'?'idle':'calm'; }
+function liveMood(s,rec){ if(!rec) return null; const c=cfgOf(s);
+  let m=(rec.hold_until&&Date.parse(rec.hold_until)<=Date.now())?(rec.revert_to||defMood(s)):rec.mood;
+  if(c.flat_map&&c.flat_map[m]) m=c.flat_map[m];
+  const allowed=c.stateModel==='flat'?(MAP.flat_moods||[]):(MAP.matrix_moods||[]);
+  return allowed.includes(m)?m:defMood(s); }
+function rowOf(s){ return ((DATA&&DATA.roster)||[]).find(r=>r.slug===s)||null; }
+function artFor(s,m,v){ const r=rowOf(s), c=cfgOf(s); if(!r||!c.art_dir) return null;
+  const inv=new Set(r.art_inventory||[]), d=c.art_dir, dm=defMood(s), ex=['.gif','.png'];
+  const tries=[];
+  if(c.stateModel==='flat'){ for(const mm of [m,dm]) for(const e of ex) tries.push(d+'/states/'+(FLAT_ART[mm]||mm)+e); }
+  else for(const [mm,vv] of [[m,v],[m,'idle'],[dm,v],[dm,'idle']]) for(const e of ex){ tries.push(d+'/matrix/'+vv+'/'+mm+e); tries.push(d+'/matrix/'+mm+'-'+vv+e); }
+  const hit=tries.find(t=>inv.has(t)); return hit?'../../'+hit:null; }
+function badge(s,rec){ const w=rec&&rec.waiting; document.querySelectorAll('[data-wait="'+s+'"]').forEach(el=>{
+  el.innerHTML=w?'<span class="flag warn" title="'+w.ask_id+' since '+(w.since||'?')+'">pending OK · '+w.status+'</span>':''; }); }
 async function pollLive(){
-  // Box-local only: every bot's docs/status/live/<slug>.json (mirrored from its own box file by the loop).
-  const flat=new Set(flatAgents());
-  const hasMatrix=new Set(((DATA&&DATA.roster)||[]).filter(r=>r.matrix_rel).map(r=>SLUG[r.name]));
-  for(const s of new Set([...flat, ...Object.values(SLUG)])){
+  if(!MAP) return;
+  for(const s of Object.keys(MAP.agents)){
     try{ const r=await fetch('../status/live/'+s+'.json?ts='+Date.now()); if(!r.ok) continue; LIVE[s]=await r.json(); }catch(e){ continue; }
-    const m=liveMood(LIVE[s]); if(!m) continue;
-    if(!flat.has(s)&&!hasMatrix.has(s)){ document.querySelectorAll('[data-live-state="'+s+'"]').forEach(el=>el.textContent=m); continue; }
-    const src=flat.has(s)
-      ? '../../packages/'+(LIVE_PKG[s]||s+'-happy')+'/states/'+(ART[m]||m)+'.gif'
-      : (s==='saxon' ? '../../packages/saxon-happy/matrix/'+m+'-'+((LIVE[s].voice_state)||'idle')+'.gif'
-                     : '../../packages/'+s+'-happy/matrix/'+((LIVE[s].voice_state)||'idle')+'/'+m+'.gif');
-    document.querySelectorAll('img[data-live="'+s+'"]').forEach(img=>{ if(img.getAttribute('src')!==src) img.setAttribute('src',src); img.title=s+': '+m; });
+    const m=liveMood(s,LIVE[s]); badge(s,LIVE[s]);
+    const src=artFor(s,m,(LIVE[s].voice_state)||'idle');
+    if(src) document.querySelectorAll('img[data-live="'+s+'"]').forEach(img=>{ if(img.getAttribute('src')!==src) img.setAttribute('src',src); img.title=s+': '+m; });
     document.querySelectorAll('[data-live-state="'+s+'"]').forEach(el=>el.textContent=m);
   }
+  const n=document.getElementById('openasks'); if(n) n.textContent=(DATA&&DATA.open_asks!=null)?('Open OK asks: '+DATA.open_asks):'';
 }
+setInterval(()=>load().then(pollLive).catch(()=>{}),60000);   // reload data.json every 60 s
 setInterval(pollLive,3000);
 document.getElementById('reload').onclick=()=>load();
 document.querySelectorAll('.chip').forEach(chip=>{ chip.onclick=()=>{ document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on')); chip.classList.add('on'); filter=chip.dataset.filter; render(); }; });

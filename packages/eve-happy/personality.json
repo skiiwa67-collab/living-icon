@@ -23,5 +23,6 @@
   "live_state_path": "docs/status/live/eve.json",
   "placeholders": [
     "role"
-  ]
+  ],
+  "art_status": "Da Vinci v3 from /workspace/agent-backups/Da-Vinci/eve-living-icon-draft-20261013/v3/ (interrupt->relay-active, waiting->waiting-parked, dnd->launch-dnd)"
 }

@@ -18,12 +18,12 @@
     "talking"
   ],
   "default_mood": "calm",
-  "icon_path": "PLACEHOLDER: no avatar on box",
-  "art_dir": "packages/dropbox-organizer-happy/matrix/",
+  "icon_path": "/workspace/living-icon-repo/packages/dropbox-organizer-happy/avatar-idle.png",
+  "art_dir": "packages/dropbox-organizer-happy/matrix/{voice}/{mood}.gif",
   "mood_source": "/workspace/living-icon/agents/dropbox-organizer/mood.json",
   "live_state_path": "docs/status/live/dropbox-organizer.json",
   "placeholders": [
-    "role",
-    "icon_path"
-  ]
+    "role"
+  ],
+  "art_status": "self-approved draft-20261013 (avatar md5 265f20bb\u2026)"
 }
