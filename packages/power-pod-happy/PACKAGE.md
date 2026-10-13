@@ -1,0 +1,5 @@
+# Power Pod — Living Icon DRAFT (2026-10-13 CT) — awaiting Chris review; not wired
+- Subject (Power Pod brief): axle-2 wheel-motor pod pair — two compact finned silver drive units with end caps, a dark junction box above, and orange HV lines arcing to each pod. Based on hud-assets/power-pod.png. The HV lines are the "life". No text, no Tesla badge/logo, no bolts at the wheels, no wall plug, no bolt motif, no face.
+- Moods: calm=dim steady orange (avatar-idle) · excited=brighter orange pulse · somber=cool tint, mostly dark lines · angry=red fault glow on the RIGHT pod only (left pod dims) · thrilled=full glow + blue-white regen shimmer travelling along the lines and under the pods.
+- Voices: matrix/{idle,listening,talking}/{mood}.gif (128px, 24 frames; listening/talking pulse at 2x/3x). Frame 0 = shared base pose. Matches placeholder naming; -still.png alongside. Masters power-pod-{mood}.png 1024 + -512; review-sheet-512-96-48.png; storyboard-sheet.png.
+- Placeholders in ../ (living-icon/) untouched.

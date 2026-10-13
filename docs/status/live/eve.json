@@ -1,10 +1,19 @@
 {
-  "mood": "idle",
-  "since": "2026-10-13T11:33:09+00:00",
-  "ask_id": null,
-  "bot": null,
-  "source": "reset",
-  "agent": "eve",
+  "mood": "waiting-parked",
+  "since": "2026-10-13T11:50:45+00:00",
   "hold_until": null,
-  "revert_to": null
+  "revert_to": null,
+  "ask_id": "YS-ROUTERSPEC-1",
+  "bot": "Yard Software",
+  "stateModel": "flat",
+  "voice_state": "idle",
+  "agent": "eve",
+  "source": "mirror",
+  "mirrored_from": "/workspace/agent-backups/Eve/mood-state.json",
+  "ok_request": {
+    "state": "none",
+    "ask_id": null,
+    "since": null,
+    "priority": false
+  }
 }

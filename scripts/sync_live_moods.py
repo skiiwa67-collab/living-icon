@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import mood_sources as ms, set_mood as sm, ok_queue as okq
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'docs' / 'dashboard'))
 
 KEEP = ('mood', 'voice_state', 'since', 'hold_until', 'revert_to', 'ask_id', 'bot', 'stateModel')
 
@@ -27,10 +28,13 @@ def expire_hold(slug, path, now):
     sm._atomic(path, new); sm.log_write('loop:hold-expiry', slug, old, new['mood'])
     return True
 
-def main(now=None, queue_path=None):
+def main(now=None, queue_path=None, write_feeds=True):
     now = now or datetime.now(timezone.utc)
     m = ms.load_map(); changed = []
-    waiting = okq.waiting_by_slug(okq.active(now=now, path=queue_path), okq.name_map(m))
+    raw = okq.load_raw(queue_path)
+    nmap = okq.name_map(m)
+    waiting = okq.waiting_by_slug(okq.active(raw, now=now), nmap)
+    okreq = okq.ok_request_by_slug(nmap, now=now, items=raw)
     for slug, cfg in m['agents'].items():
         src = ms.src_path(cfg); live = ms.LIVE / f'{slug}.json'
         # Eve: derive_eve_state.py owns her mood + hold expiry; here she is only mirrored.
@@ -51,10 +55,16 @@ def main(now=None, queue_path=None):
         w = waiting.get(slug)
         if w: base['waiting'] = w
         else: base.pop('waiting', None)
+        base['ok_request'] = okreq.get(slug) or {'state': 'none', 'ask_id': None, 'since': None, 'priority': False}
         if lrec != base:
             sm._atomic(live, base); changed.append(f'{slug}={base.get("mood")}' + ('+waiting' if w else ''))
     if changed:
-        print(datetime.now().isoformat(timespec='seconds'), 'synced', ' '.join(changed))
+        print(datetime.now(timezone.utc).isoformat(timespec='seconds'), 'synced', ' '.join(changed))
+        if write_feeds:   # feed lag fix: rebuild data.json + both feed.json (atomic) on any change
+            try:
+                import refresh_data; refresh_data.main()
+            except Exception as e:
+                print('feed refresh failed:', e)
     return changed
 
 if __name__ == '__main__':

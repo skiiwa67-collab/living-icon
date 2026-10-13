@@ -1,6 +1,6 @@
 {
   "schema": "living-icon-mood-sources/v1",
-  "note": "Box-local only; living-icon-repo is canonical. set_mood.py writes the bot's own source file (merged) + mirrors docs/status/live/<slug>.json. Readers take the newest of the two. Art: <art_dir> resolved by scripts/art.py (voice->idle, mood->calm fallback). stale_tree_reads = own mood files still in /workspace/living-icon, to be moved by those bots.",
+  "note": "Box-local only; living-icon-repo is canonical. set_mood.py writes the bot's own source file (merged) + mirrors docs/status/live/<slug>.json. Readers take the newest of the two. Art: <art_dir> resolved by scripts/art.py (voice->idle, mood->calm fallback). stale_tree_reads is empty: the 3 old /workspace/living-icon mood paths are symlinks to the bots' own folders (2026-10-13 07:03 CT).",
   "matrix_moods": [
     "calm",
     "excited",
@@ -37,8 +37,9 @@
       "name": "DropBox Organizer",
       "id": "3b1a86d5-e519-4a16-8efc-e3dad6fdc561",
       "stateModel": "matrix",
-      "source": "/workspace/living-icon/agents/dropbox-organizer/mood.json",
-      "art_dir": "packages/dropbox-organizer-happy"
+      "source": "/workspace/agent-backups/DropBox-Organizer/living-icon/mood.json",
+      "art_dir": "packages/dropbox-organizer-happy",
+      "legacy_symlink": true
     },
     "eve": {
       "name": "Eve",
@@ -96,8 +97,9 @@
       "name": "Strip Electrical",
       "id": "c4780272-495e-4eef-bbd4-654c9275d9fe",
       "stateModel": "matrix",
-      "source": "/workspace/living-icon/packages/strip-electrical/mood-state.json",
-      "art_dir": "packages/strip-electrical-happy"
+      "source": "/workspace/agent-backups/Strip-Electrical/living-icon/mood-state.json",
+      "art_dir": "packages/strip-electrical-happy",
+      "legacy_symlink": true
     },
     "tinkabot": {
       "name": "tinkabot",
@@ -110,13 +112,10 @@
       "name": "Yard Software",
       "id": "1116c9b2-1dff-4625-92f2-1090a5e2dc16",
       "stateModel": "matrix",
-      "source": "/workspace/living-icon/agents/yard-software/mood.json",
-      "art_dir": "packages/yard-software-happy"
+      "source": "/workspace/agent-backups/Yard-Software/living-icon/mood.json",
+      "art_dir": "packages/yard-software-happy",
+      "legacy_symlink": true
     }
   },
-  "stale_tree_reads": [
-    "/workspace/living-icon/agents/dropbox-organizer/mood.json",
-    "/workspace/living-icon/packages/strip-electrical/mood-state.json",
-    "/workspace/living-icon/agents/yard-software/mood.json"
-  ]
+  "stale_tree_reads": []
 }

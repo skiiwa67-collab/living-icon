@@ -24,9 +24,9 @@ def md5(p):
         for c in iter(lambda: f.read(65536), b''): h.update(c)
     return h.hexdigest()
 
-def iso(ts): return datetime.fromtimestamp(ts, timezone.utc).astimezone().isoformat()
+def iso(ts): return datetime.fromtimestamp(ts, timezone.utc).isoformat()   # UTC ISO everywhere
 
-def build_row(slug, cfg, now, waiting):
+def build_row(slug, cfg, now, waiting, okreq=None):
     d = AGENTS / cfg['id']
     prof = {}
     try: prof = json.loads((d / 'profile.json').read_text())
@@ -75,13 +75,14 @@ def build_row(slug, cfg, now, waiting):
         'active_animation': live_art,
         'art_inventory': art.inventory(cfg),
         'waiting': waiting.get(slug),
+        'ok_request': (okreq or {}).get(slug) or {'state': 'none', 'ask_id': None, 'since': None, 'priority': False},
         'growth': growth,
     }
 
 def update_feed(path, rows, now, open_asks):
     try: feed = json.loads(path.read_text())
     except (OSError, ValueError): feed = {'schema': 'living-icon-status-feed/v1', 'agents': []}
-    feed['updated_at'] = now.astimezone().isoformat()
+    feed['updated_at'] = now.isoformat()
     feed['stale_threshold_seconds'] = feed.get('stale_threshold_seconds', STALE_S)
     feed['generator'] = 'docs/dashboard/refresh_data.py (box-local, every loop refresh)'
     feed['open_asks'] = open_asks
@@ -100,7 +101,7 @@ def update_feed(path, rows, now, open_asks):
                  installed_avatar_path=r['avatar_path'], installed_avatar_md5=r['avatar_md5'],
                  installed_avatar_mtime=r['avatar_mtime'],
                  stuck_seconds=stuck, stuck_softfail=stuck > feed['stale_threshold_seconds'],
-                 waiting=r['waiting'], checked_at=now.astimezone().isoformat())
+                 waiting=r['waiting'], ok_request=r['ok_request'], checked_at=now.isoformat())
         out.append(a)
     feed['agents'] = out
     _atomic(path, feed)
@@ -110,10 +111,10 @@ def main():
     m = mood_sources.load_map()
     act = ok_queue.active(now=now)
     waiting = ok_queue.waiting_by_slug(act, ok_queue.name_map(m))
-    rows = [build_row(s, c, now, waiting) for s, c in m['agents'].items()]
+    okreq = ok_queue.ok_request_by_slug(ok_queue.name_map(m), now=now)
+    rows = [build_row(s, c, now, waiting, okreq) for s, c in m['agents'].items()]
     open_asks = len(act)
     out = {'schema': 'living-icon-stall-dashboard/v2', 'generated_at': now.isoformat(),
-           'generated_at_ct': datetime.now().astimezone().strftime('%Y-%m-%d %H:%M %Z'),
            'thresholds_hours': {'aging': 1, 'stall_soft': 12, 'stall_hard': 24},
            'open_asks': open_asks, 'asks': act, 'roster': rows,
            'fleet_only_note': 'Roster = docs/status/mood-sources.json; art from <art_dir> on the box'}

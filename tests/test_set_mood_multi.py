@@ -48,32 +48,32 @@ class MultiAgentSetMood(Base):
 
 class Sync(Base):
     def test_source_always_wins_even_older_rollback(self):
-        sm.write_state('saxon', 'angry'); sync.main(queue_path=self.q)
+        sm.write_state('saxon', 'angry'); sync.main(queue_path=self.q, write_feeds=False)
         own = self.tmp / 'own' / 'saxon.json'
         own.write_text(json.dumps({'agent': 'saxon', 'mood': 'calm', 'updated': '2020-01-01T00:00:00+00:00'}))
-        sync.main(queue_path=self.q)
+        sync.main(queue_path=self.q, write_feeds=False)
         self.assertEqual(json.loads((sm.LIVE / 'saxon.json').read_text())['mood'], 'calm')
     def test_voice_and_hold_fields_kept(self):
-        sm.write_state('perseus', 'excited', voice_state='talking', hold=60, revert='calm'); sync.main(queue_path=self.q)
+        sm.write_state('perseus', 'excited', voice_state='talking', hold=60, revert='calm'); sync.main(queue_path=self.q, write_feeds=False)
         live = json.loads((sm.LIVE / 'perseus.json').read_text())
         self.assertEqual(live['voice_state'], 'talking'); self.assertIsNotNone(live['hold_until']); self.assertEqual(live['revert_to'], 'calm')
     def test_hold_expiry_reverts_own_file(self):
         sm.write_state('helios', 'angry', hold=0.001, revert='calm')
-        sync.main(now=datetime.now(timezone.utc) + timedelta(seconds=1), queue_path=self.q)
+        sync.main(now=datetime.now(timezone.utc) + timedelta(seconds=1), queue_path=self.q, write_feeds=False)
         self.assertEqual(json.loads(sm.CANON['helios'].read_text())['mood'], 'calm')
     def test_waiting_overlay_set_and_cleared(self):
         sm.write_state('ada', 'calm')
         now = datetime.now(timezone.utc)
         self.q.write_text(json.dumps([{'kind': 'ask', 'ask_id': 'ADA-1', 'bot': 'Ada', 'status': 'pending', 'since': now.isoformat()}]))
-        sync.main(queue_path=self.q)
+        sync.main(queue_path=self.q, write_feeds=False)
         live = json.loads((sm.LIVE / 'ada.json').read_text())
         self.assertEqual(live['waiting']['ask_id'], 'ADA-1'); self.assertEqual(live['mood'], 'calm')
         self.q.write_text(json.dumps([{'kind': 'ask', 'ask_id': 'ADA-1', 'bot': 'Ada', 'status': 'pending', 'since': now.isoformat()},
                                       {'kind': 'ask', 'ask_id': 'ADA-1', 'bot': 'Ada', 'status': 'approved', 'since': now.isoformat()}]))
-        sync.main(queue_path=self.q)
+        sync.main(queue_path=self.q, write_feeds=False)
         self.assertNotIn('waiting', json.loads((sm.LIVE / 'ada.json').read_text()))
     def test_malformed_queue_ok(self):
-        self.q.write_text('{oops'); sm.write_state('ada', 'calm'); sync.main(queue_path=self.q)
+        self.q.write_text('{oops'); sm.write_state('ada', 'calm'); sync.main(queue_path=self.q, write_feeds=False)
 
 class Art(unittest.TestCase):
     def setUp(self):

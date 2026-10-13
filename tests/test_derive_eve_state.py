@@ -129,8 +129,9 @@ class OkQueueAndHold(Base):
         self.q(self.item('Q', 'parked', mins_ago=10))
         set_mood.write_state('eve', 'happy', hold=0, source='cli')
         r = d.tick(self.log, None, datetime.now(timezone.utc)); self.assertEqual(r[:2], ('happy', 'manual-respected'))
-        self.q(self.item('Q', 'parked', mins_ago=10), self.item('R', 'open', mins_ago=-1))
-        r = d.tick(self.log, None, datetime.now(timezone.utc) + timedelta(minutes=2)); self.assertEqual(r[0], 'waiting-parked')
+        later = datetime.now(timezone.utc) + timedelta(minutes=1)
+        self.q(self.item('Q', 'parked', mins_ago=10), {'ask_id': 'R', 'bot': 'Ada', 'status': 'open', 'filed': iso(later)})
+        r = d.tick(self.log, None, later + timedelta(seconds=1)); self.assertEqual(r[0], 'waiting-parked')
     def test_missing_and_malformed_queue(self):
         self.assertEqual(d.derive(self.log, None, NOW), (None, None))
         d.QUEUE.write_text('{not json'); self.assertEqual(d.derive(self.log, None, NOW), (None, None))
@@ -142,6 +143,34 @@ class OkQueueAndHold(Base):
         import time; time.sleep(0.05)
         r = d.tick(self.log, None, datetime.now(timezone.utc))
         self.assertEqual(json.loads(self.canon.read_text())['mood'], 'idle'); self.assertEqual(r[0], 'idle')
+
+class IncrementalLog(Base):
+    def test_appends_truncation_rotation(self):
+        self.lines(self.row('A', 'pending')); self.assertEqual(len(d.rows(self.log)), 1)
+        with open(self.log, 'a') as f: f.write(json.dumps(self.row('B', 'pending')) + '\n')
+        self.assertEqual([r['ask_id'] for r in d.rows(self.log)], ['A', 'B'])
+        with open(self.log, 'a') as f: f.write('{"ask_id": "C", "sta')      # partial line
+        self.assertEqual(len(d.rows(self.log)), 2)
+        with open(self.log, 'a') as f: f.write('tus": "pending"}\n')
+        self.assertEqual(len(d.rows(self.log)), 3)
+        self.log.write_text(json.dumps(self.row('Z', 'done')) + '\n')      # truncated
+        self.assertEqual([r['ask_id'] for r in d.rows(self.log)], ['Z'])
+        new = self.tmp / 'rot.jsonl'; new.write_text(json.dumps(self.row('R', 'pending')) + '\n' + json.dumps(self.row('S', 'pending')) + '\n')
+        new.replace(self.log)                                                 # rotated (new inode)
+        self.assertEqual([r['ask_id'] for r in d.rows(self.log)], ['R', 'S'])
+        self.log.unlink(); self.assertEqual(d.rows(self.log), [])
+
+class OkRequestField(Base):
+    def test_pending_urgent_approved(self):
+        import ok_queue as q
+        nm = {'Ada': 'ada'}
+        it = [{'kind': 'ask', 'ask_id': 'A1', 'bot': 'Ada', 'status': 'pending', 'since': iso(NOW - timedelta(minutes=2))}]
+        self.assertEqual(q.ok_request_by_slug(nm, NOW, it)['ada']['state'], 'pending')
+        it[0].update(priority=True, since=iso(NOW - timedelta(minutes=11)))
+        self.assertEqual(q.ok_request_by_slug(nm, NOW, it)['ada']['state'], 'urgent')
+        it.append(dict(it[0], status='approved', answered_at=iso(NOW - timedelta(seconds=5))))
+        self.assertEqual(q.ok_request_by_slug(nm, NOW, it)['ada']['state'], 'approved')
+        self.assertNotIn('ada', q.ok_request_by_slug(nm, NOW + timedelta(minutes=5), it))
 
 if __name__ == '__main__':
     unittest.main()

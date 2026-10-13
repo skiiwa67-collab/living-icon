@@ -8,4 +8,4 @@ Admiral Living Icon. v1 Soft-FAIL was a pulsing can. v2 is the admiral master wi
 | `matrix/{idle,listening,talking}/{mood}.gif` | Full 15-cell matrix |
 | `svg/` | Vector twins |
 
-Rebuild: `python3 /workspace/living-icon/_gen/build_skippy_happy.py`
+Rebuild: `python3 /workspace/living-icon/_gen/build_skippy_happy.py` (legacy builder; it still lives only in the retired /workspace/living-icon tree and was not moved)

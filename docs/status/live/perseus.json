@@ -1,0 +1,19 @@
+{
+  "mood": "calm",
+  "voice_state": "idle",
+  "since": "2026-10-13T11:48:57+00:00",
+  "hold_until": null,
+  "revert_to": null,
+  "ask_id": null,
+  "bot": null,
+  "stateModel": "matrix",
+  "agent": "perseus",
+  "source": "mirror",
+  "mirrored_from": "/workspace/agent-backups/Perseus/living-icon/mood-state.json",
+  "ok_request": {
+    "state": "none",
+    "ask_id": null,
+    "since": null,
+    "priority": false
+  }
+}

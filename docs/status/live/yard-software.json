@@ -1,0 +1,24 @@
+{
+  "mood": "calm",
+  "voice_state": "idle",
+  "since": "2026-10-13T11:48:57+00:00",
+  "hold_until": null,
+  "revert_to": null,
+  "ask_id": null,
+  "bot": null,
+  "stateModel": "matrix",
+  "agent": "yard-software",
+  "source": "mirror",
+  "mirrored_from": "/workspace/agent-backups/Yard-Software/living-icon/mood.json",
+  "waiting": {
+    "ask_id": "YS-ROUTERSPEC-1",
+    "since": "2026-10-13T11:35:00+00:00",
+    "status": "blocked-offline"
+  },
+  "ok_request": {
+    "state": "pending",
+    "ask_id": "YS-ROUTERSPEC-1",
+    "since": "2026-10-13T11:35:00+00:00",
+    "priority": false
+  }
+}

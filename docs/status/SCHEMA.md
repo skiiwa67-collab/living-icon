@@ -37,3 +37,10 @@ GitHub Pages is a backup only and is never in the live path (Chris rule, 2026-10
 
 HARD: Soft-FAIL invent md5/mtime/traits. Soft-FAIL claim live if stuck_softfail true.
 Ada Soft-PASS owns web host. Soft-FAIL invent has_pages false — Pages Soft-PASS from docs/.
+
+## ok_request (per agent, 2026-10-13, Da Vinci OVERLAY-SPEC r2)
+`"ok_request": {"state": "none|pending|urgent|approved", "ask_id": "<id>|null", "since": "<UTC ISO8601>|null", "priority": true|false}`.
+`urgent` means priority:true and the ask has been open for more than 10 min. `approved` is reported for 30 s after approval, then becomes `none`.
+The dashboard plays the approved frames once. Art: `packages/_overlay/ok-request/128/{state}/frame-NN.png` (full-canvas, top-right badge).
+Order: plate, then Living Icon, then badge, then chrome. Feeds are rebuilt atomically by the loop whenever a mood or overlay changes, and on the 10 min refresh.
+All timestamps are UTC ISO 8601.

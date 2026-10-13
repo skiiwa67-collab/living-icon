@@ -32,19 +32,41 @@ def _ts(s):
         return None
     return t if t.tzinfo else t.astimezone()   # naive = box-local (CT)
 
+_TAIL = {}   # path -> {'ino', 'off', 'rows', 'partial'}: incremental relay-log reader
+
 def rows(path):
-    """relay-log.jsonl rows; missing/retired file (e.g. renamed .retired) -> [] (queue still drives Eve)."""
+    """relay-log.jsonl rows, reading only bytes appended since the last call (keeps an offset).
+    Truncation (size < offset) or rotation (inode change) resets and rereads from 0.
+    Missing/retired file (e.g. renamed .retired) -> [] (OK queue still drives Eve)."""
+    path = Path(path)
     try:
-        if not path.exists(): return []
+        st = path.stat()
     except OSError:
+        _TAIL.pop(str(path), None)
         return []
-    out = []
-    for line in path.read_text().splitlines():
-        line = line.strip()
-        if line:
-            try: out.append(json.loads(line))
-            except ValueError: pass
-    return out
+    c = _TAIL.get(str(path))
+    with open(path, 'rb') as f:
+        head = f.read(256)
+        # reset on rotation (new inode), truncation (smaller), or in-place rewrite (head bytes changed)
+        if (c is None or c['ino'] != st.st_ino or st.st_size < c['off']
+                or head[:len(c['head'])] != c['head']):
+            c = _TAIL[str(path)] = {'ino': st.st_ino, 'off': 0, 'rows': [], 'partial': b'', 'head': b''}
+        if len(c['head']) < 256: c['head'] = head[:max(len(c['head']), min(len(head), 256))]
+        if st.st_size == c['off']:
+            return list(c['rows'])
+        f.seek(c['off']); chunk = f.read()
+        c['off'] += len(chunk)
+        data = c['partial'] + chunk
+        lines = data.split(b'\n')
+        c['partial'] = lines.pop()          # incomplete last line waits for the rest
+        for line in lines:
+            line = line.strip()
+            if line:
+                try: c['rows'].append(json.loads(line))
+                except ValueError: pass
+        if len(c['rows']) > 5000:            # keep memory bounded; only newest per ask matters
+            c['rows'] = list(latest_per_ask(c['rows']))
+    return list(c['rows'])
 
 def latest_per_ask(rs):
     cur = {}
@@ -136,6 +158,6 @@ if __name__ == '__main__':
     ap.add_argument('--loop', type=float); ap.add_argument('--once', action='store_true')
     a = ap.parse_args()
     while True:
-        print(datetime.now().isoformat(timespec='seconds'), *tick(a.log, a.net)); sys.stdout.flush()
+        print(datetime.now(timezone.utc).isoformat(timespec='seconds'), *tick(a.log, a.net)); sys.stdout.flush()
         if not a.loop: break
         time.sleep(a.loop)

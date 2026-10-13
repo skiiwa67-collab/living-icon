@@ -78,6 +78,11 @@
     border-radius: 12px; background: #0a0c10; border: 1px solid var(--line);
     object-fit: contain; image-rendering: pixelated;
   }
+  .iconwrap { position: relative; width: var(--avatar); height: var(--avatar); flex: 0 0 var(--avatar); }
+  /* OK-request overlay (Da Vinci OVERLAY-SPEC r2): full-canvas PNG frame, badge pre-placed top-right
+     (center 83%/17%, r 13%). Order: plate -> Living Icon -> badge -> chrome. */
+  .okbadge { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; border-radius: 12px; }
+  .okbadge[hidden] { display: none; }
   .avatar.missing {
     display: grid; place-items: center; color: var(--muted);
     font-size: 0.65rem; text-align: center; padding: 0.25rem;
@@ -132,15 +137,11 @@
 </footer>
 <script>
 let DATA = null, FEED = null, filter = 'all';
-const SLUG = {
-  'Ada':'ada','Da Vinci':'da-vinci','Helios':'helios','Saxon':'saxon',
-  'Skippy the Magnificent':'skippy','tinkabot':'tinkabot','Eve':'eve',
-  'Power Pod':'power-pod','Perseus':'perseus','Yard Software':'yard-software','DropBox Organizer':'dropbox-organizer','Strip Electrical':'strip-electrical'
-};
+// Roster/slugs come from data.json (built from docs/status/mood-sources.json); no name list here.
 function flagClass(f){ if(!f) return 'fail'; if(f.includes('fresh')) return 'ok'; if(f.includes('aging')) return 'warn'; return 'fail'; }
 function cardClass(r,f){ if(f&&f.stuck_softfail) return 'stall'; const s=r.stall_flag||''; if(s.includes('fresh')) return 'fresh'; if(s.includes('stall')||s.includes('no avatar')) return 'stall'; return ''; }
 function fmtStuck(sec){ if(sec==null) return '—'; const h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60); return h+'h '+m+'m'; }
-function feedFor(r){ if(!FEED||!FEED.agents) return null; const slug=r.slug||SLUG[r.name];
+function feedFor(r){ if(!FEED||!FEED.agents) return null; const slug=r.slug; return FEED.agents.find(a=>a.agent===slug)||null; }
 function render(){
   const grid=document.getElementById('grid'); grid.innerHTML='';
   let rows=DATA.roster||[];
@@ -148,7 +149,7 @@ function render(){
   if(filter==='stall') rows=rows.filter(r=>{ const f=feedFor(r); return (f&&f.stuck_softfail)||(r.stall_flag||'').includes('Soft-FAIL'); });
   for(const r of rows){
     const f=feedFor(r); const el=document.createElement('article'); el.className='card '+cardClass(r,f);
-    const slug=r.slug||SLUG[r.name];
+    const slug=r.slug;
     const img=r.live_art?('../../'+r.live_art):null;
     const growth=r.growth||{};
     let growthLine;
@@ -158,9 +159,9 @@ function render(){
       growthLine='Soft-PASS personality.json · '+growth.age_hours+'h · drift '+(growth.drift_enabled?'on':'off');
     else growthLine=(f&&f.growth&&f.growth.source==='unreported')?'Soft-FAIL unreported (no invented scores)':((growth.status||'Soft-FAIL')+(growth.note?' — '+growth.note:''));
     const lamp=f?(f.stuck_softfail?'<span class="flag fail">Soft-FAIL stuck</span>':'<span class="flag ok">Soft-PASS GIF</span>'):'<span class="flag warn">no feed</span>';
-    el.innerHTML=`<div class="top">${img?`<img class="avatar" src="${img}" alt="${r.name}" data-live="${slug}"/>`:`<div class="avatar missing">no Soft-PASS</div>`}<div><div class="name">${r.name}</div><div class="title">${r.title||r.package||'no pack'}</div><div class="flags"><span class="flag ${flagClass(r.stall_flag)}">${r.stall_flag||'Soft-FAIL'}</span>${lamp}</div></div></div>
+    el.innerHTML=`<div class="top"><div class="iconwrap">${img?`<img class="avatar" src="${img}" alt="${r.name}" data-live="${slug}"/>`:`<div class="avatar missing">no Soft-PASS</div>`}<img class="okbadge" data-ok="${slug}" alt="" hidden/></div><div><div class="name">${r.name}</div><div class="title">${r.title||r.package||'no pack'}</div><div class="flags"><span class="flag ${flagClass(r.stall_flag)}">${r.stall_flag||'Soft-FAIL'}</span>${lamp}</div></div></div>
     <dl>
-      <dt>mood</dt><dd data-live-state="${slug}">${r.mood||(f&&f.mood)||'unreported'}</dd><dt>OK</dt><dd data-wait="${slug}">${r.waiting?'<span class="flag warn">pending OK · '+r.waiting.status+'</span>':'—'}</dd>
+      <dt>mood</dt><dd data-live-state="${slug}">${r.mood||(f&&f.mood)||'unreported'}</dd>
       <dt>stuck</dt><dd>${f?fmtStuck(f.stuck_seconds):'—'}</dd>
       <dt>gif_mtime</dt><dd>${(f&&f.gif_mtime)||'—'}</dd>
       <dt>md5</dt><dd>${f&&f.gif_md5?f.gif_md5.slice(0,12)+'…':'—'}</dd>
@@ -175,7 +176,7 @@ async function load(){
   DATA=await dRes.json();
   try{ MAP=await (await fetch('../status/mood-sources.json?ts='+Date.now())).json(); }catch(e){}
   try{ FEED=await fRes.json(); }catch(e){ FEED=null; }
-  document.getElementById('generated').textContent='Soft-PASS '+(DATA.generated_at_ct||DATA.generated_at)+' · '+(DATA.roster||[]).length+' agents'+(FEED?' · feed '+FEED.updated_at:' · Soft-FAIL feed');
+  document.getElementById('generated').textContent='Soft-PASS '+new Date(DATA.generated_at).toLocaleString()+' · '+(DATA.roster||[]).length+' agents'+(FEED?' · feed '+FEED.updated_at:' · Soft-FAIL feed');
   document.getElementById('hostnote').textContent=FEED&&FEED.host&&FEED.host.url_softfail?FEED.host.url_softfail:'Soft-PASS phone view';
   render();
 }
@@ -198,8 +199,19 @@ function artFor(s,m,v){ const r=rowOf(s), c=cfgOf(s); if(!r||!c.art_dir) return 
   if(c.stateModel==='flat'){ for(const mm of [m,dm]) for(const e of ex) tries.push(d+'/states/'+(FLAT_ART[mm]||mm)+e); }
   else for(const [mm,vv] of [[m,v],[m,'idle'],[dm,v],[dm,'idle']]) for(const e of ex){ tries.push(d+'/matrix/'+vv+'/'+mm+e); tries.push(d+'/matrix/'+mm+'-'+vv+e); }
   const hit=tries.find(t=>inv.has(t)); return hit?'../../'+hit:null; }
-function badge(s,rec){ const w=rec&&rec.waiting; document.querySelectorAll('[data-wait="'+s+'"]').forEach(el=>{
-  el.innerHTML=w?'<span class="flag warn" title="'+w.ask_id+' since '+(w.since||'?')+'">pending OK · '+w.status+'</span>':''; }); }
+// OK-request badge: own 20 fps clock, independent of the mood loop. pending/urgent loop 40 frames;
+// approved plays 20 frames once, then the overlay is removed (state shown once per ask_id).
+const OK_DIR='../../packages/_overlay/ok-request/128/', OK_FRAMES={pending:40,urgent:40,approved:20}, OK_ST={}, OK_DONE=new Set();
+function okState(s,rec){ const o=rec&&rec.ok_request; if(!o||!o.state||o.state==='none') return null;
+  if(o.state==='approved'&&OK_DONE.has(o.ask_id)) return null; return o; }
+function badge(s,rec){ const o=okState(s,rec), cur=OK_ST[s];
+  if(!o){ delete OK_ST[s]; document.querySelectorAll('img[data-ok="'+s+'"]').forEach(el=>el.hidden=true); return; }
+  if(!cur||cur.state!==o.state||cur.ask_id!==o.ask_id) OK_ST[s]={state:o.state,ask_id:o.ask_id,f:0,title:o.ask_id+' since '+(o.since||'?')+(o.priority?' · priority':'')}; }
+setInterval(()=>{ for(const [s,st] of Object.entries(OK_ST)){
+    const n=OK_FRAMES[st.state]; if(st.f>=n){ if(st.state==='approved'){ OK_DONE.add(st.ask_id); delete OK_ST[s];
+        document.querySelectorAll('img[data-ok="'+s+'"]').forEach(el=>el.hidden=true); continue; } st.f=0; }
+    const src=OK_DIR+st.state+'/frame-'+String(st.f).padStart(2,'0')+'.png'; st.f++;
+    document.querySelectorAll('img[data-ok="'+s+'"]').forEach(el=>{ el.src=src; el.title=st.title; el.hidden=false; }); } },50);
 async function pollLive(){
   if(!MAP) return;
   for(const s of Object.keys(MAP.agents)){

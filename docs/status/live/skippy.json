@@ -1,10 +1,17 @@
 {
-  "mood": "idle",
-  "since": "2026-10-13T11:39:06+00:00",
+  "mood": "calm",
+  "since": "2026-10-13T11:48:57+00:00",
   "ask_id": null,
   "bot": null,
-  "source": "reset",
+  "source": "restore",
   "agent": "skippy",
   "hold_until": null,
-  "revert_to": null
+  "revert_to": null,
+  "stateModel": "matrix",
+  "ok_request": {
+    "state": "none",
+    "ask_id": null,
+    "since": null,
+    "priority": false
+  }
 }

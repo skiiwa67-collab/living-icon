@@ -31,7 +31,7 @@ def log_write(writer, target, old, new):
     try:
         WRITE_LOG.parent.mkdir(parents=True, exist_ok=True)
         with open(WRITE_LOG, 'a') as f:
-            f.write(json.dumps({'ts': datetime.now().astimezone().isoformat(timespec='microseconds'),
+            f.write(json.dumps({'ts': datetime.now(timezone.utc).isoformat(timespec='microseconds'),
                                 'writer': writer, 'target': target, 'old': old, 'new': new}) + '\n')
     except OSError:
         pass

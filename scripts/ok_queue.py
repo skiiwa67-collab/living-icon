@@ -99,7 +99,7 @@ def active(items=None, now=None, path=None):
         if raw_st in MINS and since and r.get('reread_at'):
             if _elapsed_min(since, now, iv) >= MINS[raw_st]: continue   # stale (only after Eve re-read)
         out.append({'ask_id': aid, 'bot': r.get('bot'), 'status': st,
-                    'since': since.isoformat() if since else None})
+                    'since': since.astimezone(timezone.utc).isoformat() if since else None})
     return out
 
 def eve_mood(act):
@@ -132,3 +132,34 @@ def name_map(m):
         d[c['name']] = s; d[c['name'].lower()] = s; d[s] = s
         d[c['name'].split()[0].lower()] = d.get(c['name'].split()[0].lower(), s)
     return d
+
+URGENT_AFTER_S = 10 * 60      # OVERLAY-SPEC.md: urgent = priority:true and now - since > 10 min
+APPROVED_SHOW_S = 30          # 'approved' is reported this long after approval, then 'none'
+BADGE_STATES = ('none', 'pending', 'urgent', 'approved')
+
+def _priority(r):
+    return bool(r.get('priority') or r.get('urgent'))
+
+def ok_request_by_slug(name_to_slug, now=None, items=None, path=None):
+    """Per-bot feed field ok_request {state, ask_id, since, priority} (Da Vinci OVERLAY-SPEC r2)."""
+    now = now or datetime.now(timezone.utc)
+    raw = items if items is not None else load_raw(path)
+    out = {}
+    for a in active(raw, now=now):
+        slug = name_to_slug.get((a.get('bot') or '').strip()) or name_to_slug.get((a.get('bot') or '').strip().lower())
+        if not slug: continue
+        rec = latest(raw).get(a['ask_id'], {})
+        pri = _priority(rec)
+        since = _ts(a['since'])
+        state = 'urgent' if pri and since and (now - since).total_seconds() > URGENT_AFTER_S else 'pending'
+        cur = out.get(slug)
+        if not cur or (state == 'urgent' and cur['state'] != 'urgent'):
+            out[slug] = {'state': state, 'ask_id': a['ask_id'], 'since': a['since'], 'priority': pri}
+    for aid, r in latest([x for x in raw if x.get('kind', 'ask') == 'ask']).items():
+        if norm_status(r.get('status')) != 'approved': continue
+        t = _ts(r.get('answered_at')) or _ts(r.get('resolved')) or _ts(r.get('ts'))
+        b = (r.get('bot') or '').strip()
+        slug = name_to_slug.get(b) or name_to_slug.get(b.lower())
+        if slug and slug not in out and t and 0 <= (now - t).total_seconds() <= APPROVED_SHOW_S:
+            out[slug] = {'state': 'approved', 'ask_id': aid, 'since': t.astimezone(timezone.utc).isoformat(), 'priority': _priority(r)}
+    return out

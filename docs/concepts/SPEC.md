@@ -31,7 +31,7 @@
 ## File list
 
 ```
-/workspace/living-icon/
+/workspace/living-icon-repo/   (canonical; old /workspace/living-icon is retired)
   SPEC.md
   helios/
     helios-calm.png          # 1024×1024
