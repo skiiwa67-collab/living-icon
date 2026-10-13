@@ -8,7 +8,7 @@
     "owner": "Ada",
     "has_pages": true,
     "pages_living_icon_repo": true,
-    "feed_path_canonical": "/workspace/living-icon/docs/status/feed.json",
+    "feed_path_canonical": "/workspace/living-icon-repo/docs/status/feed.json",
     "url": "https://skiiwa67-collab.github.io/living-icon/dashboard/",
     "feed_pages_url": "https://skiiwa67-collab.github.io/living-icon/status/feed.json",
     "url_softfail": null,
@@ -51,9 +51,9 @@
       "installed_avatar_mtime": "2026-10-08T15:23:09.955097-05:00",
       "installed_stuck_seconds": 13.631,
       "installed_stuck_softfail": false,
-      "source_gif": "/workspace/living-icon/packages/helios-happy/matrix/idle/calm.gif",
+      "source_gif": "/workspace/living-icon-repo/packages/helios-happy/matrix/idle/calm.gif",
       "source_gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
-      "remount_stage": "/workspace/living-icon/_remount/helios-idle-calm.gif",
+      "remount_stage": "/workspace/living-icon-repo/_remount/helios-idle-calm.gif",
       "checked_at": "2026-10-08T15:23:23.586314-05:00",
       "pre_remount_stuck_seconds": 23464.0,
       "pre_remount_stuck_softfail": true
@@ -95,9 +95,9 @@
       "installed_avatar_mtime": "2026-09-23T09:10:22-05:00",
       "installed_stuck_seconds": 15,
       "installed_stuck_softfail": false,
-      "source_gif": "/workspace/living-icon/packages/ada-happy/matrix/idle/calm.gif",
+      "source_gif": "/workspace/living-icon-repo/packages/ada-happy/matrix/idle/calm.gif",
       "source_gif_md5": "6ccfb818704d9604b059df545ca7b3c6",
-      "remount_stage": "/workspace/living-icon/_remount/ada-idle-calm.gif"
+      "remount_stage": "/workspace/living-icon-repo/_remount/ada-idle-calm.gif"
     },
     {
       "agent": "da-vinci",
@@ -136,9 +136,9 @@
       "installed_avatar_mtime": "2026-09-21T17:42:03.669199-05:00",
       "installed_stuck_seconds": 7,
       "installed_stuck_softfail": false,
-      "source_gif": "/workspace/living-icon/packages/da-vinci-happy/matrix/calm-idle.gif",
+      "source_gif": "/workspace/living-icon-repo/packages/da-vinci-happy/matrix/calm-idle.gif",
       "source_gif_md5": "24854b0590b54d9cc1a3053489e3893c",
-      "remount_stage": "/workspace/living-icon/_remount/da-vinci-idle-calm.gif"
+      "remount_stage": "/workspace/living-icon-repo/_remount/da-vinci-idle-calm.gif"
     },
     {
       "agent": "saxon",
@@ -171,9 +171,9 @@
       "installed_avatar_mtime": "2026-09-21T17:42:20.169172-05:00",
       "installed_stuck_seconds": 10,
       "installed_stuck_softfail": false,
-      "source_gif": "/workspace/living-icon/packages/saxon-happy/matrix/calm-idle.gif",
+      "source_gif": "/workspace/living-icon-repo/packages/saxon-happy/matrix/calm-idle.gif",
       "source_gif_md5": "47f8d23bb2428682333e0b9283693007",
-      "remount_stage": "/workspace/living-icon/_remount/saxon-idle-calm.gif"
+      "remount_stage": "/workspace/living-icon-repo/_remount/saxon-idle-calm.gif"
     },
     {
       "agent": "skippy",
@@ -212,7 +212,7 @@
       "installed_avatar_mtime": "2026-09-21T17:42:27.321160-05:00",
       "installed_stuck_seconds": 0,
       "installed_stuck_softfail": false,
-      "source_gif": "/workspace/living-icon/packages/skippy-happy/matrix/idle/calm.gif",
+      "source_gif": "/workspace/living-icon-repo/packages/skippy-happy/matrix/idle/calm.gif",
       "source_gif_md5": "36fa622d879a61991975ce8665d1467d"
     },
     {
@@ -252,7 +252,7 @@
       "installed_avatar_mtime": "2026-09-21T17:41:44-05:00",
       "installed_stuck_seconds": 8,
       "installed_stuck_softfail": false,
-      "source_gif": "/workspace/living-icon/packages/tinkabot-happy/matrix/calm-idle.gif"
+      "source_gif": "/workspace/living-icon-repo/packages/tinkabot-happy/matrix/calm-idle.gif"
     },
     {
       "agent": "eve",
@@ -272,7 +272,7 @@
       "pages_avatar": "avatars/eve.gif",
       "placeholder": true,
       "softpass": true,
-      "source_gif": "/workspace/living-icon/packages/eve-happy/states/idle.gif",
+      "source_gif": "/workspace/living-icon-repo/packages/eve-happy/states/idle.gif",
       "note": "PLACEHOLDER slot added 2026-10-13; Da Vinci art pending Chris approval.",
       "live_state_path": "/workspace/agent-backups/Eve/mood-state.json",
       "stateModel": "flat",

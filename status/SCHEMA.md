@@ -3,7 +3,7 @@
 One JSON Soft-PASS file the browser dashboard Soft-PASS polls.
 
 **Canonical path (GitHub Pages `/docs`):** `docs/status/feed.json`
-**Workspace mirror:** `/workspace/living-icon/status/feed.json` (identical content; host.canonical_path = `docs/status/feed.json`)
+**Workspace mirror:** `/workspace/living-icon-repo/status/feed.json` (identical content; host.canonical_path = `docs/status/feed.json`)
 **Pages URL:** https://skiiwa67-collab.github.io/living-icon/status/feed.json
 
 ```
@@ -21,7 +21,7 @@ One JSON Soft-PASS file the browser dashboard Soft-PASS polls.
       "agent": "helios",
       "mood": "calm|excited|somber|angry|thrilled|unreported",
       "voice_state": "idle|listening|talking",
-      "gif_path": "/workspace/living-icon/packages/<agent>-happy/matrix/{voice}/{mood}.gif",
+      "gif_path": "/workspace/living-icon-repo/packages/<agent>-happy/matrix/{voice}/{mood}.gif",
       "gif_md5": "<md5>",
       "gif_mtime": "<ISO8601>",
       "stuck_seconds": 0,
