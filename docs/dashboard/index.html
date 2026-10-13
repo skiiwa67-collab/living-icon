@@ -133,7 +133,7 @@
 let DATA = null, FEED = null, filter = 'all';
 const SLUG = {
   'Ada':'ada','Da Vinci':'da-vinci','Helios':'helios','Saxon':'saxon',
-  'Skippy the Magnificent':'skippy','tinkabot':'tinkabot'
+  'Skippy the Magnificent':'skippy','tinkabot':'tinkabot','Eve':'eve'
 };
 function flagClass(f){ if(!f) return 'fail'; if(f.includes('fresh')) return 'ok'; if(f.includes('aging')) return 'warn'; return 'fail'; }
 function cardClass(r,f){ if(f&&f.stuck_softfail) return 'stall'; const s=r.stall_flag||''; if(s.includes('fresh')) return 'fresh'; if(s.includes('stall')||s.includes('no avatar')) return 'stall'; return ''; }

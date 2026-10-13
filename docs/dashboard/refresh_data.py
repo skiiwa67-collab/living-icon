@@ -17,6 +17,7 @@ SLUG = {
     'Saxon': 'saxon-happy',
     'Skippy the Magnificent': 'skippy-happy',
     'tinkabot': 'tinkabot-happy',
+    'Eve': 'eve-happy',
 }
 
 def md5(p: Path):

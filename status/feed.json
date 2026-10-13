@@ -246,6 +246,26 @@
       "installed_stuck_seconds": 8,
       "installed_stuck_softfail": false,
       "source_gif": "/workspace/living-icon/packages/tinkabot-happy/matrix/calm-idle.gif"
+    },
+    {
+      "agent": "eve",
+      "mood": "idle",
+      "voice_state": "idle",
+      "mood_states": [
+        "idle",
+        "listening",
+        "thinking",
+        "relaying",
+        "happy",
+        "waiting-parked",
+        "launch-DND"
+      ],
+      "gif_path": "avatars/eve.gif",
+      "pages_avatar": "avatars/eve.gif",
+      "placeholder": true,
+      "softpass": true,
+      "source_gif": "/workspace/living-icon/packages/eve-happy/states/idle.gif",
+      "note": "PLACEHOLDER slot added 2026-10-13; Da Vinci art pending Chris approval."
     }
   ]
 }
