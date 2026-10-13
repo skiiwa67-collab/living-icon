@@ -1,0 +1,8 @@
+{
+  "agent": "eve",
+  "state": "idle",
+  "since": "2026-10-13T11:31:30+00:00",
+  "hold_until": null,
+  "revert_to": null,
+  "source": "reset"
+}

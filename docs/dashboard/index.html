@@ -156,9 +156,9 @@ function render(){
       growthLine='Soft-PASS personality.json · '+growth.age_hours+'h · drift '+(growth.drift_enabled?'on':'off');
     else growthLine=(f&&f.growth&&f.growth.source==='unreported')?'Soft-FAIL unreported (no invented scores)':((growth.status||'Soft-FAIL')+(growth.note?' — '+growth.note:''));
     const lamp=f?(f.stuck_softfail?'<span class="flag fail">Soft-FAIL stuck</span>':'<span class="flag ok">Soft-PASS GIF</span>'):'<span class="flag warn">no feed</span>';
-    el.innerHTML=`<div class="top">${img?`<img class="avatar" src="${img}" alt="${r.name}"/>`:`<div class="avatar missing">no Soft-PASS</div>`}<div><div class="name">${r.name}</div><div class="title">${r.title||r.package||'no pack'}</div><div class="flags"><span class="flag ${flagClass(r.stall_flag)}">${r.stall_flag||'Soft-FAIL'}</span>${lamp}</div></div></div>
+    el.innerHTML=`<div class="top">${img?`<img class="avatar" src="${img}" alt="${r.name}" data-live="${slug}"/>`:`<div class="avatar missing">no Soft-PASS</div>`}<div><div class="name">${r.name}</div><div class="title">${r.title||r.package||'no pack'}</div><div class="flags"><span class="flag ${flagClass(r.stall_flag)}">${r.stall_flag||'Soft-FAIL'}</span>${lamp}</div></div></div>
     <dl>
-      <dt>mood</dt><dd>${(f&&f.mood&&f.mood!=='unreported')?f.mood:(r.mood||'unreported')}</dd>
+      <dt>mood</dt><dd data-live-state="${slug}">${(f&&f.mood&&f.mood!=='unreported')?f.mood:(r.mood||'unreported')}</dd>
       <dt>stuck</dt><dd>${f?fmtStuck(f.stuck_seconds):'—'}</dd>
       <dt>gif_mtime</dt><dd>${(f&&f.gif_mtime)||'—'}</dd>
       <dt>md5</dt><dd>${f&&f.gif_md5?f.gif_md5.slice(0,12)+'…':'—'}</dd>
@@ -176,9 +176,22 @@ async function load(){
   document.getElementById('hostnote').textContent=FEED&&FEED.host&&FEED.host.url_softfail?FEED.host.url_softfail:'Soft-PASS phone view';
   render();
 }
+
+// Live state poll: docs/status/live/<slug>.json {state,since,hold_until,revert_to}
+const LIVE={}, LIVE_AGENTS=['eve'], LIVE_PKG={'eve':'eve-happy'};
+function liveState(rec){ if(!rec) return null; if(rec.hold_until&&Date.parse(rec.hold_until)<=Date.now()) return rec.revert_to||'idle'; return rec.state; }
+async function pollLive(){
+  for(const s of LIVE_AGENTS){
+    try{ const r=await fetch('../status/live/'+s+'.json?ts='+Date.now()); if(!r.ok) continue; LIVE[s]=await r.json(); }catch(e){}
+    const st=liveState(LIVE[s]); if(!st) continue;
+    document.querySelectorAll('img[data-live="'+s+'"]').forEach(img=>{ const src='../../packages/'+LIVE_PKG[s]+'/states/'+st+'.gif'; if(!img.src.endsWith(src.replace('../../',''))) img.src=src; img.title=s+': '+st; });
+    document.querySelectorAll('[data-live-state="'+s+'"]').forEach(el=>el.textContent=st);
+  }
+}
+setInterval(pollLive,3000);
 document.getElementById('reload').onclick=()=>load();
 document.querySelectorAll('.chip').forEach(chip=>{ chip.onclick=()=>{ document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on')); chip.classList.add('on'); filter=chip.dataset.filter; render(); }; });
-load().catch(e=>{ document.getElementById('generated').textContent='Soft-FAIL load — '+e; });
+load().then(pollLive).catch(e=>{ document.getElementById('generated').textContent='Soft-FAIL load — '+e; });
 </script>
 </body>
 </html>

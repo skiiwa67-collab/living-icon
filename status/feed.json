@@ -255,17 +255,19 @@
         "idle",
         "listening",
         "thinking",
-        "relaying",
+        "relay-active",
         "happy",
         "waiting-parked",
-        "launch-DND"
+        "launch-DND",
+        "frustrated"
       ],
       "gif_path": "avatars/eve.gif",
       "pages_avatar": "avatars/eve.gif",
       "placeholder": true,
       "softpass": true,
       "source_gif": "/workspace/living-icon/packages/eve-happy/states/idle.gif",
-      "note": "PLACEHOLDER slot added 2026-10-13; Da Vinci art pending Chris approval."
+      "note": "PLACEHOLDER slot added 2026-10-13; Da Vinci art pending Chris approval.",
+      "live_state_path": "status/live/eve.json"
     }
   ]
 }
