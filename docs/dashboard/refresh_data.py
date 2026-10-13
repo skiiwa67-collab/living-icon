@@ -18,6 +18,11 @@ SLUG = {
     'Skippy the Magnificent': 'skippy-happy',
     'tinkabot': 'tinkabot-happy',
     'Eve': 'eve-happy',
+    'Power Pod': 'power-pod-happy',
+    'Perseus': 'perseus-happy',
+    'Yard Software': 'yard-software-happy',
+    'DropBox Organizer': 'dropbox-organizer-happy',
+    'Strip Electrical': 'strip-electrical-happy',
 }
 
 def md5(p: Path):

@@ -153,8 +153,15 @@
       "growth": {
         "source": "personality.json",
         "traits": {},
-        "mood_scores": {},
-        "note": "Soft-PASS remount \u2014 no invent traits"
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "note": "Soft-PASS remount \u2014 no invent traits",
+        "note_seed": "starting mood_scores seeded 2026-10-13 (default shape)"
       },
       "softpass": true,
       "pages_avatar": "avatars/saxon.gif",
@@ -273,6 +280,161 @@
       "art_map": {
         "launch-dnd": "states/launch-DND.gif"
       }
+    },
+    {
+      "agent": "power-pod",
+      "display_name": "Power Pod",
+      "stateModel": "matrix",
+      "mood": "calm",
+      "voice_state": "idle",
+      "placeholder": true,
+      "softpass": true,
+      "gif_path": "avatars/power-pod.gif",
+      "pages_avatar": "avatars/power-pod.gif",
+      "growth": {
+        "source": "seed",
+        "traits": {
+          "warmth": 0.5,
+          "analytical": 0.5,
+          "urgency": 0.5,
+          "humor": 0.5,
+          "directness": 0.5,
+          "note": "Soft-PASS seed defaults unmeasured"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-10-13T06:45:00-05:00"
+      },
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
+    },
+    {
+      "agent": "perseus",
+      "display_name": "Perseus",
+      "stateModel": "matrix",
+      "mood": "calm",
+      "voice_state": "idle",
+      "placeholder": true,
+      "softpass": true,
+      "gif_path": "avatars/perseus.gif",
+      "pages_avatar": "avatars/perseus.gif",
+      "growth": {
+        "source": "seed",
+        "traits": {
+          "warmth": 0.5,
+          "analytical": 0.5,
+          "urgency": 0.5,
+          "humor": 0.5,
+          "directness": 0.5,
+          "note": "Soft-PASS seed defaults unmeasured"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-10-13T06:45:00-05:00"
+      },
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
+    },
+    {
+      "agent": "yard-software",
+      "display_name": "Yard Software",
+      "stateModel": "matrix",
+      "mood": "calm",
+      "voice_state": "idle",
+      "placeholder": true,
+      "softpass": true,
+      "gif_path": "avatars/yard-software.gif",
+      "pages_avatar": "avatars/yard-software.gif",
+      "growth": {
+        "source": "seed",
+        "traits": {
+          "warmth": 0.5,
+          "analytical": 0.5,
+          "urgency": 0.5,
+          "humor": 0.5,
+          "directness": 0.5,
+          "note": "Soft-PASS seed defaults unmeasured"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-10-13T06:45:00-05:00"
+      },
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
+    },
+    {
+      "agent": "dropbox-organizer",
+      "display_name": "DropBox Organizer",
+      "stateModel": "matrix",
+      "mood": "calm",
+      "voice_state": "idle",
+      "placeholder": true,
+      "softpass": true,
+      "gif_path": "avatars/dropbox-organizer.gif",
+      "pages_avatar": "avatars/dropbox-organizer.gif",
+      "growth": {
+        "source": "seed",
+        "traits": {
+          "warmth": 0.5,
+          "analytical": 0.5,
+          "urgency": 0.5,
+          "humor": 0.5,
+          "directness": 0.5,
+          "note": "Soft-PASS seed defaults unmeasured"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-10-13T06:45:00-05:00"
+      },
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
+    },
+    {
+      "agent": "strip-electrical",
+      "display_name": "Strip Electrical",
+      "stateModel": "matrix",
+      "mood": "calm",
+      "voice_state": "idle",
+      "placeholder": true,
+      "softpass": true,
+      "gif_path": "avatars/strip-electrical.gif",
+      "pages_avatar": "avatars/strip-electrical.gif",
+      "growth": {
+        "source": "seed",
+        "traits": {
+          "warmth": 0.5,
+          "analytical": 0.5,
+          "urgency": 0.5,
+          "humor": 0.5,
+          "directness": 0.5,
+          "note": "Soft-PASS seed defaults unmeasured"
+        },
+        "mood_scores": {
+          "calm": 0.55,
+          "excited": 0.15,
+          "somber": 0.1,
+          "angry": 0.05,
+          "thrilled": 0.15
+        },
+        "updated_at": "2026-10-13T06:45:00-05:00"
+      },
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
     }
   ]
 }
