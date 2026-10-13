@@ -258,7 +258,7 @@
         "relay-active",
         "happy",
         "waiting-parked",
-        "launch-DND",
+        "launch-dnd",
         "frustrated"
       ],
       "gif_path": "avatars/eve.gif",
@@ -267,7 +267,12 @@
       "softpass": true,
       "source_gif": "/workspace/living-icon/packages/eve-happy/states/idle.gif",
       "note": "PLACEHOLDER slot added 2026-10-13; Da Vinci art pending Chris approval.",
-      "live_state_path": "status/live/eve.json"
+      "live_state_path": "/workspace/agent-backups/Eve/mood-state.json",
+      "stateModel": "flat",
+      "live_state_mirror": "docs/status/live/eve.json",
+      "art_map": {
+        "launch-dnd": "states/launch-DND.gif"
+      }
     }
   ]
 }
