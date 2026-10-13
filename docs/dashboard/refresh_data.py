@@ -32,6 +32,10 @@ def md5(p: Path):
             h.update(c)
     return h.hexdigest()
 
+# Group rooms are not bots (Chris rule 2026-10-13): never list them as agents.
+GROUP_ROOMS = {'DFW Node', 'Ada \u00d7 Da Vinci \u2014 Living Icon'}
+
+
 def main():
     now = datetime.now(timezone.utc)
     rows = []
@@ -43,6 +47,8 @@ def main():
         except Exception:
             continue
         name = p.get('name') or d.name[:8]
+        if name in GROUP_ROOMS:
+            continue
         avatar = next((d / c for c in ('avatar.gif','avatar.png','avatar.jpg','avatar.webp') if (d / c).exists() and (d / c).stat().st_size > 0), None)
         av_mtime = datetime.fromtimestamp(avatar.stat().st_mtime, timezone.utc) if avatar else None
         stall_h = ((now - av_mtime).total_seconds() / 3600) if av_mtime else None
