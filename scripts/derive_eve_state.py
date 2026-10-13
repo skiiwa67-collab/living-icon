@@ -80,6 +80,21 @@ def is_stale(r, now):
     if st not in STALE: return False   # held-launch: no timeout (launch window governs)
     return ref is None or (now - ref).total_seconds() > STALE[st]
 
+QUEUE_TERMINAL = {'done', 'approved', 'denied', 'withdrawn'}
+RELAY_TS_KEYS = ('ts', 'card_at', 'parked_at', 'card_shown_at', 'answered_at', 'relayed_at', 'sent_at')
+
+def _relay_ts(r):
+    ts = [t for t in (_ts(r.get(k)) for k in RELAY_TS_KEYS) if t]
+    return max(ts) if ts else None
+
+def queue_closed(r, queue=None):
+    """True when the OK queue's newest record for this ask is terminal and newer than the relay-log entry.
+    Relay log is never edited; the queue simply wins for that ask."""
+    q = ok_queue.latest(ok_queue.load(queue or queue_path())).get(r.get('ask_id'))
+    if not q or ok_queue.norm_status(q.get('status')) not in QUEUE_TERMINAL: return False
+    qt, rt = ok_queue._rec_ts(q), _relay_ts(r)
+    return bool(qt and (rt is None or qt > rt))
+
 def in_launch_window(net, now):
     n = _ts(net)
     if not n: return False
@@ -99,6 +114,7 @@ def derive(log, net, now, queue=None):
         return 'launch-dnd', None
     cands = []
     live = [r for r in latest_per_ask(rows(log)) if r.get('status') in MOOD and not is_stale(r, now)]
+    live = [r for r in live if not queue_closed(r, queue)]
     if any(r['status'] == 'held-launch' for r in live):
         cands.append(('launch-dnd', None))
     for status in ('held-for-card', 'held-for-chat', 'pending'):

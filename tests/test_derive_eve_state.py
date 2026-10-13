@@ -174,3 +174,33 @@ class OkRequestField(Base):
 
 if __name__ == '__main__':
     unittest.main()
+
+class QueueWins(Base):
+    """YS-ROUTERSPEC-1: relay log says held-for-card (06:34 CT); queue's newest record is done (07:17 CT)."""
+    N2 = datetime(2026, 10, 13, 12, 25, tzinfo=timezone.utc)
+    RELAY = {'ask_id': 'YS-ROUTERSPEC-1', 'bot': 'Yard Software', 'status': 'held-for-card',
+             'sent_at': '2026-10-13T06:33:00-05:00', 'relayed_at': '2026-10-13T06:33:30-05:00',
+             'answered_at': '2026-10-13T06:34:00-05:00'}
+    def q(self, *recs):
+        base = {'kind': 'ask', 'ask_id': 'YS-ROUTERSPEC-1', 'bot': 'Yard Software', 'since': '2026-10-13T06:35:00-05:00'}
+        d.QUEUE.write_text(json.dumps([dict(base, **r) for r in recs]))
+    def test_done_newer_than_relay_releases_eve(self):
+        self.lines(self.RELAY)
+        self.q({'status': 'blocked-offline', 'ts': '2026-10-13T06:35:00-05:00'},
+               {'status': 'done', 'ts': '2026-10-13T07:17:26-05:00'})
+        self.assertEqual(d.derive(self.log, None, self.N2), (None, None))
+        before = self.log.read_text(); d.tick(self.log, None, self.N2)
+        self.assertEqual(self.log.read_text(), before)   # relay log untouched
+    def test_terminal_but_older_than_relay_still_holds(self):
+        self.lines(dict(self.RELAY, answered_at='2026-10-13T07:20:00-05:00'))
+        self.q({'status': 'done', 'ts': '2026-10-13T07:17:26-05:00'})
+        self.assertEqual(d.derive(self.log, None, self.N2)[0], 'waiting-parked')
+    def test_nonterminal_queue_still_holds(self):
+        self.lines(self.RELAY)
+        self.q({'status': 'blocked-offline', 'ts': '2026-10-13T07:17:26-05:00'})
+        self.assertEqual(d.derive(self.log, None, self.N2)[0], 'waiting-parked')
+    def test_each_terminal_status(self):
+        self.lines(self.RELAY)
+        for st in ('done', 'approved', 'denied', 'withdrawn'):
+            self.q({'status': st, 'ts': '2026-10-13T07:17:26-05:00'})
+            self.assertEqual(d.derive(self.log, None, self.N2), (None, None), st)
