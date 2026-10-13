@@ -1,0 +1,106 @@
+{
+  "schema": "living-icon-mood-sources/v1",
+  "note": "Box-local only. set_mood.py writes each bot's own source file (merged, schema kept) and mirrors to docs/status/live/<slug>.json. Readers take the newest of source vs live.",
+  "matrix_moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "flat_moods": [
+    "idle",
+    "listening",
+    "thinking",
+    "relay-active",
+    "waiting-parked",
+    "launch-dnd",
+    "happy",
+    "frustrated"
+  ],
+  "agents": {
+    "ada": {
+      "name": "Ada",
+      "id": "ec74770f-4547-46a2-b58f-f31ddba60b48",
+      "stateModel": "matrix",
+      "source": "docs/status/live/ada.json"
+    },
+    "da-vinci": {
+      "name": "Da Vinci",
+      "id": "5a5c4480-3f5e-4bf5-b315-e2a02011fdfe",
+      "stateModel": "matrix",
+      "source": "/workspace/agent-backups/Da-Vinci/living-icon/mood.json"
+    },
+    "dropbox-organizer": {
+      "name": "DropBox Organizer",
+      "id": "3b1a86d5-e519-4a16-8efc-e3dad6fdc561",
+      "stateModel": "matrix",
+      "source": "/workspace/living-icon/agents/dropbox-organizer/mood.json"
+    },
+    "eve": {
+      "name": "Eve",
+      "id": "8d633572-a8c8-4944-807a-c212b491a370",
+      "stateModel": "flat",
+      "source": "/workspace/agent-backups/Eve/mood-state.json"
+    },
+    "helios": {
+      "name": "Helios",
+      "id": "fe0b6c3f-adcf-483f-a7f9-335890abd80d",
+      "stateModel": "matrix",
+      "source": "docs/status/live/helios.json"
+    },
+    "perseus": {
+      "name": "Perseus",
+      "id": "7e2c6ae8-53dc-4e13-a997-59398b8f7842",
+      "stateModel": "matrix",
+      "source": "/workspace/agent-backups/Perseus/living-icon/mood-state.json",
+      "voice_states": [
+        "idle",
+        "listening",
+        "talking"
+      ],
+      "sheet": "/workspace/agent-backups/Perseus/living-icon/PACKAGE.md",
+      "art_status": "placeholder (sheet says DRAFT, not reviewed)"
+    },
+    "power-pod": {
+      "name": "Power Pod",
+      "id": "8b062242-aff5-4aea-b5fa-1665562c2cd9",
+      "stateModel": "matrix",
+      "source": "/workspace/agent-backups/Power-Pod/living-icon/mood-state.json"
+    },
+    "saxon": {
+      "name": "Saxon",
+      "id": "e9c64170-a22b-4c50-a6df-18c1d0d3b627",
+      "stateModel": "matrix",
+      "source": "/workspace/agent-backups/Saxon/mood-state.json",
+      "art_layout": "matrix/<mood>-<voice>.gif"
+    },
+    "skippy": {
+      "name": "Skippy the Magnificent",
+      "id": "2f489fae-574f-4b61-b618-40a8a74b08e8",
+      "stateModel": "matrix",
+      "source": "docs/status/live/skippy.json",
+      "flat_map": {
+        "idle": "calm"
+      }
+    },
+    "strip-electrical": {
+      "name": "Strip Electrical",
+      "id": "c4780272-495e-4eef-bbd4-654c9275d9fe",
+      "stateModel": "matrix",
+      "source": "/workspace/living-icon/packages/strip-electrical/mood-state.json"
+    },
+    "tinkabot": {
+      "name": "tinkabot",
+      "id": "9ca7f7d0-4648-4cfe-bc49-206401979b89",
+      "stateModel": "matrix",
+      "source": "docs/status/live/tinkabot.json"
+    },
+    "yard-software": {
+      "name": "Yard Software",
+      "id": "1116c9b2-1dff-4625-92f2-1090a5e2dc16",
+      "stateModel": "matrix",
+      "source": "/workspace/living-icon/agents/yard-software/mood.json"
+    }
+  }
+}

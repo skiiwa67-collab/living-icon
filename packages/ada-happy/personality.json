@@ -1,0 +1,26 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "Ada",
+  "id": "ec74770f-4547-46a2-b58f-f31ddba60b48",
+  "slug": "ada",
+  "role": "Staff Android surgeon",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "/home/box/agent-data/agents/ec74770f-4547-46a2-b58f-f31ddba60b48/avatar.png",
+  "art_dir": "packages/ada-happy/matrix/",
+  "mood_source": "docs/status/live/ada.json",
+  "live_state_path": "docs/status/live/ada.json",
+  "placeholders": []
+}

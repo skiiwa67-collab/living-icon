@@ -1,0 +1,29 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "DropBox Organizer",
+  "id": "3b1a86d5-e519-4a16-8efc-e3dad6fdc561",
+  "slug": "dropbox-organizer",
+  "role": "PLACEHOLDER: role not in package docs/data",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "PLACEHOLDER: no avatar on box",
+  "art_dir": "packages/dropbox-organizer-happy/matrix/",
+  "mood_source": "/workspace/living-icon/agents/dropbox-organizer/mood.json",
+  "live_state_path": "docs/status/live/dropbox-organizer.json",
+  "placeholders": [
+    "role",
+    "icon_path"
+  ]
+}

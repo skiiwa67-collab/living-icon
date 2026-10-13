@@ -1,0 +1,26 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "Saxon",
+  "id": "e9c64170-a22b-4c50-a6df-18c1d0d3b627",
+  "slug": "saxon",
+  "role": "Sync Soft-PASS",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "/home/box/agent-data/agents/e9c64170-a22b-4c50-a6df-18c1d0d3b627/avatar.png",
+  "art_dir": "packages/saxon-happy/matrix/",
+  "mood_source": "/workspace/agent-backups/Saxon/mood-state.json",
+  "live_state_path": "docs/status/live/saxon.json",
+  "placeholders": []
+}

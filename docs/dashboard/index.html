@@ -184,10 +184,17 @@ const LIVE={}, LIVE_PKG={'eve':'eve-happy'}, ART={'launch-dnd':'launch-DND'};
 function flatAgents(){ return ((FEED&&FEED.agents)||[]).filter(a=>a.stateModel==='flat').map(a=>a.agent); }
 function liveMood(rec){ if(!rec) return null; if(rec.hold_until&&Date.parse(rec.hold_until)<=Date.now()) return rec.revert_to||'idle'; return rec.mood; }
 async function pollLive(){
-  for(const s of flatAgents()){
-    try{ const r=await fetch('../status/live/'+s+'.json?ts='+Date.now()); if(!r.ok) continue; LIVE[s]=await r.json(); }catch(e){}
+  // Box-local only: every bot's docs/status/live/<slug>.json (mirrored from its own box file by the loop).
+  const flat=new Set(flatAgents());
+  const hasMatrix=new Set(((DATA&&DATA.roster)||[]).filter(r=>r.matrix_rel).map(r=>SLUG[r.name]));
+  for(const s of new Set([...flat, ...Object.values(SLUG)])){
+    try{ const r=await fetch('../status/live/'+s+'.json?ts='+Date.now()); if(!r.ok) continue; LIVE[s]=await r.json(); }catch(e){ continue; }
     const m=liveMood(LIVE[s]); if(!m) continue;
-    const src='../../packages/'+(LIVE_PKG[s]||s+'-happy')+'/states/'+(ART[m]||m)+'.gif';
+    if(!flat.has(s)&&!hasMatrix.has(s)){ document.querySelectorAll('[data-live-state="'+s+'"]').forEach(el=>el.textContent=m); continue; }
+    const src=flat.has(s)
+      ? '../../packages/'+(LIVE_PKG[s]||s+'-happy')+'/states/'+(ART[m]||m)+'.gif'
+      : (s==='saxon' ? '../../packages/saxon-happy/matrix/'+m+'-'+((LIVE[s].voice_state)||'idle')+'.gif'
+                     : '../../packages/'+s+'-happy/matrix/'+((LIVE[s].voice_state)||'idle')+'/'+m+'.gif');
     document.querySelectorAll('img[data-live="'+s+'"]').forEach(img=>{ if(img.getAttribute('src')!==src) img.setAttribute('src',src); img.title=s+': '+m; });
     document.querySelectorAll('[data-live-state="'+s+'"]').forEach(el=>el.textContent=m);
   }

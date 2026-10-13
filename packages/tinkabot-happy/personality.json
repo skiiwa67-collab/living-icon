@@ -1,0 +1,26 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "tinkabot",
+  "id": "9ca7f7d0-4648-4cfe-bc49-206401979b89",
+  "slug": "tinkabot",
+  "role": "tinkabot",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "/home/box/agent-data/agents/9ca7f7d0-4648-4cfe-bc49-206401979b89/avatar.png",
+  "art_dir": "packages/tinkabot-happy/matrix/",
+  "mood_source": "docs/status/live/tinkabot.json",
+  "live_state_path": "docs/status/live/tinkabot.json",
+  "placeholders": []
+}

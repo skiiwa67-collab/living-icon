@@ -1,0 +1,28 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "Da Vinci",
+  "id": "5a5c4480-3f5e-4bf5-b315-e2a02011fdfe",
+  "slug": "da-vinci",
+  "role": "PLACEHOLDER: role not in package docs/data",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "/home/box/agent-data/agents/5a5c4480-3f5e-4bf5-b315-e2a02011fdfe/avatar.gif",
+  "art_dir": "packages/da-vinci-happy/matrix/",
+  "mood_source": "/workspace/agent-backups/Da-Vinci/living-icon/mood.json",
+  "live_state_path": "docs/status/live/da-vinci.json",
+  "placeholders": [
+    "role"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "Yard Software",
+  "id": "1116c9b2-1dff-4625-92f2-1090a5e2dc16",
+  "slug": "yard-software",
+  "role": "PLACEHOLDER: role not in package docs/data",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "PLACEHOLDER: no avatar on box",
+  "art_dir": "packages/yard-software-happy/matrix/",
+  "mood_source": "/workspace/living-icon/agents/yard-software/mood.json",
+  "live_state_path": "docs/status/live/yard-software.json",
+  "placeholders": [
+    "role",
+    "icon_path"
+  ]
+}

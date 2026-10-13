@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Regenerate Living Icon stall dashboard data.json Soft-PASS."""
-import json, hashlib
+import json, hashlib, sys
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[2]  # living-icon
 AGENTS = Path('/home/box/agent-data/agents')
 PACKAGES = ROOT / 'packages'
 OUT = Path(__file__).resolve().parent / 'data.json'
+sys.path.insert(0, str(ROOT / 'scripts'))
+import mood_sources  # box-local live mood files (docs/status/mood-sources.json)
 
 SLUG = {
     'Ada': 'ada-happy',
@@ -37,6 +39,8 @@ GROUP_ROOMS = {'DFW Node', 'Ada \u00d7 Da Vinci \u2014 Living Icon'}
 
 
 def main():
+    global MOODMAP
+    MOODMAP = mood_sources.load_map()
     now = datetime.now(timezone.utc)
     rows = []
     for d in sorted(AGENTS.iterdir()):
@@ -80,6 +84,16 @@ def main():
                 growth = {'status': 'Soft-FAIL', 'note': str(e)}
 
         pkg = SLUG.get(name)
+        # Live box mood file wins over the personality.json default (Chris rule 2026-10-13).
+        mood_from = 'personality.json' if mood else None
+        slug = pkg[:-6] if pkg and pkg.endswith('-happy') else pkg
+        try:
+            live = mood_sources.read_mood(slug) if slug in MOODMAP['agents'] else None
+        except Exception:
+            live = None
+        if live:
+            mood, mood_from = live['mood'], live['path']
+            voice_state = live.get('voice_state') or voice_state
         softpass_path = None
         softpass_rel = None
         softpass_md5 = None
@@ -120,6 +134,7 @@ def main():
             'in_fleet': bool(pkg),
             'package': pkg,
             'mood': mood,
+            'mood_from': mood_from,
             'voice_state': voice_state,
             'avatar_path': str(avatar) if avatar else None,
             'avatar_md5': md5(avatar) if avatar else None,

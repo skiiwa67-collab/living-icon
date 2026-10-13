@@ -1,0 +1,27 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "Eve",
+  "id": "8d633572-a8c8-4944-807a-c212b491a370",
+  "slug": "eve",
+  "role": "PLACEHOLDER: role not in package docs/data",
+  "stateModel": "flat",
+  "moods": [
+    "idle",
+    "listening",
+    "thinking",
+    "relay-active",
+    "waiting-parked",
+    "launch-dnd",
+    "happy",
+    "frustrated"
+  ],
+  "voice_states": null,
+  "default_mood": "idle",
+  "icon_path": "/home/box/agent-data/agents/8d633572-a8c8-4944-807a-c212b491a370/avatar.png",
+  "art_dir": "packages/eve-happy/states/",
+  "mood_source": "/workspace/agent-backups/Eve/mood-state.json",
+  "live_state_path": "docs/status/live/eve.json",
+  "placeholders": [
+    "role"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "Power Pod",
+  "id": "8b062242-aff5-4aea-b5fa-1665562c2cd9",
+  "slug": "power-pod",
+  "role": "Power Pod",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "/home/box/agent-data/agents/8b062242-aff5-4aea-b5fa-1665562c2cd9/avatar.png",
+  "art_dir": "packages/power-pod-happy/matrix/",
+  "mood_source": "/workspace/agent-backups/Power-Pod/living-icon/mood-state.json",
+  "live_state_path": "docs/status/live/power-pod.json",
+  "placeholders": []
+}

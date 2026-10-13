@@ -1,0 +1,28 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "Perseus",
+  "id": "7e2c6ae8-53dc-4e13-a997-59398b8f7842",
+  "slug": "perseus",
+  "role": "Chris Olsen's primary bot and the overall link to the whole team (from persona-profile.json description)",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "/home/box/agent-data/agents/7e2c6ae8-53dc-4e13-a997-59398b8f7842/avatar.png",
+  "art_dir": "packages/perseus-happy/matrix/",
+  "mood_source": "/workspace/agent-backups/Perseus/living-icon/mood-state.json",
+  "live_state_path": "docs/status/live/perseus.json",
+  "placeholders": [],
+  "art_status": "placeholder (sheet says DRAFT, not reviewed)",
+  "sheet": "/workspace/agent-backups/Perseus/living-icon/PACKAGE.md"
+}

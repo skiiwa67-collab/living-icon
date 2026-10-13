@@ -9,10 +9,12 @@
     "has_pages": true,
     "pages_living_icon_repo": true,
     "feed_path_canonical": "/workspace/living-icon-repo/docs/status/feed.json",
-    "url": "https://skiiwa67-collab.github.io/living-icon/dashboard/",
-    "feed_pages_url": "https://skiiwa67-collab.github.io/living-icon/status/feed.json",
     "url_softfail": null,
-    "canonical_path": "docs/status/feed.json"
+    "canonical_path": "docs/status/feed.json",
+    "legacy_pages_url_backup_only": "https://skiiwa67-collab.github.io/living-icon/dashboard/",
+    "legacy_feed_pages_url_backup_only": "https://skiiwa67-collab.github.io/living-icon/status/feed.json",
+    "url": "http://127.0.0.1:55915/docs/dashboard/index.html",
+    "live_path": "box-local: docs/status/live/<slug>.json via docs/status/mood-sources.json"
   },
   "agents": [
     {
@@ -144,7 +146,7 @@
       "agent": "saxon",
       "mood": "calm",
       "voice_state": "idle",
-      "gif_path": "avatars/saxon.gif",
+      "gif_path": "packages/saxon-happy/matrix/calm-idle.gif",
       "gif_md5": "47f8d23bb2428682333e0b9283693007",
       "gif_mtime": "2026-09-21T17:42:20.169172-05:00",
       "stuck_seconds": 10,
@@ -173,7 +175,9 @@
       "installed_stuck_softfail": false,
       "source_gif": "/workspace/living-icon-repo/packages/saxon-happy/matrix/calm-idle.gif",
       "source_gif_md5": "47f8d23bb2428682333e0b9283693007",
-      "remount_stage": "/workspace/living-icon-repo/_remount/saxon-idle-calm.gif"
+      "remount_stage": "/workspace/living-icon-repo/_remount/saxon-idle-calm.gif",
+      "own_gif_path": "/workspace/agent-backups/Saxon/living-icon/matrix/thrilled-idle.gif",
+      "mood_source": "/workspace/agent-backups/Saxon/mood-state.json"
     },
     {
       "agent": "skippy",
@@ -372,7 +376,8 @@
         },
         "updated_at": "2026-10-13T06:45:00-05:00"
       },
-      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves).",
+      "mood_source": "/workspace/living-icon/agents/yard-software/mood.json"
     },
     {
       "agent": "dropbox-organizer",
@@ -403,7 +408,8 @@
         },
         "updated_at": "2026-10-13T06:45:00-05:00"
       },
-      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves)."
+      "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves).",
+      "mood_source": "/workspace/living-icon/agents/dropbox-organizer/mood.json"
     },
     {
       "agent": "strip-electrical",

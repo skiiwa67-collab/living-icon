@@ -1,0 +1,26 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "Helios",
+  "id": "fe0b6c3f-adcf-483f-a7f9-335890abd80d",
+  "slug": "helios",
+  "role": "Fleet advisor",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/avatar.png",
+  "art_dir": "packages/helios-happy/matrix/",
+  "mood_source": "docs/status/live/helios.json",
+  "live_state_path": "docs/status/live/helios.json",
+  "placeholders": []
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "living-icon-personality/v1",
+  "name": "Strip Electrical",
+  "id": "c4780272-495e-4eef-bbd4-654c9275d9fe",
+  "slug": "strip-electrical",
+  "role": "PLACEHOLDER: role not in package docs/data",
+  "stateModel": "matrix",
+  "moods": [
+    "calm",
+    "excited",
+    "somber",
+    "angry",
+    "thrilled"
+  ],
+  "voice_states": [
+    "idle",
+    "listening",
+    "talking"
+  ],
+  "default_mood": "calm",
+  "icon_path": "PLACEHOLDER: no avatar on box",
+  "art_dir": "packages/strip-electrical-happy/matrix/",
+  "mood_source": "/workspace/living-icon/packages/strip-electrical/mood-state.json",
+  "live_state_path": "docs/status/live/strip-electrical.json",
+  "placeholders": [
+    "role",
+    "icon_path"
+  ]
+}
