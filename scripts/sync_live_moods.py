@@ -12,6 +12,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import mood_sources as ms, set_mood as sm, ok_queue as okq
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'docs' / 'dashboard'))
 
+import hashlib, json
+HASHES = Path('/tmp/living-icon-hashes.json')   # persisted per-tick fingerprints (box-local)
+
+def _h(p):
+    try: return hashlib.md5(Path(p).read_bytes()).hexdigest()
+    except OSError: return None
+
 KEEP = ('mood', 'voice_state', 'since', 'hold_until', 'revert_to', 'ask_id', 'bot', 'stateModel')
 
 def expire_hold(slug, path, now):
@@ -28,7 +35,7 @@ def expire_hold(slug, path, now):
     sm._atomic(path, new); sm.log_write('loop:hold-expiry', slug, old, new['mood'])
     return True
 
-def main(now=None, queue_path=None, write_feeds=True):
+def main(now=None, queue_path=None, write_feeds=True, hashes_path=HASHES):
     now = now or datetime.now(timezone.utc)
     m = ms.load_map(); changed = []
     raw = okq.load_raw(queue_path)
@@ -58,6 +65,19 @@ def main(now=None, queue_path=None, write_feeds=True):
         base['ok_request'] = okreq.get(slug) or {'state': 'none', 'ask_id': None, 'since': None, 'priority': False}
         if lrec != base:
             sm._atomic(live, base); changed.append(f'{slug}={base.get("mood")}' + ('+waiting' if w else ''))
+    # F10: fingerprint every source + live file; any change (incl. bots whose source IS live/) rebuilds feeds.
+    try: prev = json.loads(hashes_path.read_text())
+    except (OSError, ValueError): prev = {}
+    cur_h = {}
+    for slug, cfg in m['agents'].items():
+        for p in {str(ms.src_path(cfg)), str(ms.LIVE / f'{slug}.json')}:
+            cur_h[p] = _h(p)
+    for p, h in cur_h.items():
+        if prev.get(p) != h:
+            changed.append(f'hash:{p}')
+    if cur_h != prev:
+        try: sm._atomic(hashes_path, cur_h)
+        except OSError: pass
     if changed:
         print(datetime.now(timezone.utc).isoformat(timespec='seconds'), 'synced', ' '.join(changed))
         if write_feeds:   # feed lag fix: rebuild data.json + both feed.json (atomic) on any change

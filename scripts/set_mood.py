@@ -20,7 +20,8 @@ DEFAULT_HOLD = {'eve': {'frustrated': 5, 'happy': 4}}
 VOICES = ('idle', 'listening', 'talking')
 
 def _atomic(path, rec):
-    path = Path(path); path.parent.mkdir(parents=True, exist_ok=True)
+    # Resolve symlinks first so temp+rename replaces the TARGET file and the link survives.
+    path = Path(os.path.realpath(path)); path.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp = tempfile.mkstemp(dir=path.parent, prefix='.' + path.name, suffix='.tmp')
     with os.fdopen(fd, 'w') as f:
         json.dump(rec, f, indent=2); f.write('\n'); f.flush(); os.fsync(f.fileno())

@@ -34,7 +34,6 @@ def build_row(slug, cfg, now, waiting, okreq=None):
     avatar = next((d / c for c in ('avatar.gif', 'avatar.png', 'avatar.jpg', 'avatar.webp')
                    if (d / c).exists() and (d / c).stat().st_size > 0), None)
     av_mtime = avatar.stat().st_mtime if avatar else None
-    stall_h = (now.timestamp() - av_mtime) / 3600 if av_mtime else None
     growth = {'status': 'Soft-FAIL frozen', 'note': 'no personality.json'}
     mood = voice = None
     pers = next((p for p in (d / 'personality.json', ROOT / cfg['art_dir'] / 'personality.json') if p.exists()), None)
@@ -58,8 +57,11 @@ def build_row(slug, cfg, now, waiting, okreq=None):
     if mood not in (mood_sources.load_map()['flat_moods'] if cfg['stateModel'] == 'flat' else mood_sources.load_map()['matrix_moods']):
         mood = None
     live_art = art.resolve(cfg, mood, voice or 'idle')
+    # Stall uses the SAME timestamp the card shows ('updated' = live mood file time).
+    upd = live['ts'] if live else None
+    stall_h = (now.timestamp() - upd) / 3600 if upd else None
     sp = ROOT / cfg['art_dir'] / 'softpass' / 'avatar-idle.gif'
-    flag = ('Soft-FAIL no avatar' if stall_h is None else 'Soft-FAIL stall ≥24h' if stall_h >= 24 else
+    flag = ('Soft-FAIL no mood file' if stall_h is None else 'Soft-FAIL stall ≥24h' if stall_h >= 24 else
             'Soft-FAIL stall ≥12h' if stall_h >= 12 else 'Soft-PASS aging' if stall_h >= 1 else 'Soft-PASS fresh')
     return {
         'name': cfg['name'], 'slug': slug, 'agent_id': cfg['id'], 'title': prof.get('title') or '',
@@ -68,6 +70,7 @@ def build_row(slug, cfg, now, waiting, okreq=None):
         'mood_since': iso(live['ts']) if live else None,
         'avatar_path': str(avatar) if avatar else None, 'avatar_md5': md5(avatar) if avatar else None,
         'avatar_mtime': iso(av_mtime) if av_mtime else None,
+        'updated_at': iso(upd) if upd else None, 'stall_basis': 'updated_at (live mood file)',
         'stall_hours': round(stall_h, 2) if stall_h is not None else None, 'stall_flag': flag,
         'softpass_path': str(sp) if sp.exists() else None,
         'live_art': live_art, 'live_art_md5': md5(ROOT / live_art) if live_art else None,
@@ -116,7 +119,8 @@ def main():
     open_asks = len(act)
     out = {'schema': 'living-icon-stall-dashboard/v2', 'generated_at': now.isoformat(),
            'thresholds_hours': {'aging': 1, 'stall_soft': 12, 'stall_hard': 24},
-           'open_asks': open_asks, 'asks': act, 'roster': rows,
+           'open_asks': open_asks, 'asks': act,
+           'other_asks': ok_queue.unmapped(act, ok_queue.name_map(m)), 'roster': rows,
            'fleet_only_note': 'Roster = docs/status/mood-sources.json; art from <art_dir> on the box'}
     _atomic(OUT, out)
     for f in FEEDS: update_feed(f, rows, now, open_asks)

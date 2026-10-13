@@ -53,12 +53,25 @@ def load_raw(path=None):
 def load(path=None):
     return [r for r in load_raw(path) if r.get('kind', 'ask') == 'ask']
 
+def _rec_ts(r):
+    for k in ('ts', 'resolved', 'answered_at', 'since', 'filed', 'sent_at'):
+        t = _ts(r.get(k))
+        if t: return t
+    return None
+
 def latest(items):
-    """Append-only queue: the newest record per ask_id is that ask's state (as ok_request.latest)."""
+    """Newest record per ask_id by timestamp (ts, else resolved/answered_at/since/filed).
+    Ties or missing timestamps fall back to file order (later record wins)."""
     cur = {}
     for r in items:
         aid = r.get('ask_id') or r.get('id')
-        if aid: cur[aid] = r
+        if not aid: continue
+        old = cur.get(aid)
+        if old is None:
+            cur[aid] = r; continue
+        to, tn = _rec_ts(old), _rec_ts(r)
+        if to is None or tn is None or tn >= to:
+            cur[aid] = r
     return cur
 
 def _pauses(items, now):
@@ -125,6 +138,10 @@ def waiting_by_slug(act, name_to_slug):
         if slug and slug not in w:
             w[slug] = {'ask_id': a['ask_id'], 'since': a['since'], 'status': a['status']}
     return w
+
+def unmapped(act, name_to_slug):
+    """Active asks whose bot isn't in the roster (shown on the dashboard 'other' line)."""
+    return [a for a in act if not (name_to_slug.get((a.get('bot') or '').strip()) or name_to_slug.get((a.get('bot') or '').strip().lower()))]
 
 def name_map(m):
     d = {}

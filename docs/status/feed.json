@@ -1,6 +1,6 @@
 {
   "schema": "living-icon-status-feed/v1",
-  "updated_at": "2026-10-13T12:07:31.760853+00:00",
+  "updated_at": "2026-10-13T12:15:57.051073+00:00",
   "stale_threshold_seconds": 21600,
   "canonical_path": "docs/status/feed.json",
   "softfail_chris_catch": "Soft-PASS Helios forced dashboard refresh 2026-09-23 ~09:10 CT because feed was stale since 2026-09-22; Ada + Da Vinci GIF mtimes/md5 refreshed; stuck_seconds recalculated Soft-PASS.",
@@ -61,7 +61,7 @@
       "mood_source": "/workspace/living-icon-repo/docs/status/live/ada.json",
       "mood_since": "2026-10-13T11:48:57+00:00",
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -113,7 +113,7 @@
       "mood_source": "/workspace/agent-backups/Da-Vinci/living-icon/mood.json",
       "mood_since": "2026-10-13T11:48:57+00:00",
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -161,7 +161,7 @@
       "stuck_seconds": 0.0,
       "stuck_softfail": false,
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -202,10 +202,10 @@
       "installed_avatar_path": "/home/box/agent-data/agents/8d633572-a8c8-4944-807a-c212b491a370/avatar.png",
       "installed_avatar_md5": "13ba51502c89eeb61f953e4e705e5ce0",
       "installed_avatar_mtime": "2026-10-13T11:36:55.184355+00:00",
-      "stuck_seconds": 1006.761,
+      "stuck_seconds": 1512.051,
       "stuck_softfail": false,
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -220,7 +220,7 @@
       "gif_path": "packages/helios-happy/matrix/idle/calm.gif",
       "gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
       "gif_mtime": "2026-10-06T22:04:58.446833+00:00",
-      "stuck_seconds": 1114.761,
+      "stuck_seconds": 1620.051,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/fe0b6c3f-adcf-483f-a7f9-335890abd80d/personality.json",
       "growth": {
@@ -252,7 +252,7 @@
       "source_gif": "/workspace/living-icon-repo/packages/helios-happy/matrix/idle/calm.gif",
       "source_gif_md5": "2932a5cb12a948aded1c8a3e89c5616c",
       "remount_stage": "/workspace/living-icon-repo/_remount/helios-idle-calm.gif",
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "pre_remount_stuck_seconds": 23464.0,
       "pre_remount_stuck_softfail": true,
       "stateModel": "matrix",
@@ -303,10 +303,10 @@
       "installed_avatar_path": "/home/box/agent-data/agents/7e2c6ae8-53dc-4e13-a997-59398b8f7842/avatar.png",
       "installed_avatar_md5": "654a2019cd4b2529d0da51801fbe32b4",
       "installed_avatar_mtime": "2026-10-13T11:45:55.714852+00:00",
-      "stuck_seconds": 1114.761,
+      "stuck_seconds": 1620.051,
       "stuck_softfail": false,
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -354,7 +354,7 @@
       "stuck_seconds": 0.0,
       "stuck_softfail": false,
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -369,7 +369,7 @@
       "gif_path": "packages/saxon-happy/matrix/thrilled-idle.gif",
       "gif_md5": "217e6241d2aabbf34222c496a75ce8ee",
       "gif_mtime": "2026-10-06T22:05:15.392112+00:00",
-      "stuck_seconds": 1114.761,
+      "stuck_seconds": 1620.051,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/e9c64170-a22b-4c50-a6df-18c1d0d3b627/personality.json",
       "growth": {
@@ -401,7 +401,7 @@
       "stateModel": "matrix",
       "mood_since": "2026-10-13T11:48:57+00:00",
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -416,7 +416,7 @@
       "gif_path": "packages/skippy-happy/matrix/idle/calm.gif",
       "gif_md5": "36fa622d879a61991975ce8665d1467d",
       "gif_mtime": "2026-10-06T22:05:34.389991+00:00",
-      "stuck_seconds": 1114.761,
+      "stuck_seconds": 1620.051,
       "stuck_softfail": false,
       "personality_path": "/home/box/agent-data/agents/2f489fae-574f-4b61-b618-40a8a74b08e8/personality.json",
       "growth": {
@@ -452,7 +452,7 @@
       "mood_source": "/workspace/living-icon-repo/docs/status/live/skippy.json",
       "mood_since": "2026-10-13T11:48:57+00:00",
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -491,16 +491,16 @@
       },
       "note": "PLACEHOLDER neutral grey avatar added 2026-10-13; real art pending (Da Vinci, Chris approves).",
       "mood_source": "/workspace/agent-backups/Strip-Electrical/living-icon/mood-state.json",
-      "mood_since": "2026-10-13T11:49:13+00:00",
+      "mood_since": "2026-10-13T12:12:54+00:00",
       "gif_md5": "5331e24417e6e18bdf5e331a26dfb44d",
       "gif_mtime": "2026-10-13T11:55:58.330621+00:00",
       "installed_avatar_path": "/home/box/agent-data/agents/c4780272-495e-4eef-bbd4-654c9275d9fe/avatar.png",
       "installed_avatar_md5": "11843e2c753c91386b1e8a91aed612dd",
       "installed_avatar_mtime": "2026-10-13T11:55:25.943353+00:00",
-      "stuck_seconds": 0.0,
+      "stuck_seconds": 183.051,
       "stuck_softfail": false,
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -550,7 +550,7 @@
       "mood_source": "/workspace/living-icon-repo/docs/status/live/tinkabot.json",
       "mood_since": "2026-10-13T11:48:57+00:00",
       "waiting": null,
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "none",
         "ask_id": null,
@@ -602,7 +602,7 @@
         "since": "2026-10-13T11:35:00+00:00",
         "status": "blocked-offline"
       },
-      "checked_at": "2026-10-13T12:07:31.760853+00:00",
+      "checked_at": "2026-10-13T12:15:57.051073+00:00",
       "ok_request": {
         "state": "pending",
         "ask_id": "YS-ROUTERSPEC-1",

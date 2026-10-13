@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="data:,">
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#0b0d12"/>
@@ -162,8 +163,8 @@ function render(){
     el.innerHTML=`<div class="top"><div class="iconwrap">${img?`<img class="avatar" src="${img}" alt="${r.name}" data-live="${slug}"/>`:`<div class="avatar missing">no Soft-PASS</div>`}<img class="okbadge" data-ok="${slug}" alt="" hidden/></div><div><div class="name">${r.name}</div><div class="title">${r.title||r.package||'no pack'}</div><div class="flags"><span class="flag ${flagClass(r.stall_flag)}">${r.stall_flag||'Soft-FAIL'}</span>${lamp}</div></div></div>
     <dl>
       <dt>mood</dt><dd data-live-state="${slug}">${r.mood||(f&&f.mood)||'unreported'}</dd>
+      <dt>updated</dt><dd title="stall lamp uses this time">${r.updated_at||'—'}${r.stall_hours!=null?' ('+r.stall_hours+'h)':''}</dd>
       <dt>stuck</dt><dd>${f?fmtStuck(f.stuck_seconds):'—'}</dd>
-      <dt>gif_mtime</dt><dd>${(f&&f.gif_mtime)||'—'}</dd>
       <dt>md5</dt><dd>${f&&f.gif_md5?f.gif_md5.slice(0,12)+'…':'—'}</dd>
       <dt>active</dt><dd class="path">${r.active_animation||r.softpass_path||'—'}</dd>
       <dt>growth</dt><dd>${growthLine}</dd>
@@ -221,7 +222,10 @@ async function pollLive(){
     if(src) document.querySelectorAll('img[data-live="'+s+'"]').forEach(img=>{ if(img.getAttribute('src')!==src) img.setAttribute('src',src); img.title=s+': '+m; });
     document.querySelectorAll('[data-live-state="'+s+'"]').forEach(el=>el.textContent=m);
   }
-  const n=document.getElementById('openasks'); if(n) n.textContent=(DATA&&DATA.open_asks!=null)?('Open OK asks: '+DATA.open_asks):'';
+  const n=document.getElementById('openasks');
+  if(n){ const oth=(DATA&&DATA.other_asks)||[];
+    n.textContent=((DATA&&DATA.open_asks!=null)?('Open OK asks: '+DATA.open_asks):'')+
+      (oth.length?(' · other (not in roster): '+oth.map(a=>(a.bot||'?')+' '+a.ask_id+' ['+a.status+']').join(', ')):''); }
 }
 setInterval(()=>load().then(pollLive).catch(()=>{}),60000);   // reload data.json every 60 s
 setInterval(pollLive,3000);
