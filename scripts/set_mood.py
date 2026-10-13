@@ -17,6 +17,8 @@ def _atomic(path, rec):
     fd, tmp = tempfile.mkstemp(dir=path.parent, prefix='.' + path.name, suffix='.tmp')
     with os.fdopen(fd, 'w') as f:
         json.dump(rec, f, indent=2); f.write('\n')
+        f.flush(); os.fsync(f.fileno())
+    os.chmod(tmp, 0o644)              # mkstemp is 0600; dashboard must read it
     os.replace(tmp, path)
 
 def canonical_path(agent):
