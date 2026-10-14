@@ -189,6 +189,7 @@ const FLAT_ART={'launch-dnd':'launch-DND'};
 function cfgOf(s){ return (MAP&&MAP.agents&&MAP.agents[s])||{}; }
 function defMood(s){ return cfgOf(s).stateModel==='flat'?'idle':'calm'; }
 function liveMood(s,rec){ if(!rec) return null; const c=cfgOf(s);
+  if(rec.display_mood&&rec.display_override){ const al=c.stateModel==='flat'?(MAP.flat_moods||[]):(MAP.matrix_moods||[]); if(al.includes(rec.display_mood)) return rec.display_mood; }
   let m=(rec.hold_until&&Date.parse(rec.hold_until)<=Date.now())?(rec.revert_to||defMood(s)):rec.mood;
   if(c.flat_map&&c.flat_map[m]) m=c.flat_map[m];
   const allowed=c.stateModel==='flat'?(MAP.flat_moods||[]):(MAP.matrix_moods||[]);

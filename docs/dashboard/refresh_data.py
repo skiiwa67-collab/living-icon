@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
-import mood_sources, art, ok_queue
+import mood_sources, art, ok_queue, display
 from set_mood import _atomic
 AGENTS = Path('/home/box/agent-data/agents')
 OUT = Path(__file__).resolve().parent / 'data.json'
@@ -56,7 +56,9 @@ def build_row(slug, cfg, now, waiting, okreq=None):
         mood, voice, mood_from = live['mood'], live['voice_state'], live['path']
     if mood not in (mood_sources.load_map()['flat_moods'] if cfg['stateModel'] == 'flat' else mood_sources.load_map()['matrix_moods']):
         mood = None
-    live_art = art.resolve(cfg, mood, voice or 'idle')
+    okr = (okreq or {}).get(slug) or {'state': 'none', 'ask_id': None, 'since': None, 'priority': False}
+    dmood, override = display.display_mood(cfg, mood, okr)   # display only; bot's mood untouched
+    live_art = art.resolve(cfg, dmood, voice or 'idle')
     # Stall uses the SAME timestamp the card shows ('updated' = live mood file time).
     upd = live['ts'] if live else None
     stall_h = (now.timestamp() - upd) / 3600 if upd else None
@@ -66,7 +68,7 @@ def build_row(slug, cfg, now, waiting, okreq=None):
     return {
         'name': cfg['name'], 'slug': slug, 'agent_id': cfg['id'], 'title': prof.get('title') or '',
         'in_fleet': True, 'package': Path(cfg['art_dir']).name, 'stateModel': cfg['stateModel'],
-        'mood': mood, 'voice_state': voice, 'mood_from': mood_from,
+        'mood': mood, 'display_mood': dmood, 'display_override': override, 'voice_state': voice, 'mood_from': mood_from,
         'mood_since': iso(live['ts']) if live else None,
         'avatar_path': str(avatar) if avatar else None, 'avatar_md5': md5(avatar) if avatar else None,
         'avatar_mtime': iso(av_mtime) if av_mtime else None,
@@ -78,7 +80,7 @@ def build_row(slug, cfg, now, waiting, okreq=None):
         'active_animation': live_art,
         'art_inventory': art.inventory(cfg),
         'waiting': waiting.get(slug),
-        'ok_request': (okreq or {}).get(slug) or {'state': 'none', 'ask_id': None, 'since': None, 'priority': False},
+        'ok_request': okr,
         'growth': growth,
     }
 
@@ -98,7 +100,7 @@ def update_feed(path, rows, now, open_asks):
         if r['avatar_mtime'] and r['mood_since'] and r['live_art_md5'] and r['avatar_md5'] != r['live_art_md5']:
             ms_, av = datetime.fromisoformat(r['mood_since']), datetime.fromisoformat(r['avatar_mtime'])
             if av < ms_: stuck = round((now - ms_).total_seconds(), 3)
-        a.update(mood=r['mood'] or 'unreported', voice_state=r['voice_state'] or 'idle',
+        a.update(mood=r['mood'] or 'unreported', display_mood=r['display_mood'], display_override=r['display_override'], voice_state=r['voice_state'] or 'idle',
                  stateModel=r['stateModel'], mood_source=r['mood_from'], mood_since=r['mood_since'],
                  gif_path=r['live_art'], gif_md5=r['live_art_md5'], gif_mtime=r['live_art_mtime'],
                  installed_avatar_path=r['avatar_path'], installed_avatar_md5=r['avatar_md5'],

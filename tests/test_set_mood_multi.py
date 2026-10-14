@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / 'scripts'))
-import set_mood as sm, mood_sources as ms, sync_live_moods as sync, art
+import set_mood as sm, mood_sources as ms, sync_live_moods as sync, art, sync_avatars
 
 class Base(unittest.TestCase):
     def setUp(self):
@@ -16,8 +16,11 @@ class Base(unittest.TestCase):
         (self.tmp / 'own').mkdir()
         (self.tmp / 'own' / 'saxon.json').write_text(json.dumps({'agent': 'saxon', 'mood': 'calm', 'gif_path': 'x.gif', 'updated': 'old'}))
         self.q = self.tmp / 'q.json'; self.q.write_text('[]'); self.hp = self.tmp / 'hashes.json'
+        self._av = (sync_avatars.AGENTS, sync_avatars.STATE)
+        sync_avatars.AGENTS = self.tmp / 'agents'; sync_avatars.STATE = self.tmp / 'av.json'   # never touch real avatars
     def tearDown(self):
         sm.LIVE, c, ms.LIVE, sm.WRITE_LOG, ms.src_path = self._s
+        sync_avatars.AGENTS, sync_avatars.STATE = self._av
         sm.CANON.clear(); sm.CANON.update(c)
 
 class MultiAgentSetMood(Base):
