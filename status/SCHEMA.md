@@ -2,9 +2,9 @@
 
 One JSON Soft-PASS file the browser dashboard Soft-PASS polls.
 
-**Canonical path (GitHub Pages `/docs`):** `docs/status/feed.json`
-**Workspace mirror:** `/workspace/living-icon-repo/status/feed.json` (identical content; host.canonical_path = `docs/status/feed.json`)
-**Pages URL:** https://skiiwa67-collab.github.io/living-icon/status/feed.json
+**Canonical path (box-local):** `/workspace/living-icon-repo/docs/status/feed.json`
+**Mirror:** `/workspace/living-icon-repo/status/feed.json` (identical content, rebuilt by the loop; host.canonical_path = `docs/status/feed.json`)
+GitHub Pages (https://skiiwa67-collab.github.io/living-icon/status/feed.json) is a backup only and is never in the live path (Chris rule, 2026-10-13).
 
 ```
 {
