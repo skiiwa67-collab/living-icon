@@ -18,6 +18,14 @@ class Display(unittest.TestCase):
     def test_flat_model_unchanged(self):
         self.assertEqual(display.display_mood({'stateModel': 'flat'}, 'idle', {'state': 'pending'}), ('idle', None))
 
+class EveOverride(unittest.TestCase):
+    def test_eve_pending_shows_relay_active(self):
+        F = {'stateModel': 'flat'}
+        for st in ('pending', 'urgent'):
+            self.assertEqual(display.display_mood(F, 'idle', {'state': st}, 'eve'), ('relay-active', 'ok-request-' + st))
+        self.assertEqual(display.display_mood(F, 'thinking', {'state': 'none'}, 'eve'), ('thinking', None))
+        self.assertIn('relay-active', ms.load_map()['flat_moods'])
+
 class Avatars(unittest.TestCase):
     def setUp(self):
         self.t = Path(tempfile.mkdtemp())

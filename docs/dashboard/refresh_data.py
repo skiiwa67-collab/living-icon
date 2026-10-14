@@ -57,7 +57,7 @@ def build_row(slug, cfg, now, waiting, okreq=None):
     if mood not in (mood_sources.load_map()['flat_moods'] if cfg['stateModel'] == 'flat' else mood_sources.load_map()['matrix_moods']):
         mood = None
     okr = (okreq or {}).get(slug) or {'state': 'none', 'ask_id': None, 'since': None, 'priority': False}
-    dmood, override = display.display_mood(cfg, mood, okr)   # display only; bot's mood untouched
+    dmood, override = display.display_mood(cfg, mood, okr, slug)   # display only; bot's mood untouched
     live_art = art.resolve(cfg, dmood, voice or 'idle')
     # Stall uses the SAME timestamp the card shows ('updated' = live mood file time).
     upd = live['ts'] if live else None

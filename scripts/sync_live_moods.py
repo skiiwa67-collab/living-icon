@@ -64,7 +64,7 @@ def main(now=None, queue_path=None, write_feeds=True, hashes_path=HASHES, avatar
         if w: base['waiting'] = w
         else: base.pop('waiting', None)
         base['ok_request'] = okreq.get(slug) or {'state': 'none', 'ask_id': None, 'since': None, 'priority': False}
-        dm, why = display.display_mood(cfg, base.get('mood'), base['ok_request'])
+        dm, why = display.display_mood(cfg, base.get('mood'), base['ok_request'], slug)
         if why: base['display_mood'] = dm; base['display_override'] = why
         else: base.pop('display_mood', None); base.pop('display_override', None)
         shown[slug] = (dm, base.get('voice_state') or 'idle')
